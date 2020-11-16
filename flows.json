@@ -42,7 +42,7 @@
         "payload": "",
         "payloadType": "str",
         "x": 100,
-        "y": 120,
+        "y": 260,
         "wires": [
             [
                 "dfad3dda.82fe2"
