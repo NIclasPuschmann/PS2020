@@ -7,17 +7,38 @@
         "info": ""
     },
     {
-        "id": "209701fd.96662e",
+        "id": "8e04c829.d26b78",
+        "type": "tab",
+        "label": "Flow 4",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "fb86903e.d126f",
         "type": "tab",
         "label": "Flow 2",
         "disabled": true,
         "info": ""
     },
     {
-        "id": "351b2a0c.b32566",
+        "id": "386fb955.d43616",
         "type": "tab",
         "label": "Flow 3",
+        "disabled": true,
+        "info": ""
+    },
+    {
+        "id": "a8e0faa6.6f89c8",
+        "type": "tab",
+        "label": "Flow 5",
         "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "d03dfc24.4ec12",
+        "type": "tab",
+        "label": "Flow 6",
+        "disabled": true,
         "info": ""
     },
     {
@@ -34,18 +55,18 @@
                 "vt": "str"
             }
         ],
-        "repeat": "60",
+        "repeat": "120",
         "crontab": "",
-        "once": true,
+        "once": false,
         "onceDelay": "",
         "topic": "",
         "payload": "",
         "payloadType": "str",
-        "x": 100,
-        "y": 260,
+        "x": 120,
+        "y": 160,
         "wires": [
             [
-                "dfad3dda.82fe2"
+                "c3c50023.3bbed"
             ]
         ]
     },
@@ -61,8 +82,8 @@
         "persist": false,
         "proxy": "",
         "authType": "",
-        "x": 290,
-        "y": 80,
+        "x": 300,
+        "y": 160,
         "wires": [
             [
                 "8afc6cac.e0812"
@@ -84,12 +105,13 @@
         "strings": true,
         "include_empty_strings": false,
         "include_null_values": false,
-        "x": 460,
-        "y": 80,
+        "x": 500,
+        "y": 160,
         "wires": [
             [
                 "44779781.4190f8",
-                "6f0eb546.9e208c"
+                "6f0eb546.9e208c",
+                "bbef2caf.6edd8"
             ]
         ]
     },
@@ -98,7 +120,7 @@
         "type": "debug",
         "z": "8e80067a.682938",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -106,9 +128,79 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 730,
-        "y": 80,
+        "x": 750,
+        "y": 160,
         "wires": []
+    },
+    {
+        "id": "3e1c5107.c1e3ae",
+        "type": "http in",
+        "z": "8e04c829.d26b78",
+        "name": "",
+        "url": "/hello",
+        "method": "post",
+        "upload": true,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 180,
+        "wires": [
+            [
+                "f3c1a3f0.0c3e6",
+                "b2c455c8.6e10f8",
+                "ac85f7b1.f023b8"
+            ]
+        ]
+    },
+    {
+        "id": "cf679478.309868",
+        "type": "template",
+        "z": "8e04c829.d26b78",
+        "name": "page",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html>\n<head>\n<title>Page Title</title>\n</head>\n<body>\n\n<table>\n<tr>\n    <th>id</th>\n    <th>time</th>\n    <th>latitude</th>\n    <th>longitude</th>\n    <th>depth</th>\n    <th>mag</th>\n    <th>magType</th>\n    <th>gap</th>\n    <th>dmin</th>\n    <th>rms</th>\n    <th>place</th>\n    <th>type</th>\n    <th>status</th>\n    <th>locationSource</th>\n</tr>\n{{#payload}}\n\n<tr>\n    <td>{{id}}</td>\n    <td>{{time}}</td>\n    <td>{{latitude}}</td>\n    <td>{{longitude}}</td>\n    <td>{{depth}}</td>\n    <td>{{mag}}</td>\n    <td>{{magType}}</td>\n    <td>{{gap}}</td>\n    <td>{{dmin}}</td>\n    <td>{{rms}}</td>\n    <td>{{place}}</td>\n    <td>{{type}}</td>\n    <td>{{status}}</td>\n    <td>{{locationSource}}</td>\n</tr>\n{{/payload}}\n</table>\n<script>\n\n// txt += \"<table border='1'>\"\n// msg.payload.forEach(function (obj)){\n//     var txt += \"<tr><td>\" + myObj[x].name + \"</td></tr>\";\n// }\n// txt += \"</table>\" \n\n\n// var textedJson = msg.payload;\n// var test = msg.payload;\n// $('#demo').text(textedJson);\n// $('#demo2').text(textedJson);\n// myObj = msg.payload;\n// txt += \"<table border='1'>\"\n// for (var key in msg.payload) {\n//     if (msg.payload.hasOwnProperty(key)) {\n//         txt += \"<tr><td>\" + myObj[x].name + \"</td></tr>\";    \n//     }    \n// }\n// txt += \"</table>\"    \n// document.getElementById(\"demo\").innerHTML = test;\n</script>\n\n</body>\n</html>\n",
+        "output": "str",
+        "x": 490,
+        "y": 280,
+        "wires": [
+            [
+                "78e75c18.cd37e4"
+            ]
+        ]
+    },
+    {
+        "id": "f3c1a3f0.0c3e6",
+        "type": "http response",
+        "z": "8e04c829.d26b78",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 470,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "bbef2caf.6edd8",
+        "type": "http request",
+        "z": "8e80067a.682938",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "localhost:1880/hello",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 270,
+        "y": 300,
+        "wires": [
+            [
+                "2ee22353.5ddb5c"
+            ]
+        ]
     },
     {
         "id": "6f0eb546.9e208c",
@@ -127,8 +219,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 500,
-        "y": 140,
+        "x": 670,
+        "y": 260,
         "wires": [
             [
                 "d78d4aa8.8c8208"
@@ -154,8 +246,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 640,
-        "y": 200,
+        "x": 850,
+        "y": 260,
         "wires": [
             [
                 "72fddece.fac0d"
@@ -167,7 +259,7 @@
         "type": "debug",
         "z": "8e80067a.682938",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -175,101 +267,12 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 740,
-        "y": 140,
+        "x": 940,
+        "y": 200,
         "wires": []
     },
     {
-        "id": "59ff2a1.fa600d4",
-        "type": "http in",
-        "z": "209701fd.96662e",
-        "name": "",
-        "url": "/hello",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 220,
-        "y": 160,
-        "wires": [
-            [
-                "54c1e70d.ab3e18"
-            ]
-        ]
-    },
-    {
-        "id": "54c1e70d.ab3e18",
-        "type": "template",
-        "z": "209701fd.96662e",
-        "name": "page",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "<html>\n    <head></head>\n    <body>\n        <h1>Hello World!</h1>\n    </body>\n</html>",
-        "x": 370,
-        "y": 160,
-        "wires": [
-            [
-                "266c286f.d993d8"
-            ]
-        ]
-    },
-    {
-        "id": "266c286f.d993d8",
-        "type": "http response",
-        "z": "209701fd.96662e",
-        "name": "",
-        "x": 510,
-        "y": 160,
-        "wires": []
-    },
-    {
-        "id": "dfad3dda.82fe2",
-        "type": "http request",
-        "z": "8e80067a.682938",
-        "name": "Recent Quakes",
-        "method": "GET",
-        "paytoqs": "ignore",
-        "url": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.csv",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "authType": "",
-        "x": 340,
-        "y": 340,
-        "wires": [
-            [
-                "4341d5ad.ce8f4c",
-                "a6274997.735d18"
-            ]
-        ]
-    },
-    {
-        "id": "4341d5ad.ce8f4c",
-        "type": "csv",
-        "z": "8e80067a.682938",
-        "name": "",
-        "sep": ",",
-        "hdrin": true,
-        "hdrout": "",
-        "multi": "one",
-        "ret": "\\n",
-        "temp": "",
-        "skip": 0,
-        "strings": true,
-        "include_empty_strings": false,
-        "include_null_values": false,
-        "x": 550,
-        "y": 340,
-        "wires": [
-            [
-                "d8aafda3.46223",
-                "a6274997.735d18"
-            ]
-        ]
-    },
-    {
-        "id": "d8aafda3.46223",
+        "id": "2ee22353.5ddb5c",
         "type": "debug",
         "z": "8e80067a.682938",
         "name": "",
@@ -281,35 +284,78 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 750,
-        "y": 340,
+        "x": 510,
+        "y": 380,
         "wires": []
     },
     {
-        "id": "d6bd99f3.48cb58",
-        "type": "http request",
-        "z": "8e80067a.682938",
+        "id": "78e75c18.cd37e4",
+        "type": "file",
+        "z": "8e04c829.d26b78",
         "name": "",
-        "method": "POST",
-        "ret": "txt",
-        "paytoqs": "ignore",
-        "url": "http://localhost:1880/hello",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "authType": "",
-        "x": 650,
-        "y": 460,
+        "filename": "test.html",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 660,
+        "y": 280,
         "wires": [
             [
-                "a4c35a7c.2f4128"
+                "f7deee60.348fb"
             ]
         ]
     },
     {
-        "id": "a4c35a7c.2f4128",
+        "id": "163d8580.fd884a",
+        "type": "http in",
+        "z": "8e04c829.d26b78",
+        "name": "",
+        "url": "/hello",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 200,
+        "y": 400,
+        "wires": [
+            [
+                "e154a070.37c47"
+            ]
+        ]
+    },
+    {
+        "id": "e154a070.37c47",
+        "type": "file in",
+        "z": "8e04c829.d26b78",
+        "name": "",
+        "filename": "test.html",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "x": 390,
+        "y": 400,
+        "wires": [
+            [
+                "d81cc37d.9ef51"
+            ]
+        ]
+    },
+    {
+        "id": "d81cc37d.9ef51",
+        "type": "http response",
+        "z": "8e04c829.d26b78",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 560,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "f7deee60.348fb",
         "type": "debug",
-        "z": "8e80067a.682938",
+        "z": "8e04c829.d26b78",
         "name": "",
         "active": true,
         "tosidebar": true,
@@ -318,15 +364,151 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 890,
-        "y": 420,
+        "x": 870,
+        "y": 280,
         "wires": []
     },
     {
-        "id": "d1b3decf.05bd18",
+        "id": "b5c9446b.a08808",
+        "type": "debug",
+        "z": "8e04c829.d26b78",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "4b10a1aa.65a6f",
         "type": "inject",
-        "z": "351b2a0c.b32566",
-        "name": "CSV data in",
+        "z": "fb86903e.d126f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 160,
+        "wires": [
+            [
+                "18b90351.461c2d"
+            ]
+        ]
+    },
+    {
+        "id": "18b90351.461c2d",
+        "type": "http request",
+        "z": "fb86903e.d126f",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 310,
+        "y": 160,
+        "wires": [
+            [
+                "386350d8.5d54a"
+            ]
+        ]
+    },
+    {
+        "id": "386350d8.5d54a",
+        "type": "json",
+        "z": "fb86903e.d126f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 470,
+        "y": 160,
+        "wires": [
+            [
+                "d0025bb7.7bdcd8"
+            ]
+        ]
+    },
+    {
+        "id": "f0b3a1a0.e310e",
+        "type": "debug",
+        "z": "fb86903e.d126f",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "fb141067.8df67",
+        "type": "debug",
+        "z": "fb86903e.d126f",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "d0025bb7.7bdcd8",
+        "type": "function",
+        "z": "fb86903e.d126f",
+        "name": "",
+        "func": "var outputMsgs = [];\n\nfor (i=0; i < msg.payload.features.length - 1; i++) {\n    var feature = msg.payload.features[i];\n    outputMsgs.push(\n        {payload: {lat: feature.geometry.coordinates[1],\n                   lng: feature.geometry.coordinates[0],\n                   value: feature.geometry.mag,\n                   message: feature.properties.place,\n                   timestamp: feature.properties.time\n                }\n        });\n}\nvar msg2 = { payload: \"Second Output\"}\nreturn [ outputMsgs, msg2 ];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 480,
+        "y": 260,
+        "wires": [
+            [
+                "f0b3a1a0.e310e",
+                "fb141067.8df67"
+            ]
+        ]
+    },
+    {
+        "id": "9c0950b1.c61b1",
+        "type": "inject",
+        "z": "386fb955.d43616",
+        "name": "",
         "props": [
             {
                 "p": "payload"
@@ -339,145 +521,719 @@
         "repeat": "",
         "crontab": "",
         "once": false,
+        "onceDelay": 0.1,
+        "topic": "chart1",
+        "payload": "[\"text1\",\"text2\"]",
+        "payloadType": "json",
+        "x": 240,
+        "y": 200,
+        "wires": [
+            [
+                "4bc18ffc.98da38"
+            ]
+        ]
+    },
+    {
+        "id": "de1cd353.5326c",
+        "type": "inject",
+        "z": "386fb955.d43616",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "chart1",
+        "payload": "[\"text1\",\"text2\",\"text3\"]",
+        "payloadType": "json",
+        "x": 253.3333282470703,
+        "y": 265.3333435058594,
+        "wires": [
+            [
+                "4bc18ffc.98da38"
+            ]
+        ]
+    },
+    {
+        "id": "4bc18ffc.98da38",
+        "type": "function",
+        "z": "386fb955.d43616",
+        "name": "",
+        "func": "var html = \"\";\nfor (var i in msg.payload){\n    html = html + '<label for=\"w' + i + '\">A title ' + i + '</label><textarea id=\"w' + i + '\" name=\"w' + i + '\" rows=\"4\" cols=\"50\">' + msg.payload[i] + '</textarea>';\n}\nmsg.template = html;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 520,
+        "y": 220,
+        "wires": [
+            [
+                "79fa3070.3f05e"
+            ]
+        ]
+    },
+    {
+        "id": "79fa3070.3f05e",
+        "type": "template",
+        "z": "386fb955.d43616",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n  <head>\n    <title>My Site</title>\n  </head>\n  \n\n<p>{{payload.html}}<p/>\n\n</body>\n</html>\n<script>{{{payload.script}}}</script> ",
+        "output": "str",
+        "x": 710,
+        "y": 220,
+        "wires": [
+            [
+                "232ab658.6185ba",
+                "9cda4dc9.d25a8"
+            ]
+        ]
+    },
+    {
+        "id": "1e0841f1.ac68fe",
+        "type": "http in",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "url": "/mysite",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 210,
+        "y": 280,
+        "wires": [
+            [
+                "4c783328.03dc2c"
+            ]
+        ]
+    },
+    {
+        "id": "5de0bbd4.6c8574",
+        "type": "http in",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "url": "/mysitepost",
+        "method": "post",
+        "swaggerDoc": "",
+        "x": 230,
+        "y": 480,
+        "wires": [
+            [
+                "80321000.f2dc5",
+                "75913f37.78e6e"
+            ]
+        ]
+    },
+    {
+        "id": "4c783328.03dc2c",
+        "type": "function",
+        "z": "a8e0faa6.6f89c8",
+        "name": "msg.url = \"mysitepost\";",
+        "func": "msg.url = \"mysitepost\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 450,
+        "y": 280,
+        "wires": [
+            [
+                "b2f5bdf9.e09f1"
+            ]
+        ]
+    },
+    {
+        "id": "80321000.f2dc5",
+        "type": "debug",
+        "z": "a8e0faa6.6f89c8",
+        "name": "mysitepost",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 870,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "8de9647.b8a9a98",
+        "type": "http response",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "x": 890,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "b2972258.ecf54",
+        "type": "template",
+        "z": "a8e0faa6.6f89c8",
+        "name": "CSS",
+        "field": "payload.style",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "input[type=text], select {\n    width: 100%;\n    padding: 12px 20px;\n    margin: 8px 0;\n    display: inline-block;\n    border: 1px solid #ccc;\n    border-radius: 4px;\n    box-sizing: border-box;\n}\n\ninput[type=submit] {\n    width: 100%;\n    background-color: #4CAF50;\n    color: white;\n    padding: 14px 20px;\n    margin: 8px 0;\n    border: none;\n    border-radius: 4px;\n    cursor: pointer;\n}\n\ninput[type=submit]:hover {\n    background-color: #45a049;\n}\n\ndiv {\n    border-radius: 5px;\n    background-color: #f2f2f2;\n    padding: 20px;\n}",
+        "x": 610,
+        "y": 380,
+        "wires": [
+            [
+                "f3b55ea2.f4d51"
+            ]
+        ]
+    },
+    {
+        "id": "b2f5bdf9.e09f1",
+        "type": "template",
+        "z": "a8e0faa6.6f89c8",
+        "name": "JavaScript",
+        "field": "payload.script",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "plain",
+        "template": "$(document).ready(function(e) {\n    \n    $(\"form[ajax=true]\").submit(function(e) {\n        \n        e.preventDefault();\n        \n        var form_data = $(this).serialize();\n        var form_url = $(this).attr(\"action\");\n        var form_method = $(this).attr(\"method\").toUpperCase();\n        \n        $(\"#loadingimg\").show();\n        \n        $.ajax({\n            url: form_url, \n            type: form_method,      \n            data: form_data,     \n            cache: false,\n            success: function(returnhtml){                          \n                $(\"#result\").html(returnhtml); \n                $(\"#loadingimg\").hide();                    \n            }           \n        });    \n        \n    });\n    \n});",
+        "x": 450,
+        "y": 380,
+        "wires": [
+            [
+                "b2972258.ecf54"
+            ]
+        ]
+    },
+    {
+        "id": "d2c0bc2a.05a02",
+        "type": "http response",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "x": 890,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "f3b55ea2.f4d51",
+        "type": "template",
+        "z": "a8e0faa6.6f89c8",
+        "name": "HTML",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n  <head>\n    <title>My Site</title>\n    <meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\">\n    <meta charset=\"utf-8\">\n    <script src=\"http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js\"></script>\n    <style>{{{payload.style}}}</style>\n  </head>\n  \n\n    <h2>Using CSS to style an HTML form with AJAX POST and Node-RED</h2>\n    <h4><a href=\"http://www.internetoflego.com\">Internet of LEGO</a></h4>\n\n<div>\n  <form method=\"post\" action=\"/{{url}}\" ajax=\"true\">\n    <label for=\"fname\">First Name</label>\n    <input type=\"text\" id=\"fname\" name=\"firstname\">\n\n    <label for=\"lname\">Last Name</label>\n    <input type=\"text\" id=\"lname\" name=\"lastname\">\n\n    <label for=\"country\">Country</label>\n    <select id=\"country\" name=\"country\">\n      <option value=\"uk\">United Kingdom</option>\n      <option value=\"canada\">Canada</option>\n      <option value=\"usa\">USA</option>\n    </select>\n  \n    <input type=\"submit\" value=\"Submit\">\n  </form>\n</div>\n<div>\n    <span id=\"result\"></span>\n</div>\n\n</body>\n</html>\n<script>{{{payload.script}}}</script>",
+        "x": 750,
+        "y": 380,
+        "wires": [
+            [
+                "d2c0bc2a.05a02"
+            ]
+        ]
+    },
+    {
+        "id": "57316751.8bd948",
+        "type": "comment",
+        "z": "a8e0faa6.6f89c8",
+        "name": "Login Form",
+        "info": "",
+        "x": 410,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "ad88b28c.bc842",
+        "type": "function",
+        "z": "a8e0faa6.6f89c8",
+        "name": "return msg.payload to client",
+        "func": "msg.payload = 'The following data was submitted and available in the msg.payload: '+msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 620,
+        "y": 440,
+        "wires": [
+            [
+                "8de9647.b8a9a98"
+            ]
+        ]
+    },
+    {
+        "id": "42a9d329.9cdf6c",
+        "type": "comment",
+        "z": "a8e0faa6.6f89c8",
+        "name": "Inject msg object properties",
+        "info": "",
+        "x": 420,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "75913f37.78e6e",
+        "type": "json",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "x": 430,
+        "y": 440,
+        "wires": [
+            [
+                "ad88b28c.bc842"
+            ]
+        ]
+    },
+    {
+        "id": "86c08a83.385758",
+        "type": "comment",
+        "z": "a8e0faa6.6f89c8",
+        "name": "Website",
+        "info": "",
+        "x": 190,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "111485fa.14c4aa",
+        "type": "comment",
+        "z": "a8e0faa6.6f89c8",
+        "name": "Form Submission",
+        "info": "",
+        "x": 220,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "3c029955.901626",
+        "type": "comment",
+        "z": "a8e0faa6.6f89c8",
+        "name": "Node-RED Public Site - README",
+        "info": "This Flow demonstrates how to create\na simple frontend webpage with Node-RED.\n\nThe public facing page consists of the \nclient side JavaScript, CSS and HTML. \n\nThe important technique is how the mustache \ntemplates are used. Each template will set the\n\"property\" relative to the content. \n\nThe CSS node sets the \"msg.payload.style\" property.\nThe JavaScript node sets the \"msg.payload.script\" property.\nThe HTML node then includes these properties \n<script>{{{payload.script}}}</script>\n<style>{{{payload.style}}}</style>\n\n\nThis example was created by http://www.InternetofLEGO.com\n\n",
+        "x": 520,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "232ab658.6185ba",
+        "type": "debug",
+        "z": "386fb955.d43616",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1050,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "5e161b5a.f0b574",
+        "type": "http in",
+        "z": "386fb955.d43616",
+        "name": "",
+        "url": "/test",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 380,
+        "y": 460,
+        "wires": [
+            [
+                "e16bf50a.70b788"
+            ]
+        ]
+    },
+    {
+        "id": "e16bf50a.70b788",
+        "type": "file in",
+        "z": "386fb955.d43616",
+        "name": "",
+        "filename": "t.html",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "x": 590,
+        "y": 440,
+        "wires": [
+            [
+                "d17e8edc.34ff8"
+            ]
+        ]
+    },
+    {
+        "id": "d17e8edc.34ff8",
+        "type": "http response",
+        "z": "386fb955.d43616",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 740,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "9cda4dc9.d25a8",
+        "type": "file",
+        "z": "386fb955.d43616",
+        "name": "",
+        "filename": "t.html",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 930,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b2c455c8.6e10f8",
+        "type": "join",
+        "z": "8e04c829.d26b78",
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "4",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 270,
+        "y": 280,
+        "wires": [
+            [
+                "b5c9446b.a08808",
+                "cf679478.309868"
+            ]
+        ]
+    },
+    {
+        "id": "ac85f7b1.f023b8",
+        "type": "debug",
+        "z": "8e04c829.d26b78",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 490,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "8ccddb9a.a55f38",
+        "type": "inject",
+        "z": "d03dfc24.4ec12",
+        "name": "temperature",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "temperature",
+        "payload": "10",
+        "payloadType": "num",
+        "x": 170,
+        "y": 60,
+        "wires": [
+            [
+                "47b769c5.cb0e28"
+            ]
+        ]
+    },
+    {
+        "id": "47b769c5.cb0e28",
+        "type": "join",
+        "z": "d03dfc24.4ec12",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "3",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 370,
+        "y": 100,
+        "wires": [
+            [
+                "f9afb265.b11b7"
+            ]
+        ]
+    },
+    {
+        "id": "f9afb265.b11b7",
+        "type": "debug",
+        "z": "d03dfc24.4ec12",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 530,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "2d269127.4f04ce",
+        "type": "inject",
+        "z": "d03dfc24.4ec12",
+        "name": "humidity",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "humidity",
+        "payload": "",
+        "payloadType": "num",
+        "x": 160,
+        "y": 100,
+        "wires": [
+            [
+                "47b769c5.cb0e28"
+            ]
+        ]
+    },
+    {
+        "id": "d6fbe805.0e4628",
+        "type": "inject",
+        "z": "d03dfc24.4ec12",
+        "name": "pressure",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "pressure",
+        "payload": "999",
+        "payloadType": "num",
+        "x": 160,
+        "y": 140,
+        "wires": [
+            [
+                "47b769c5.cb0e28"
+            ]
+        ]
+    },
+    {
+        "id": "b614f3df.ac3fa",
+        "type": "inject",
+        "z": "d03dfc24.4ec12",
+        "name": "temperature",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "10",
+        "payloadType": "num",
+        "x": 170,
+        "y": 220,
+        "wires": [
+            [
+                "ae03165b.21e888"
+            ]
+        ]
+    },
+    {
+        "id": "ae03165b.21e888",
+        "type": "debug",
+        "z": "d03dfc24.4ec12",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 530,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "c575a2bc.47db9",
+        "type": "inject",
+        "z": "d03dfc24.4ec12",
+        "name": "humidity",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "humidity",
+        "payload": "",
+        "payloadType": "num",
+        "x": 160,
+        "y": 280,
+        "wires": [
+            [
+                "ae03165b.21e888"
+            ]
+        ]
+    },
+    {
+        "id": "ca16f342.f6cd6",
+        "type": "inject",
+        "z": "d03dfc24.4ec12",
+        "name": "pressure",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "pressure",
+        "payload": "999",
+        "payloadType": "num",
+        "x": 160,
+        "y": 320,
+        "wires": [
+            [
+                "ae03165b.21e888"
+            ]
+        ]
+    },
+    {
+        "id": "3db65636.95566a",
+        "type": "inject",
+        "z": "d03dfc24.4ec12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
         "onceDelay": "",
         "topic": "",
-        "payload": "nid=2,count=10,speed=20,rssi=-10",
+        "payload": "",
         "payloadType": "str",
-        "x": 130,
-        "y": 180,
+        "x": 140,
+        "y": 420,
         "wires": [
             [
-                "21346762.6eb0d"
+                "9ae65b03.a87848"
             ]
         ]
     },
     {
-        "id": "21346762.6eb0d",
-        "type": "function",
-        "z": "351b2a0c.b32566",
-        "name": "Parser",
-        "func": "//splits the data\n//Code snippet from\n//http://flows.nodered.org/flow/6572686\n\nvar data = msg.payload.split(\",\");\n\nmsg.payload = {}; //null msg obj and create new properties\n//may need to remove the parseint function \nmsg.payload.nodeid = parseInt(data[0].split(\"=\")[1]);\nmsg.payload.counter = parseInt(data[1].split(\"=\")[1]);\nmsg.payload.speed = parseFloat(data[2].split(\"=\")[1]);\nmsg.payload.rx_rssi = parseInt(data[3].split(\"=\")[1]);\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "x": 292.99998474121094,
-        "y": 180,
-        "wires": [
-            [
-                "1dc343e8.8950e4"
-            ]
-        ]
-    },
-    {
-        "id": "4e61a55b.b13824",
-        "type": "comment",
-        "z": "351b2a0c.b32566",
-        "name": "POST URL",
-        "info": "https://docs.google.com/forms/d/YourformID/formResponse?entry.1077669989=NODEID&entry_10292411=COUNTER&entry_1862110215=SPEED&entry_1744026500=RXRSSI\n\nReplace YourformID in the URL",
-        "x": 479.99998474121094,
-        "y": 137.00000762939453,
-        "wires": []
-    },
-    {
-        "id": "1092fe22.4414f2",
-        "type": "debug",
-        "z": "351b2a0c.b32566",
-        "name": "",
-        "active": true,
-        "console": false,
-        "complete": false,
-        "x": 663.0832977294922,
-        "y": 180.08331298828125,
-        "wires": []
-    },
-    {
-        "id": "1dc343e8.8950e4",
+        "id": "9ae65b03.a87848",
         "type": "http request",
-        "z": "351b2a0c.b32566",
-        "name": "",
+        "z": "d03dfc24.4ec12",
+        "name": "Recent Quakes",
         "method": "GET",
         "paytoqs": "ignore",
-        "url": "https://docs.google.com/forms/d/YouFormID/formResponse?entry.1077669989={{payload.nodeid}}&entry_10292411={{payload.counter}}&entry_1862110215={{payload.speed}}&entry_1744026500={{payload.rx_rssi}}",
+        "url": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.csv",
         "tls": "",
         "persist": false,
         "proxy": "",
         "authType": "",
-        "x": 481.0832977294922,
-        "y": 180.08331298828125,
+        "x": 320,
+        "y": 420,
         "wires": [
             [
-                "1092fe22.4414f2"
+                "d13292ec.f4661"
             ]
         ]
     },
     {
-        "id": "539b3cdf.bf55ac",
-        "type": "comment",
-        "z": "351b2a0c.b32566",
-        "name": "Source",
-        "info": "Be it serial or any other data source. ",
-        "x": 98.08331298828125,
-        "y": 128.0833282470703,
-        "wires": []
-    },
-    {
-        "id": "a6274997.735d18",
-        "type": "function",
-        "z": "8e80067a.682938",
-        "name": "Parser",
-        "func": "//splits the data\n//Code snippet from\n//http://flows.nodered.org/flow/6572686\n\nvar data = msg.payload.split(\",\");\n\nmsg.payload = {}; //null msg obj and create new properties\n//may need to remove the parseint function \nmsg.payload.nodeid = parseInt(data[0].split(\"=\")[1]);\nmsg.payload.counter = parseInt(data[1].split(\"=\")[1]);\nmsg.payload.speed = parseFloat(data[2].split(\"=\")[1]);\nmsg.payload.rx_rssi = parseInt(data[3].split(\"=\")[1]);\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "x": 310,
-        "y": 600,
+        "id": "d13292ec.f4661",
+        "type": "csv",
+        "z": "d03dfc24.4ec12",
+        "name": "",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "",
+        "skip": 0,
+        "strings": true,
+        "include_empty_strings": false,
+        "include_null_values": false,
+        "x": 510,
+        "y": 420,
         "wires": [
             [
-                "f2728ed1.5261b"
+                "438a3e1a.c903f"
             ]
         ]
     },
     {
-        "id": "e8e77c1.f2e368",
-        "type": "comment",
-        "z": "8e80067a.682938",
-        "name": "POST URL",
-        "info": "https://docs.google.com/forms/d/YourformID/formResponse?entry.1077669989=NODEID&entry_10292411=COUNTER&entry_1862110215=SPEED&entry_1744026500=RXRSSI\n\nReplace YourformID in the URL",
-        "x": 497,
-        "y": 557.0000076293945,
-        "wires": []
-    },
-    {
-        "id": "945ede7a.5b0a1",
+        "id": "c9c49104.5735d",
         "type": "debug",
-        "z": "8e80067a.682938",
+        "z": "d03dfc24.4ec12",
         "name": "",
         "active": true,
+        "tosidebar": true,
         "console": false,
-        "complete": false,
-        "x": 690,
-        "y": 600,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 830,
+        "y": 420,
         "wires": []
     },
     {
-        "id": "f2728ed1.5261b",
-        "type": "http request",
-        "z": "8e80067a.682938",
+        "id": "438a3e1a.c903f",
+        "type": "join",
+        "z": "d03dfc24.4ec12",
         "name": "",
-        "method": "GET",
-        "paytoqs": "ignore",
-        "url": "https://docs.google.com/forms/d/YouFormID/formResponse?entry.1077669989={{payload.nodeid}}&entry_10292411={{payload.counter}}&entry_1862110215={{payload.speed}}&entry_1744026500={{payload.rx_rssi}}",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "authType": "",
-        "x": 498.08331298828125,
-        "y": 600.0833129882812,
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "10",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 670,
+        "y": 420,
         "wires": [
             [
-                "945ede7a.5b0a1"
+                "c9c49104.5735d"
             ]
         ]
     }
