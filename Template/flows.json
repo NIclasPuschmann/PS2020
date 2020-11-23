@@ -1,0 +1,165 @@
+[
+    {
+        "id": "ddef2a2f.8c83d8",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "c74d93bb.b6cb2",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "f484a8cb.9131c8",
+        "type": "http in",
+        "z": "ddef2a2f.8c83d8",
+        "name": "",
+        "url": "/test2",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 460,
+        "y": 360,
+        "wires": [
+            [
+                "c9d0e668.067a88"
+            ]
+        ]
+    },
+    {
+        "id": "ebc160e.71d84a",
+        "type": "http response",
+        "z": "ddef2a2f.8c83d8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 890,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "c9d0e668.067a88",
+        "type": "template",
+        "z": "ddef2a2f.8c83d8",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "1234",
+        "output": "str",
+        "x": 660,
+        "y": 360,
+        "wires": [
+            [
+                "ebc160e.71d84a",
+                "9291ae9c.f2069"
+            ]
+        ]
+    },
+    {
+        "id": "9291ae9c.f2069",
+        "type": "debug",
+        "z": "ddef2a2f.8c83d8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "49a674e1.06763c",
+        "type": "http in",
+        "z": "c74d93bb.b6cb2",
+        "name": "",
+        "url": "/test",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 200,
+        "y": 220,
+        "wires": [
+            [
+                "39c9f846.18b0c8"
+            ]
+        ]
+    },
+    {
+        "id": "4d4ba387.f2bbcc",
+        "type": "http response",
+        "z": "c74d93bb.b6cb2",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 970,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "39c9f846.18b0c8",
+        "type": "http request",
+        "z": "c74d93bb.b6cb2",
+        "name": "get second site",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "localhost:1880/test2",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 560,
+        "y": 180,
+        "wires": [
+            [
+                "6f10bb0b.b0d364",
+                "1f0499d4.98f0b6"
+            ]
+        ]
+    },
+    {
+        "id": "6f10bb0b.b0d364",
+        "type": "debug",
+        "z": "c74d93bb.b6cb2",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 790,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "1f0499d4.98f0b6",
+        "type": "template",
+        "z": "c74d93bb.b6cb2",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "This is the payload: {{payload}} !",
+        "output": "str",
+        "x": 770,
+        "y": 320,
+        "wires": [
+            [
+                "4d4ba387.f2bbcc"
+            ]
+        ]
+    }
+]
