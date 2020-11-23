@@ -141,8 +141,8 @@
         "method": "post",
         "upload": true,
         "swaggerDoc": "",
-        "x": 190,
-        "y": 180,
+        "x": 150,
+        "y": 200,
         "wires": [
             [
                 "f3c1a3f0.0c3e6",
@@ -160,10 +160,10 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "<!DOCTYPE html>\n<html>\n<head>\n<title>Page Title</title>\n</head>\n<body>\n\n<table>\n<tr>\n    <th>id</th>\n    <th>time</th>\n    <th>latitude</th>\n    <th>longitude</th>\n    <th>depth</th>\n    <th>mag</th>\n    <th>magType</th>\n    <th>gap</th>\n    <th>dmin</th>\n    <th>rms</th>\n    <th>place</th>\n    <th>type</th>\n    <th>status</th>\n    <th>locationSource</th>\n</tr>\n{{#payload}}\n\n<tr>\n    <td>{{id}}</td>\n    <td>{{time}}</td>\n    <td>{{latitude}}</td>\n    <td>{{longitude}}</td>\n    <td>{{depth}}</td>\n    <td>{{mag}}</td>\n    <td>{{magType}}</td>\n    <td>{{gap}}</td>\n    <td>{{dmin}}</td>\n    <td>{{rms}}</td>\n    <td>{{place}}</td>\n    <td>{{type}}</td>\n    <td>{{status}}</td>\n    <td>{{locationSource}}</td>\n</tr>\n{{/payload}}\n</table>\n<script>\n\n// txt += \"<table border='1'>\"\n// msg.payload.forEach(function (obj)){\n//     var txt += \"<tr><td>\" + myObj[x].name + \"</td></tr>\";\n// }\n// txt += \"</table>\" \n\n\n// var textedJson = msg.payload;\n// var test = msg.payload;\n// $('#demo').text(textedJson);\n// $('#demo2').text(textedJson);\n// myObj = msg.payload;\n// txt += \"<table border='1'>\"\n// for (var key in msg.payload) {\n//     if (msg.payload.hasOwnProperty(key)) {\n//         txt += \"<tr><td>\" + myObj[x].name + \"</td></tr>\";    \n//     }    \n// }\n// txt += \"</table>\"    \n// document.getElementById(\"demo\").innerHTML = test;\n</script>\n\n</body>\n</html>\n",
+        "template": "<!DOCTYPE html>\n<html>\n<head>\n<title>Page Title</title>\n</head>\n<body>\n\n<table>\n<tr>\n    <th>id</th>\n    <th>time</th>\n    <th>latitude</th>\n    <th>longitude</th>\n    <th>depth</th>\n    <th>mag</th>\n    <th>magType</th>\n    <th>gap</th>\n    <th>dmin</th>\n    <th>rms</th>\n    <th>place</th>\n    <th>type</th>\n    <th>status</th>\n    <th>locationSource</th>\n</tr>\n{{#payload}}\n\n<tr>\n    <td>{{id}}</td>\n    <td>{{time}}</td>\n    <td>{{latitude}}</td>\n    <td>{{longitude}}</td>\n    <td>{{depth}}</td>\n    <td>{{mag}}</td>\n    <td>{{magType}}</td>\n    <td>{{gap}}</td>\n    <td>{{dmin}}</td>\n    <td>{{rms}}</td>\n    <td>{{place}}</td>\n    <td>{{type}}</td>\n    <td>{{status}}</td>\n    <td>{{locationSource}}</td>\n</tr>\n{{/payload}}\n</table>\n</body>\n</html>\n",
         "output": "str",
         "x": 490,
-        "y": 280,
+        "y": 300,
         "wires": [
             [
                 "78e75c18.cd37e4"
@@ -177,8 +177,8 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 470,
-        "y": 160,
+        "x": 350,
+        "y": 200,
         "wires": []
     },
     {
@@ -299,7 +299,7 @@
         "overwriteFile": "true",
         "encoding": "none",
         "x": 660,
-        "y": 280,
+        "y": 300,
         "wires": [
             [
                 "f7deee60.348fb"
@@ -364,8 +364,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 870,
-        "y": 280,
+        "x": 850,
+        "y": 300,
         "wires": []
     },
     {
@@ -381,8 +381,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 610,
-        "y": 200,
+        "x": 550,
+        "y": 220,
         "wires": []
     },
     {
@@ -913,8 +913,8 @@
         "reduceInit": "",
         "reduceInitType": "",
         "reduceFixup": "",
-        "x": 270,
-        "y": 280,
+        "x": 350,
+        "y": 300,
         "wires": [
             [
                 "b5c9446b.a08808",
@@ -935,8 +935,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 490,
-        "y": 100,
+        "x": 370,
+        "y": 120,
         "wires": []
     },
     {
@@ -1236,5 +1236,65 @@
                 "c9c49104.5735d"
             ]
         ]
+    },
+    {
+        "id": "ecccc6d9.e897d8",
+        "type": "comment",
+        "z": "fb86903e.d126f",
+        "name": "Flow zum Experimentieren",
+        "info": "",
+        "x": 170,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "8f7af54e.eca378",
+        "type": "comment",
+        "z": "386fb955.d43616",
+        "name": "Flow zum Experimentieren",
+        "info": "",
+        "x": 230,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "22d3bded.81fef2",
+        "type": "comment",
+        "z": "d03dfc24.4ec12",
+        "name": "Flow zum Experimentieren",
+        "info": "",
+        "x": 170,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "8032b605.628338",
+        "type": "comment",
+        "z": "a8e0faa6.6f89c8",
+        "name": "Flow zum Experimentieren",
+        "info": "",
+        "x": 190,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "e67fa90b.425248",
+        "type": "comment",
+        "z": "8e80067a.682938",
+        "name": "Flow 1 zum Testen fuer Docker und Istio",
+        "info": "",
+        "x": 190,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "5dfcabcc.06fb24",
+        "type": "comment",
+        "z": "8e04c829.d26b78",
+        "name": "Flow 2 zum Testen fuer Docker und Istio",
+        "info": "",
+        "x": 180,
+        "y": 60,
+        "wires": []
     }
 ]
