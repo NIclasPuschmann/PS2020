@@ -1,0 +1,211 @@
+[
+    {
+        "id": "8e04c829.d26b78",
+        "type": "tab",
+        "label": "Flow 4",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "3e1c5107.c1e3ae",
+        "type": "http in",
+        "z": "8e04c829.d26b78",
+        "name": "",
+        "url": "/hello",
+        "method": "post",
+        "upload": true,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 200,
+        "wires": [
+            [
+                "f3c1a3f0.0c3e6",
+                "b2c455c8.6e10f8",
+                "ac85f7b1.f023b8"
+            ]
+        ]
+    },
+    {
+        "id": "cf679478.309868",
+        "type": "template",
+        "z": "8e04c829.d26b78",
+        "name": "page",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html>\n<head>\n<title>Page Title</title>\n</head>\n<body>\n\n<table>\n<tr>\n    <th>id</th>\n    <th>time</th>\n    <th>latitude</th>\n    <th>longitude</th>\n    <th>depth</th>\n    <th>mag</th>\n    <th>magType</th>\n    <th>gap</th>\n    <th>dmin</th>\n    <th>rms</th>\n    <th>place</th>\n    <th>type</th>\n    <th>status</th>\n    <th>locationSource</th>\n</tr>\n{{#payload}}\n\n<tr>\n    <td>{{id}}</td>\n    <td>{{time}}</td>\n    <td>{{latitude}}</td>\n    <td>{{longitude}}</td>\n    <td>{{depth}}</td>\n    <td>{{mag}}</td>\n    <td>{{magType}}</td>\n    <td>{{gap}}</td>\n    <td>{{dmin}}</td>\n    <td>{{rms}}</td>\n    <td>{{place}}</td>\n    <td>{{type}}</td>\n    <td>{{status}}</td>\n    <td>{{locationSource}}</td>\n</tr>\n{{/payload}}\n</table>\n</body>\n</html>\n",
+        "output": "str",
+        "x": 490,
+        "y": 300,
+        "wires": [
+            [
+                "78e75c18.cd37e4"
+            ]
+        ]
+    },
+    {
+        "id": "f3c1a3f0.0c3e6",
+        "type": "http response",
+        "z": "8e04c829.d26b78",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 350,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "78e75c18.cd37e4",
+        "type": "file",
+        "z": "8e04c829.d26b78",
+        "name": "",
+        "filename": "test.html",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 660,
+        "y": 300,
+        "wires": [
+            [
+                "f7deee60.348fb"
+            ]
+        ]
+    },
+    {
+        "id": "163d8580.fd884a",
+        "type": "http in",
+        "z": "8e04c829.d26b78",
+        "name": "",
+        "url": "/hello",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 200,
+        "y": 400,
+        "wires": [
+            [
+                "e154a070.37c47"
+            ]
+        ]
+    },
+    {
+        "id": "e154a070.37c47",
+        "type": "file in",
+        "z": "8e04c829.d26b78",
+        "name": "",
+        "filename": "test.html",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "x": 540,
+        "y": 400,
+        "wires": [
+            [
+                "d81cc37d.9ef51"
+            ]
+        ]
+    },
+    {
+        "id": "d81cc37d.9ef51",
+        "type": "http response",
+        "z": "8e04c829.d26b78",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 810,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "f7deee60.348fb",
+        "type": "debug",
+        "z": "8e04c829.d26b78",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 850,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "b5c9446b.a08808",
+        "type": "debug",
+        "z": "8e04c829.d26b78",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "b2c455c8.6e10f8",
+        "type": "join",
+        "z": "8e04c829.d26b78",
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "4",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 350,
+        "y": 300,
+        "wires": [
+            [
+                "b5c9446b.a08808",
+                "cf679478.309868"
+            ]
+        ]
+    },
+    {
+        "id": "ac85f7b1.f023b8",
+        "type": "debug",
+        "z": "8e04c829.d26b78",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 370,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "5dfcabcc.06fb24",
+        "type": "comment",
+        "z": "8e04c829.d26b78",
+        "name": "Flow 2 zum Testen fuer Docker und Istio",
+        "info": "",
+        "x": 180,
+        "y": 60,
+        "wires": []
+    }
+]
