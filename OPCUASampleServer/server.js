@@ -31,6 +31,8 @@ function post_initialize(){
         // now let's add first variable in folder
         // the addVariableInFolder
         let variable1 = 10.0;
+        let variable2 = 1;
+        let variable3 = "Yeeeee"
 
         //emulate variable1 changing every 500ms
         //setInterval(function(){variable+=1},500);
@@ -61,6 +63,23 @@ function post_initialize(){
                 },
                 set: function (variant) {
                     variable2 = parseFloat(variant.value);
+                    return opcua.StatusCodes.Good;
+                }
+            }
+        });
+
+        server.nodeVariable3 = namespace.addVariable({
+            componentOf: myDevice,
+            nodeId: "s=Name",
+            browseName: "Name",
+            dataType: "String",
+            value: {
+                get: function () {
+                    const value = variable3;
+                    return new opcua.Variant({dataType: opcua.DataType.String, value: value });
+                },
+                set: function (variant) {
+                    variable3 = String(variant.value);
                     return opcua.StatusCodes.Good;
                 }
             }
