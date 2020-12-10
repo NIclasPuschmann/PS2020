@@ -1,0 +1,16 @@
+{
+  "name": "myserver",
+  "version": "1.0.0",
+  "description": "opcua test server",
+  "main": "server.js",
+  "dependencies": {
+    "node-opcua": "^2.7.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Yewgenij Baburkin",
+  "license": "MIT"
+}
