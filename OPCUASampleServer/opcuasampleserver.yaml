@@ -1,0 +1,66 @@
+##################################################################################################
+# This file defines the services, service accounts, and deployments for the Bookinfo sample.
+#
+# To apply all 4 Bookinfo services, their corresponding service accounts, and deployments:
+#
+#   kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
+#
+# Alternatively, you can deploy any resource separately:
+#
+#   kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml -l service=reviews # reviews Service
+#   kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml -l account=reviews # reviews ServiceAccount
+#   kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml -l app=reviews,version=v3 # reviews-v3 Deployment
+##################################################################################################
+
+##################################################################################################
+# Opc sample server service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: opcuasampleserver
+  labels:
+    app: opcuasampleserver
+    service: opcuasampleserver
+spec:
+  ports: 
+    - port: 19090
+      protocol: TCP
+  selector:
+    app: opcuasampleserver
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: opc-opcuasampleserver
+  labels:
+    account: opcuasampleserver
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opcuasampleserver-v1
+  labels:
+    app: opcuasampleserver
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: opcuasampleserver
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: opcuasampleserver
+        version: v1
+    spec:
+      serviceAccountName: opc-opcuasampleserver
+      containers:
+      - name: opcuasampleserver
+        image: salzg/opc-ua-sample-server:0.1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 1880
+          protocol: TCP
+---

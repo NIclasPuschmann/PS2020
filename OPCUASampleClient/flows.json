@@ -9,16 +9,9 @@
     {
         "id": "ba5ce6a8.63c558",
         "type": "OpcUa-Endpoint",
-        "endpoint": "opc.tcp://localhost:19090/UA/MyLittleServer",
+        "endpoint": "opc.tcp://opcsampleserver:19090/UA/MyLittleServer",
         "secpol": "None",
         "secmode": "None",
-        "login": false
-    },
-    {
-        "id": "acd2f698.88bd28",
-        "type": "OpcUa-Endpoint",
-        "z": "5618dc6c.5a9a14",
-        "endpoint": "opc.tcp://localhost:53530/OPCUA/SimulationServer",
         "login": false
     },
     {
