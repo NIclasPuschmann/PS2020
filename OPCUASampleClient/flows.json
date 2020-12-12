@@ -1,0 +1,554 @@
+[
+    {
+        "id": "5618dc6c.5a9a14",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "ba5ce6a8.63c558",
+        "type": "OpcUa-Endpoint",
+        "endpoint": "opc.tcp://localhost:19090/UA/MyLittleServer",
+        "secpol": "None",
+        "secmode": "None",
+        "login": false
+    },
+    {
+        "id": "acd2f698.88bd28",
+        "type": "OpcUa-Endpoint",
+        "z": "5618dc6c.5a9a14",
+        "endpoint": "opc.tcp://localhost:53530/OPCUA/SimulationServer",
+        "login": false
+    },
+    {
+        "id": "661473be.2ba92c",
+        "type": "inject",
+        "z": "5618dc6c.5a9a14",
+        "name": "",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "ns=1;s=Temperature",
+        "x": 360,
+        "y": 280,
+        "wires": [
+            [
+                "4e1d0262.74a4cc"
+            ]
+        ]
+    },
+    {
+        "id": "535ac0e7.d28b9",
+        "type": "debug",
+        "z": "5618dc6c.5a9a14",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 970,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "4e1d0262.74a4cc",
+        "type": "OpcUa-Client",
+        "z": "5618dc6c.5a9a14",
+        "endpoint": "ba5ce6a8.63c558",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 10,
+        "timeUnit": "s",
+        "certificate": "n",
+        "localfile": "",
+        "localkeyfile": "",
+        "securitymode": "None",
+        "securitypolicy": "None",
+        "name": "read Temperature",
+        "x": 670,
+        "y": 280,
+        "wires": [
+            [
+                "535ac0e7.d28b9"
+            ]
+        ]
+    },
+    {
+        "id": "24b1d23a.feab0e",
+        "type": "inject",
+        "z": "5618dc6c.5a9a14",
+        "name": "",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "ns=1;s=0: RootFodler/Objects/MyDevice",
+        "x": 290,
+        "y": 440,
+        "wires": [
+            [
+                "e88af2a8.7ae34"
+            ]
+        ]
+    },
+    {
+        "id": "830c87cf.758908",
+        "type": "inject",
+        "z": "5618dc6c.5a9a14",
+        "name": "",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "ns=1;s=memory_used",
+        "x": 340,
+        "y": 360,
+        "wires": [
+            [
+                "69926bed.41f824"
+            ]
+        ]
+    },
+    {
+        "id": "1ccb6689.a84c59",
+        "type": "debug",
+        "z": "5618dc6c.5a9a14",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 990,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "69926bed.41f824",
+        "type": "OpcUa-Client",
+        "z": "5618dc6c.5a9a14",
+        "endpoint": "ba5ce6a8.63c558",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 10,
+        "timeUnit": "s",
+        "certificate": "n",
+        "localfile": "",
+        "localkeyfile": "",
+        "securitymode": "None",
+        "securitypolicy": "None",
+        "name": "read memory usage",
+        "x": 700,
+        "y": 360,
+        "wires": [
+            [
+                "1ccb6689.a84c59"
+            ]
+        ]
+    },
+    {
+        "id": "e88af2a8.7ae34",
+        "type": "OpcUa-Item",
+        "z": "5618dc6c.5a9a14",
+        "item": "ns=1;s=Temperature",
+        "datatype": "Double",
+        "value": "",
+        "name": "",
+        "x": 480,
+        "y": 560,
+        "wires": [
+            [
+                "21ce4d.6314b1b4"
+            ]
+        ]
+    },
+    {
+        "id": "e5c7effb.bf0eb",
+        "type": "debug",
+        "z": "5618dc6c.5a9a14",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1070,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "1a5c8614.49976a",
+        "type": "inject",
+        "z": "5618dc6c.5a9a14",
+        "name": "",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "ns=1;s=0: RootFodler/Objects/MyDevice",
+        "x": 250,
+        "y": 620,
+        "wires": [
+            [
+                "1c0087.58524f7a"
+            ]
+        ]
+    },
+    {
+        "id": "1c0087.58524f7a",
+        "type": "OpcUa-Item",
+        "z": "5618dc6c.5a9a14",
+        "item": "ns=1;s=Temperature",
+        "datatype": "Double",
+        "value": "",
+        "name": "",
+        "x": 480,
+        "y": 640,
+        "wires": [
+            [
+                "96eac646.bb6d98"
+            ]
+        ]
+    },
+    {
+        "id": "203a5e0c.f71a62",
+        "type": "OpcUa-Client",
+        "z": "5618dc6c.5a9a14",
+        "endpoint": "ba5ce6a8.63c558",
+        "action": "subscribe",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": "2",
+        "timeUnit": "s",
+        "certificate": "n",
+        "localfile": "",
+        "localkeyfile": "",
+        "securitymode": "None",
+        "securitypolicy": "None",
+        "name": "",
+        "x": 860,
+        "y": 540,
+        "wires": [
+            [
+                "e5c7effb.bf0eb"
+            ]
+        ]
+    },
+    {
+        "id": "21ce4d.6314b1b4",
+        "type": "function",
+        "z": "5618dc6c.5a9a14",
+        "name": "",
+        "func": "msg.action=\"subscribe\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 660,
+        "y": 560,
+        "wires": [
+            [
+                "203a5e0c.f71a62"
+            ]
+        ]
+    },
+    {
+        "id": "96eac646.bb6d98",
+        "type": "function",
+        "z": "5618dc6c.5a9a14",
+        "name": "",
+        "func": "msg.action=\"unsubscribe\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 680,
+        "y": 640,
+        "wires": [
+            [
+                "203a5e0c.f71a62"
+            ]
+        ]
+    },
+    {
+        "id": "b4d4d12a.99991",
+        "type": "inject",
+        "z": "5618dc6c.5a9a14",
+        "name": "",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "ns=1;i=1000:MyDevice ./Capacity",
+        "x": 360,
+        "y": 760,
+        "wires": [
+            [
+                "668bfa50.429024"
+            ]
+        ]
+    },
+    {
+        "id": "f58b85e6.04b278",
+        "type": "debug",
+        "z": "5618dc6c.5a9a14",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1150,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "668bfa50.429024",
+        "type": "OpcUa-Client",
+        "z": "5618dc6c.5a9a14",
+        "endpoint": "ba5ce6a8.63c558",
+        "action": "browse",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 10,
+        "timeUnit": "s",
+        "certificate": "n",
+        "localfile": "",
+        "localkeyfile": "",
+        "securitymode": "None",
+        "securitypolicy": "None",
+        "name": "browse capacity",
+        "x": 660,
+        "y": 760,
+        "wires": [
+            [
+                "1c3f8b45.ce6a15",
+                "f527354f.e0a168"
+            ]
+        ]
+    },
+    {
+        "id": "1c3f8b45.ce6a15",
+        "type": "template",
+        "z": "5618dc6c.5a9a14",
+        "name": "OpcUa-Item",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "[{\"id\":\"4b12ca9b.e7e184\",\"type\":\"OpcUa-Item\",\"item\":\"{{topic}}\",\"datatype\":\"opcua.DataType.Double\",\"value\":\"\",\"name\":\"{{browseName}}\",\"x\":251,\"y\":334,\"z\":\"30ffd2ee.59fdd6\",\"wires\":[[\"70dd1397.3c8e44\"]]}]",
+        "x": 890,
+        "y": 800,
+        "wires": [
+            [
+                "f58b85e6.04b278"
+            ]
+        ]
+    },
+    {
+        "id": "f527354f.e0a168",
+        "type": "debug",
+        "z": "5618dc6c.5a9a14",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 870,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "5cebd438.76bf5c",
+        "type": "inject",
+        "z": "5618dc6c.5a9a14",
+        "name": "",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "ns=1;s=Name",
+        "x": 320,
+        "y": 180,
+        "wires": [
+            [
+                "32bedeb8.72d662"
+            ]
+        ]
+    },
+    {
+        "id": "3587f49c.3ec0bc",
+        "type": "debug",
+        "z": "5618dc6c.5a9a14",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1130,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "32bedeb8.72d662",
+        "type": "OpcUa-Client",
+        "z": "5618dc6c.5a9a14",
+        "endpoint": "ba5ce6a8.63c558",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 10,
+        "timeUnit": "s",
+        "certificate": "n",
+        "localfile": "",
+        "localkeyfile": "",
+        "securitymode": "None",
+        "securitypolicy": "None",
+        "name": "read Name",
+        "x": 830,
+        "y": 180,
+        "wires": [
+            [
+                "3587f49c.3ec0bc"
+            ]
+        ]
+    },
+    {
+        "id": "f49a8475.ff0828",
+        "type": "inject",
+        "z": "5618dc6c.5a9a14",
+        "name": "",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "ns=1;s=Name",
+        "x": 320,
+        "y": 80,
+        "wires": [
+            [
+                "998d8e0a.ede68"
+            ]
+        ]
+    },
+    {
+        "id": "8acc2618.ae7138",
+        "type": "debug",
+        "z": "5618dc6c.5a9a14",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 950,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "dc81cf45.d2227",
+        "type": "OpcUa-Client",
+        "z": "5618dc6c.5a9a14",
+        "endpoint": "ba5ce6a8.63c558",
+        "action": "write",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 10,
+        "timeUnit": "s",
+        "certificate": "n",
+        "localfile": "",
+        "localkeyfile": "",
+        "securitymode": "None",
+        "securitypolicy": "None",
+        "name": "write Name",
+        "x": 750,
+        "y": 60,
+        "wires": [
+            [
+                "8acc2618.ae7138"
+            ]
+        ]
+    },
+    {
+        "id": "998d8e0a.ede68",
+        "type": "OpcUa-Item",
+        "z": "5618dc6c.5a9a14",
+        "item": "ns=1;s=Name",
+        "datatype": "String",
+        "value": "asdfg",
+        "name": "",
+        "x": 540,
+        "y": 80,
+        "wires": [
+            [
+                "dc81cf45.d2227"
+            ]
+        ]
+    }
+]

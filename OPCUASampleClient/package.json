@@ -1,0 +1,19 @@
+{
+    "name": "node-red-test",
+    "description": "testing node-red git functionalities",
+    "version": "0.0.1",
+    "dependencies": {
+        "node-red": "latest",
+        "node-red-contrib-opcua": "0.2.89"
+    },
+    "node-red": {
+        "settings": {
+            "flowFile": "flows.json",
+            "credentialsFile": "flows_cred.json"
+        }
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node-red data/flows.json"
+    }
+}
