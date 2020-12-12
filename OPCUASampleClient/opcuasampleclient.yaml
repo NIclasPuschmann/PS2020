@@ -23,9 +23,8 @@ metadata:
     app: opcuasampleclient
     service: opcuasampleclient
 spec:
-  type: LoadBalancer
   ports: 
-    - port: 1880
+    - port: 1885
       protocol: TCP
   selector:
     app: opcuasampleclient
@@ -62,6 +61,6 @@ spec:
         image: salzg/opc-ua-sample-client:0.1
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 1880
+        - containerPort: 1885
           protocol: TCP
 ---

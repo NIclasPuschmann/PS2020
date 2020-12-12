@@ -14,6 +14,6 @@
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node-red data/flows.json"
+        "start": "node-red -p 1885 data/flows.json"
     }
 }

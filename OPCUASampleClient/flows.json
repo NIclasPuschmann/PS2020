@@ -9,7 +9,7 @@
     {
         "id": "ba5ce6a8.63c558",
         "type": "OpcUa-Endpoint",
-        "endpoint": "opc.tcp://opcsampleserver:19090/UA/MyLittleServer",
+        "endpoint": "opc.tcp://opcuasampleserver:1880/UA/MyLittleServer",
         "secpol": "None",
         "secmode": "None",
         "login": false
@@ -541,6 +541,53 @@
         "wires": [
             [
                 "dc81cf45.d2227"
+            ]
+        ]
+    },
+    {
+        "id": "68b3fd6b.63edf4",
+        "type": "http in",
+        "z": "5618dc6c.5a9a14",
+        "name": "",
+        "url": "/opc",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 290,
+        "y": 880,
+        "wires": [
+            [
+                "422f1503.5f800c"
+            ]
+        ]
+    },
+    {
+        "id": "97d10045.076d3",
+        "type": "http response",
+        "z": "5618dc6c.5a9a14",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 650,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "422f1503.5f800c",
+        "type": "template",
+        "z": "5618dc6c.5a9a14",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "aallo",
+        "output": "str",
+        "x": 450,
+        "y": 900,
+        "wires": [
+            [
+                "97d10045.076d3"
             ]
         ]
     }

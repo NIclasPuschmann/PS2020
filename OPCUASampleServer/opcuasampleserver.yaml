@@ -24,7 +24,7 @@ metadata:
     service: opcuasampleserver
 spec:
   ports: 
-    - port: 19090
+    - port: 1880
       protocol: TCP
   selector:
     app: opcuasampleserver
