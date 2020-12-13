@@ -15,6 +15,14 @@
         "login": false
     },
     {
+        "id": "f8577b.b8da2888",
+        "type": "OpcUa-Endpoint",
+        "endpoint": "opc.tcp://localhost:19090/UA/MyLittleServer",
+        "secpol": "None",
+        "secmode": "None",
+        "login": false
+    },
+    {
         "id": "661473be.2ba92c",
         "type": "inject",
         "z": "5618dc6c.5a9a14",
@@ -342,7 +350,7 @@
         "id": "668bfa50.429024",
         "type": "OpcUa-Client",
         "z": "5618dc6c.5a9a14",
-        "endpoint": "ba5ce6a8.63c558",
+        "endpoint": "f8577b.b8da2888",
         "action": "browse",
         "deadbandtype": "a",
         "deadbandvalue": 1,
@@ -553,8 +561,8 @@
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 290,
-        "y": 880,
+        "x": 260,
+        "y": 980,
         "wires": [
             [
                 "422f1503.5f800c"
@@ -590,5 +598,171 @@
                 "97d10045.076d3"
             ]
         ]
+    },
+    {
+        "id": "7c0d5b8.c217ba4",
+        "type": "inject",
+        "z": "5618dc6c.5a9a14",
+        "name": "",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "ns=1;s=Name",
+        "x": 580,
+        "y": 980,
+        "wires": [
+            [
+                "954377ec.943c48",
+                "553527d4.2042e8"
+            ]
+        ]
+    },
+    {
+        "id": "64972c0d.d2d114",
+        "type": "debug",
+        "z": "5618dc6c.5a9a14",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 850,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "954377ec.943c48",
+        "type": "OpcUa-Client",
+        "z": "5618dc6c.5a9a14",
+        "endpoint": "ba5ce6a8.63c558",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 10,
+        "timeUnit": "s",
+        "certificate": "n",
+        "localfile": "",
+        "localkeyfile": "",
+        "securitymode": "None",
+        "securitypolicy": "None",
+        "name": "read Name",
+        "x": 670,
+        "y": 1120,
+        "wires": [
+            [
+                "64972c0d.d2d114",
+                "1c08e828.aafc38"
+            ]
+        ]
+    },
+    {
+        "id": "a036ac0d.02d4",
+        "type": "http in",
+        "z": "5618dc6c.5a9a14",
+        "name": "",
+        "url": "/opc/readname",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 210,
+        "y": 1120,
+        "wires": [
+            [
+                "b8d939bd.e616d8",
+                "90cc3a61.a13958"
+            ]
+        ]
+    },
+    {
+        "id": "b8d939bd.e616d8",
+        "type": "function",
+        "z": "5618dc6c.5a9a14",
+        "name": "",
+        "func": "msg.topic=\"ns=1;s=Name\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 440,
+        "y": 1120,
+        "wires": [
+            [
+                "954377ec.943c48",
+                "79606048.dfc64"
+            ]
+        ]
+    },
+    {
+        "id": "1c08e828.aafc38",
+        "type": "http response",
+        "z": "5618dc6c.5a9a14",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 900,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "79606048.dfc64",
+        "type": "debug",
+        "z": "5618dc6c.5a9a14",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 330,
+        "y": 1240,
+        "wires": []
+    },
+    {
+        "id": "90cc3a61.a13958",
+        "type": "debug",
+        "z": "5618dc6c.5a9a14",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "553527d4.2042e8",
+        "type": "debug",
+        "z": "5618dc6c.5a9a14",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 810,
+        "y": 980,
+        "wires": []
     }
 ]

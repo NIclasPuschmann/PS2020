@@ -34,18 +34,18 @@ spec:
   http:
   - match:
     - uri:
-        exact: /opc
+        prefix: /opc
     route:
     - destination:
         host: opcuasampleclient
         port:
-            number: 1885
+            number: 1880
   - match:
     - uri:
         exact: /admin
     route:
     - destination:
-        host: opcuasampleclient
+        host: opcuasampleclientadmin
         port:
-            number: 1885
+            number: 1880
 ---

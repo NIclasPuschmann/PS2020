@@ -24,10 +24,31 @@ metadata:
     service: opcuasampleclient
 spec:
   ports: 
-    - port: 1885
-      protocol: TCP
+    - port: 1880
+      name: http
   selector:
     app: opcuasampleclient
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: opcuasampleclientadmin
+  labels:
+    app: opcuasampleclient
+    service: opcuasampleclientadmin
+spec:
+  ports: 
+    - port: 1880
+      name: http
+  selector:
+    app: opcuasampleclient
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: opc-opcuasampleclientadmin
+  labels:
+    account: opcuasampleclientadmin
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -61,6 +82,6 @@ spec:
         image: salzg/opc-ua-sample-client:0.1
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 1885
+        - containerPort: 1880
           protocol: TCP
 ---

@@ -9,11 +9,12 @@
     "node-red": {
         "settings": {
             "flowFile": "flows.json",
-            "credentialsFile": "flows_cred.json"
+            "credentialsFile": "flows_cred.json",
+            "settings": "settings.js"
         }
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node-red -p 1885 data/flows.json"
+        "start": "node-red -p 1880 -D httpAdminRoot='/admin' data/flows.json"
     }
 }
