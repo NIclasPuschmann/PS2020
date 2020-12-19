@@ -1,12 +1,5 @@
 [
     {
-        "id": "86ee01d3.b0b2e8",
-        "type": "tab",
-        "label": "Flow 1",
-        "disabled": false,
-        "info": ""
-    },
-    {
         "id": "8e80067a.682938",
         "type": "tab",
         "label": "Flow 1",
@@ -700,7 +693,7 @@
         "fieldType": "msg",
         "format": "javascript",
         "syntax": "plain",
-        "template": "$(document).ready(function() {\n    const Url='';\n    $(\"button_get\").click(function(result) {\n        $.ajax({\n            type:\"GET\",\n            url:Url,\n            success: function(result){\n            console.log(result);\n        },\n        error:function(error){\n            console.log(`Error ${error}`)\n        }\n        })\n    })\n    \n});\n\n$(document).ready(function() {\n    const Url='';\n    $(\"button_post\").click(function(result) {\n        $.ajax({\n            type:\"POST\",\n            url:Url,\n            success: function(result){\n            console.log(result);\n        },\n        error:function(error){\n            console.log(`Error ${error}`)\n        }\n        })\n    })\n    \n});",
+        "template": "// Read\n$(document).ready(function() {\n    const Url='http://localhost:1880/test';\n    $(\".read\").click(function(result) {\n        $.ajax({\n            type:\"GET\",\n            url:Url,\n            success: function(result){\n            console.log(result);\n            document.getElementById(\"data_1\").innerHTML=(result); \n            \n        },\n        error:function(error){\n            console.log(`Error ${error}`);\n        }\n        });\n    });\n});\n\n// Browse\n$(document).ready(function() {\n    const Url='https://my-json-server.typicode.com/typicode/demo/comments';\n    $(\".browse\").click(function(result) {\n        $.ajax({\n            type:\"GET\",\n            url:Url,\n            success: function(result){\n            console.log(result);\n            document.getElementById(\"data_5\").innerHTML=result; \n            \n        },\n        error:function(error){\n            console.log(`Error ${error}`);\n        }\n        });\n    });\n});\n//read -> get\n//write -> post\n//sub -> post\n//unsub -> post\n//browse -> get\n\n    $(\"form[ajax=true]\").submit(function(e) {\n        \n        e.preventDefault();\n        \n        var form_data = $(this).serialize();\n        var form_url = $(this).attr(\"action\");\n        var form_method = $(this).attr(\"method\").toUpperCase();\n        \n        $(\"#loadingimg\").show();\n        \n        $.ajax({\n            url: form_url, \n            type: form_method,      \n            data: form_data,     \n            cache: false,\n            success: function(returnhtml){                          \n                $(\"#result\").html(returnhtml); \n                $(\"#loadingimg\").hide();                    \n            }           \n        });    \n        \n    });\n\n$(document).ready(function() {\n    const Url='';\n    $(\".write\").click(function(result) {\n        $.ajax({\n            type:\"POST\",\n            url:Url,\n            success: function(result){\n            console.log(result);\n            \n        },\n        error:function(error){\n            console.log(`Error ${error}`);\n        }\n        });\n    });\n    \n    \n    \n});",
         "x": 450,
         "y": 380,
         "wires": [
@@ -727,7 +720,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "<html>\n  <head>\n    <title>My Site</title>\n    <meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\">\n    <meta charset=\"utf-8\">\n    <script src=\"http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js\"></script>\n    <style>{{{payload.style}}}</style>\n  </head>\n  <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js\"></script>\n  \n\n<h1>Demonstration Istio OPC UA</h1>\n    \n<table class=\"table\">\n  <tr>\n    <th>OPC UA Methode</th>\n    <th>Payload</th>\n  </tr>\n  <tr>\n    <td class=\"button button_get\"><button>Read</button></td>\n    <td>data</td>\n  </tr>\n  <tr>\n    <td class=\"button button_post\"><button>Write</button></td>\n    <td>data</td>\n  </tr>\n  <tr>\n    <td class=\"button button_post\"><button>Subscribe</button></td>\n    <td>data</td>\n  </tr>\n  <tr>\n    <td class=\"button button_post\"><button>Unsubscribe</button></td>\n    <td>data</td>\n  </tr>\n  <tr>\n    <td class=\"button button_get\"><button>Browse</button></td>\n    <td>data</td>\n  </tr>\n</table>\n\n</body>\n</html>\n<script>{{{payload.script}}}</script>",
+        "template": "<html>\n  <head>\n    <title>My Site</title>\n    <meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\">\n    <meta charset=\"utf-8\">\n    <script src=\"http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js\"></script>\n    <style>{{{payload.style}}}</style>\n  </head>\n  \n\n<h1>Demonstration Istio OPC UA</h1>\n    \n<table class=\"table\">\n  <tr>\n    <th>OPC UA Methode</th>\n    <th>Payload</th>\n  </tr>\n  <tr>\n    <td><button class=\"button read\">Read</button></td>\n    <td id=\"data_1\">data</td>\n  </tr>\n  <tr>\n    <td><button class=\"button button_post\">Write</button></td>\n    <td id=\"data_2\">data</td>\n  </tr>\n  <tr>\n    <td><button class=\"button button_post\">Subscribe</button></td>\n    <td id=\"data_3\">data</td>\n  </tr>\n  <tr>\n    <td><button class=\"button button_post\">Unsubscribe</button></td>\n    <td id=\"data_4\">data</td>\n  </tr>\n  <tr>\n    <td><button class=\"button browse\">Browse</button></td>\n    <td id=\"data_5\">data</td>\n  </tr>\n</table>\n\n</body>\n</html>\n<script>{{{payload.script}}}</script>",
         "x": 750,
         "y": 380,
         "wires": [
@@ -1002,7 +995,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 200,
-        "y": 660,
+        "y": 800,
         "wires": [
             [
                 "d7a124f8.e34638"
@@ -1018,7 +1011,7 @@
         "method": "post",
         "swaggerDoc": "",
         "x": 210,
-        "y": 860,
+        "y": 1000,
         "wires": [
             [
                 "fcfb4e7e.105448",
@@ -1035,7 +1028,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 430,
-        "y": 660,
+        "y": 800,
         "wires": [
             [
                 "80c9247c.453f48"
@@ -1051,7 +1044,7 @@
         "console": "false",
         "complete": "payload",
         "x": 850,
-        "y": 860,
+        "y": 1000,
         "wires": []
     },
     {
@@ -1060,7 +1053,7 @@
         "z": "a8e0faa6.6f89c8",
         "name": "",
         "x": 870,
-        "y": 820,
+        "y": 960,
         "wires": []
     },
     {
@@ -1074,7 +1067,7 @@
         "syntax": "mustache",
         "template": "input[type=text], select {\n    width: 100%;\n    padding: 12px 20px;\n    margin: 8px 0;\n    display: inline-block;\n    border: 1px solid #ccc;\n    border-radius: 4px;\n    box-sizing: border-box;\n}\n\ninput[type=submit] {\n    width: 100%;\n    background-color: #4CAF50;\n    color: white;\n    padding: 14px 20px;\n    margin: 8px 0;\n    border: none;\n    border-radius: 4px;\n    cursor: pointer;\n}\n\ninput[type=submit]:hover {\n    background-color: #45a049;\n}\n\ndiv {\n    border-radius: 5px;\n    background-color: #f2f2f2;\n    padding: 20px;\n}",
         "x": 590,
-        "y": 760,
+        "y": 900,
         "wires": [
             [
                 "f5e84333.2c0c3"
@@ -1092,7 +1085,7 @@
         "syntax": "plain",
         "template": "$(document).ready(function(e) {\n    \n    $(\"form[ajax=true]\").submit(function(e) {\n        \n        e.preventDefault();\n        \n        var form_data = $(this).serialize();\n        var form_url = $(this).attr(\"action\");\n        var form_method = $(this).attr(\"method\").toUpperCase();\n        \n        $(\"#loadingimg\").show();\n        \n        $.ajax({\n            url: form_url, \n            type: form_method,      \n            data: form_data,     \n            cache: false,\n            success: function(returnhtml){                          \n                $(\"#result\").html(returnhtml); \n                $(\"#loadingimg\").hide();                    \n            }           \n        });    \n        \n    });\n    \n});",
         "x": 430,
-        "y": 760,
+        "y": 900,
         "wires": [
             [
                 "936ac7c.0c6eab8"
@@ -1105,7 +1098,7 @@
         "z": "a8e0faa6.6f89c8",
         "name": "",
         "x": 870,
-        "y": 760,
+        "y": 900,
         "wires": []
     },
     {
@@ -1119,7 +1112,7 @@
         "syntax": "mustache",
         "template": "<html>\n  <head>\n    <title>My Site</title>\n    <meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\">\n    <meta charset=\"utf-8\">\n    <script src=\"http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js\"></script>\n    <style>{{{payload.style}}}</style>\n  </head>\n  \n\n    <h2>Using CSS to style an HTML form with AJAX POST and Node-RED</h2>\n    <h4><a href=\"http://www.internetoflego.com\">Internet of LEGO</a></h4>\n\n<div>\n  <form method=\"post\" action=\"/{{url}}\" ajax=\"true\">\n    <label for=\"fname\">First Name</label>\n    <input type=\"text\" id=\"fname\" name=\"firstname\">\n\n    <label for=\"lname\">Last Name</label>\n    <input type=\"text\" id=\"lname\" name=\"lastname\">\n\n    <label for=\"country\">Country</label>\n    <select id=\"country\" name=\"country\">\n      <option value=\"uk\">United Kingdom</option>\n      <option value=\"canada\">Canada</option>\n      <option value=\"usa\">USA</option>\n    </select>\n  \n    <input type=\"submit\" value=\"Submit\">\n  </form>\n</div>\n<div>\n    <span id=\"result\"></span>\n</div>\n\n</body>\n</html>\n<script>{{{payload.script}}}</script>",
         "x": 730,
-        "y": 760,
+        "y": 900,
         "wires": [
             [
                 "36e4df78.86ece8"
@@ -1133,7 +1126,7 @@
         "name": "Login Form",
         "info": "",
         "x": 390,
-        "y": 720,
+        "y": 860,
         "wires": []
     },
     {
@@ -1145,7 +1138,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 620,
-        "y": 820,
+        "y": 960,
         "wires": [
             [
                 "c2a53366.366c68"
@@ -1159,7 +1152,7 @@
         "name": "Inject msg object properties",
         "info": "",
         "x": 400,
-        "y": 620,
+        "y": 760,
         "wires": []
     },
     {
@@ -1168,7 +1161,7 @@
         "z": "a8e0faa6.6f89c8",
         "name": "",
         "x": 410,
-        "y": 820,
+        "y": 960,
         "wires": [
             [
                 "71dfe77c.7b91f8"
@@ -1182,7 +1175,7 @@
         "name": "Website",
         "info": "",
         "x": 170,
-        "y": 580,
+        "y": 720,
         "wires": []
     },
     {
@@ -1192,7 +1185,54 @@
         "name": "Form Submission",
         "info": "",
         "x": 200,
-        "y": 800,
+        "y": 940,
         "wires": []
+    },
+    {
+        "id": "f1f9598.3fa7aa8",
+        "type": "http response",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 570,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "9484ecd.27b989",
+        "type": "http in",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "url": "/test",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 210,
+        "y": 580,
+        "wires": [
+            [
+                "8b81ccff.9117c"
+            ]
+        ]
+    },
+    {
+        "id": "8b81ccff.9117c",
+        "type": "template",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "{{payload}} ",
+        "output": "str",
+        "x": 400,
+        "y": 580,
+        "wires": [
+            [
+                "f1f9598.3fa7aa8"
+            ]
+        ]
     }
 ]
