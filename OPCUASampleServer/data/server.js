@@ -3,7 +3,7 @@ const opcua = require("node-opcua");
 
 
 const server = new opcua.OPCUAServer({
-    port: 1880,        // the port of the listening socket of the server
+    port: 19090,        // the port of the listening socket of the server
     buildInfo: {
         productName: "Sample NodeOPCUA Server1",
 
@@ -31,7 +31,7 @@ function post_initialize(){
         // now let's add first variable in folder
         // the addVariableInFolder
         let variable1 = 10.0;
-        let variable2 = 1;
+        let variable2 = 0.5;
         let variable3 = "Yeeeee"
 
         //emulate variable1 changing every 500ms
@@ -44,7 +44,7 @@ function post_initialize(){
             dataType: "Double",
             value: {
                 get: () => {
-                    const t = new Date() / 10000.0;
+                    const t = Math.round(Date.now() / 6000)/3;
                     const value = variable1 + 10.0 * Math.sin(t);
                     return new opcua.Variant({ dataType: opcua.DataType.Double, value: value });
                 }
@@ -57,8 +57,9 @@ function post_initialize(){
             dataType: "Double",
             value: {
                 get: function () {
-                    const t = new Date() / 10000.0;
-                    const value = 0.5* Math.sin(t);
+                    //const t = new Date() / 10000.0;
+                    //const value = 0.5* Math.sin(t);
+                    const value = variable2;
                     return new opcua.Variant({dataType: opcua.DataType.Double, value: value });
                 },
                 set: function (variant) {
@@ -76,10 +77,13 @@ function post_initialize(){
             value: {
                 get: function () {
                     const value = variable3;
+                    console.log("get Name: " + variable3);
                     return new opcua.Variant({dataType: opcua.DataType.String, value: value });
                 },
                 set: function (variant) {
+                    console.log("set Name " + variable3);
                     variable3 = String(variant.value);
+                    console.log("after set Name " + variable3);
                     return opcua.StatusCodes.Good;
                 }
             }
@@ -120,7 +124,6 @@ function post_initialize(){
             }
         });
 
-        // please 
     }
     constructAddressSpace(server);
     server.start(function() {
