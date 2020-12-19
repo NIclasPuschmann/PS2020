@@ -1,0 +1,1238 @@
+[
+    {
+        "id": "8e80067a.682938",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": true,
+        "info": ""
+    },
+    {
+        "id": "8e04c829.d26b78",
+        "type": "tab",
+        "label": "Flow 4",
+        "disabled": true,
+        "info": ""
+    },
+    {
+        "id": "fb86903e.d126f",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": true,
+        "info": ""
+    },
+    {
+        "id": "386fb955.d43616",
+        "type": "tab",
+        "label": "Flow 3",
+        "disabled": true,
+        "info": ""
+    },
+    {
+        "id": "a8e0faa6.6f89c8",
+        "type": "tab",
+        "label": "Flow 5",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "e36406f2.8ef798",
+        "type": "inject",
+        "z": "8e80067a.682938",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "120",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "x": 120,
+        "y": 160,
+        "wires": [
+            [
+                "c3c50023.3bbed"
+            ]
+        ]
+    },
+    {
+        "id": "c3c50023.3bbed",
+        "type": "http request",
+        "z": "8e80067a.682938",
+        "name": "Recent Quakes",
+        "method": "GET",
+        "paytoqs": "ignore",
+        "url": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.csv",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 300,
+        "y": 160,
+        "wires": [
+            [
+                "8afc6cac.e0812"
+            ]
+        ]
+    },
+    {
+        "id": "8afc6cac.e0812",
+        "type": "csv",
+        "z": "8e80067a.682938",
+        "name": "",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "",
+        "skip": 0,
+        "strings": true,
+        "include_empty_strings": false,
+        "include_null_values": false,
+        "x": 500,
+        "y": 160,
+        "wires": [
+            [
+                "44779781.4190f8",
+                "6f0eb546.9e208c",
+                "bbef2caf.6edd8"
+            ]
+        ]
+    },
+    {
+        "id": "44779781.4190f8",
+        "type": "debug",
+        "z": "8e80067a.682938",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "3e1c5107.c1e3ae",
+        "type": "http in",
+        "z": "8e04c829.d26b78",
+        "name": "",
+        "url": "/hello",
+        "method": "post",
+        "upload": true,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 200,
+        "wires": [
+            [
+                "f3c1a3f0.0c3e6",
+                "b2c455c8.6e10f8",
+                "ac85f7b1.f023b8"
+            ]
+        ]
+    },
+    {
+        "id": "cf679478.309868",
+        "type": "template",
+        "z": "8e04c829.d26b78",
+        "name": "page",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html>\n<head>\n<title>Page Title</title>\n</head>\n<body>\n\n<table>\n<tr>\n    <th>id</th>\n    <th>time</th>\n    <th>latitude</th>\n    <th>longitude</th>\n    <th>depth</th>\n    <th>mag</th>\n    <th>magType</th>\n    <th>gap</th>\n    <th>dmin</th>\n    <th>rms</th>\n    <th>place</th>\n    <th>type</th>\n    <th>status</th>\n    <th>locationSource</th>\n</tr>\n{{#payload}}\n\n<tr>\n    <td>{{id}}</td>\n    <td>{{time}}</td>\n    <td>{{latitude}}</td>\n    <td>{{longitude}}</td>\n    <td>{{depth}}</td>\n    <td>{{mag}}</td>\n    <td>{{magType}}</td>\n    <td>{{gap}}</td>\n    <td>{{dmin}}</td>\n    <td>{{rms}}</td>\n    <td>{{place}}</td>\n    <td>{{type}}</td>\n    <td>{{status}}</td>\n    <td>{{locationSource}}</td>\n</tr>\n{{/payload}}\n</table>\n</body>\n</html>\n",
+        "output": "str",
+        "x": 490,
+        "y": 300,
+        "wires": [
+            [
+                "78e75c18.cd37e4"
+            ]
+        ]
+    },
+    {
+        "id": "f3c1a3f0.0c3e6",
+        "type": "http response",
+        "z": "8e04c829.d26b78",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 350,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "bbef2caf.6edd8",
+        "type": "http request",
+        "z": "8e80067a.682938",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "localhost:1880/hello",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 270,
+        "y": 300,
+        "wires": [
+            [
+                "2ee22353.5ddb5c"
+            ]
+        ]
+    },
+    {
+        "id": "6f0eb546.9e208c",
+        "type": "switch",
+        "z": "8e80067a.682938",
+        "name": "",
+        "property": "payload.mag",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gte",
+                "v": "7",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 670,
+        "y": 260,
+        "wires": [
+            [
+                "d78d4aa8.8c8208"
+            ]
+        ]
+    },
+    {
+        "id": "d78d4aa8.8c8208",
+        "type": "change",
+        "z": "8e80067a.682938",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "PANIC!",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 850,
+        "y": 260,
+        "wires": [
+            [
+                "72fddece.fac0d"
+            ]
+        ]
+    },
+    {
+        "id": "72fddece.fac0d",
+        "type": "debug",
+        "z": "8e80067a.682938",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "2ee22353.5ddb5c",
+        "type": "debug",
+        "z": "8e80067a.682938",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "78e75c18.cd37e4",
+        "type": "file",
+        "z": "8e04c829.d26b78",
+        "name": "",
+        "filename": "test.html",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 660,
+        "y": 300,
+        "wires": [
+            [
+                "f7deee60.348fb"
+            ]
+        ]
+    },
+    {
+        "id": "163d8580.fd884a",
+        "type": "http in",
+        "z": "8e04c829.d26b78",
+        "name": "",
+        "url": "/hello",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 200,
+        "y": 400,
+        "wires": [
+            [
+                "e154a070.37c47"
+            ]
+        ]
+    },
+    {
+        "id": "e154a070.37c47",
+        "type": "file in",
+        "z": "8e04c829.d26b78",
+        "name": "",
+        "filename": "test.html",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "x": 390,
+        "y": 400,
+        "wires": [
+            [
+                "d81cc37d.9ef51"
+            ]
+        ]
+    },
+    {
+        "id": "d81cc37d.9ef51",
+        "type": "http response",
+        "z": "8e04c829.d26b78",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 560,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "f7deee60.348fb",
+        "type": "debug",
+        "z": "8e04c829.d26b78",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 850,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "b5c9446b.a08808",
+        "type": "debug",
+        "z": "8e04c829.d26b78",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "4b10a1aa.65a6f",
+        "type": "inject",
+        "z": "fb86903e.d126f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 160,
+        "wires": [
+            [
+                "18b90351.461c2d"
+            ]
+        ]
+    },
+    {
+        "id": "18b90351.461c2d",
+        "type": "http request",
+        "z": "fb86903e.d126f",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 310,
+        "y": 160,
+        "wires": [
+            [
+                "386350d8.5d54a"
+            ]
+        ]
+    },
+    {
+        "id": "386350d8.5d54a",
+        "type": "json",
+        "z": "fb86903e.d126f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 470,
+        "y": 160,
+        "wires": [
+            [
+                "d0025bb7.7bdcd8"
+            ]
+        ]
+    },
+    {
+        "id": "f0b3a1a0.e310e",
+        "type": "debug",
+        "z": "fb86903e.d126f",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "fb141067.8df67",
+        "type": "debug",
+        "z": "fb86903e.d126f",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "d0025bb7.7bdcd8",
+        "type": "function",
+        "z": "fb86903e.d126f",
+        "name": "",
+        "func": "var outputMsgs = [];\n\nfor (i=0; i < msg.payload.features.length - 1; i++) {\n    var feature = msg.payload.features[i];\n    outputMsgs.push(\n        {payload: {lat: feature.geometry.coordinates[1],\n                   lng: feature.geometry.coordinates[0],\n                   value: feature.geometry.mag,\n                   message: feature.properties.place,\n                   timestamp: feature.properties.time\n                }\n        });\n}\nvar msg2 = { payload: \"Second Output\"}\nreturn [ outputMsgs, msg2 ];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 480,
+        "y": 260,
+        "wires": [
+            [
+                "f0b3a1a0.e310e",
+                "fb141067.8df67"
+            ]
+        ]
+    },
+    {
+        "id": "9c0950b1.c61b1",
+        "type": "inject",
+        "z": "386fb955.d43616",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "chart1",
+        "payload": "[\"text1\",\"text2\"]",
+        "payloadType": "json",
+        "x": 240,
+        "y": 200,
+        "wires": [
+            [
+                "4bc18ffc.98da38"
+            ]
+        ]
+    },
+    {
+        "id": "de1cd353.5326c",
+        "type": "inject",
+        "z": "386fb955.d43616",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "chart1",
+        "payload": "[\"text1\",\"text2\",\"text3\"]",
+        "payloadType": "json",
+        "x": 253.3333282470703,
+        "y": 265.3333435058594,
+        "wires": [
+            [
+                "4bc18ffc.98da38"
+            ]
+        ]
+    },
+    {
+        "id": "4bc18ffc.98da38",
+        "type": "function",
+        "z": "386fb955.d43616",
+        "name": "",
+        "func": "var html = \"\";\nfor (var i in msg.payload){\n    html = html + '<label for=\"w' + i + '\">A title ' + i + '</label><textarea id=\"w' + i + '\" name=\"w' + i + '\" rows=\"4\" cols=\"50\">' + msg.payload[i] + '</textarea>';\n}\nmsg.template = html;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 520,
+        "y": 220,
+        "wires": [
+            [
+                "79fa3070.3f05e"
+            ]
+        ]
+    },
+    {
+        "id": "79fa3070.3f05e",
+        "type": "template",
+        "z": "386fb955.d43616",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n  <head>\n    <title>My Site</title>\n  </head>\n  \n\n<p>{{payload.html}}<p/>\n\n</body>\n</html>\n<script>{{{payload.script}}}</script> ",
+        "output": "str",
+        "x": 710,
+        "y": 220,
+        "wires": [
+            [
+                "232ab658.6185ba",
+                "9cda4dc9.d25a8"
+            ]
+        ]
+    },
+    {
+        "id": "1e0841f1.ac68fe",
+        "type": "http in",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "url": "/mysite",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 210,
+        "y": 280,
+        "wires": [
+            [
+                "4c783328.03dc2c"
+            ]
+        ]
+    },
+    {
+        "id": "5de0bbd4.6c8574",
+        "type": "http in",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "url": "/mysitepost",
+        "method": "post",
+        "swaggerDoc": "",
+        "x": 230,
+        "y": 480,
+        "wires": [
+            [
+                "80321000.f2dc5",
+                "75913f37.78e6e"
+            ]
+        ]
+    },
+    {
+        "id": "4c783328.03dc2c",
+        "type": "function",
+        "z": "a8e0faa6.6f89c8",
+        "name": "msg.url = \"mysitepost\";",
+        "func": "msg.url = \"mysitepost\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 450,
+        "y": 280,
+        "wires": [
+            [
+                "b2f5bdf9.e09f1"
+            ]
+        ]
+    },
+    {
+        "id": "80321000.f2dc5",
+        "type": "debug",
+        "z": "a8e0faa6.6f89c8",
+        "name": "mysitepost",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 870,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "8de9647.b8a9a98",
+        "type": "http response",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "x": 890,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "b2972258.ecf54",
+        "type": "template",
+        "z": "a8e0faa6.6f89c8",
+        "name": "CSS",
+        "field": "payload.style",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "body {\n\tfont-family: Helvetica;\n}\n\nbutton {\n  background-color: DodgerBlue;\n  border: none;\n  border-radius: 8px;\n  color: white;\n  padding: 20px;\n  text-align: center;\n  text-decoration: none;\n  display: flex;\n  font-size: 16px;\n  margin: 4px 2px;\n  cursor: pointer;\n}\n\ntd {\n\tpadding:0 30px 0 30px;\n}\n\n\n",
+        "x": 610,
+        "y": 380,
+        "wires": [
+            [
+                "f3b55ea2.f4d51"
+            ]
+        ]
+    },
+    {
+        "id": "b2f5bdf9.e09f1",
+        "type": "template",
+        "z": "a8e0faa6.6f89c8",
+        "name": "JavaScript",
+        "field": "payload.script",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "plain",
+        "template": "// Read\n$(document).ready(function() {\n    const Url='http://localhost:1880/test';\n    $(\".read\").click(function(result) {\n        $.ajax({\n            type:\"GET\",\n            url:Url,\n            success: function(result){\n            console.log(result);\n            document.getElementById(\"data_1\").innerHTML=(result); \n            \n        },\n        error:function(error){\n            console.log(`Error ${error}`);\n        }\n        });\n    });\n});\n\n// Browse\n$(document).ready(function() {\n    const Url='https://my-json-server.typicode.com/typicode/demo/comments';\n    $(\".browse\").click(function(result) {\n        $.ajax({\n            type:\"GET\",\n            url:Url,\n            success: function(result){\n            console.log(result);\n            document.getElementById(\"data_5\").innerHTML=result; \n            \n        },\n        error:function(error){\n            console.log(`Error ${error}`);\n        }\n        });\n    });\n});\n//read -> get\n//write -> post\n//sub -> post\n//unsub -> post\n//browse -> get\n\n    $(\"form[ajax=true]\").submit(function(e) {\n        \n        e.preventDefault();\n        \n        var form_data = $(this).serialize();\n        var form_url = $(this).attr(\"action\");\n        var form_method = $(this).attr(\"method\").toUpperCase();\n        \n        $(\"#loadingimg\").show();\n        \n        $.ajax({\n            url: form_url, \n            type: form_method,      \n            data: form_data,     \n            cache: false,\n            success: function(returnhtml){                          \n                $(\"#result\").html(returnhtml); \n                $(\"#loadingimg\").hide();                    \n            }           \n        });    \n        \n    });\n\n$(document).ready(function() {\n    const Url='';\n    $(\".write\").click(function(result) {\n        $.ajax({\n            type:\"POST\",\n            url:Url,\n            success: function(result){\n            console.log(result);\n            \n        },\n        error:function(error){\n            console.log(`Error ${error}`);\n        }\n        });\n    });\n    \n    \n    \n});",
+        "x": 450,
+        "y": 380,
+        "wires": [
+            [
+                "b2972258.ecf54"
+            ]
+        ]
+    },
+    {
+        "id": "d2c0bc2a.05a02",
+        "type": "http response",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "x": 890,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "f3b55ea2.f4d51",
+        "type": "template",
+        "z": "a8e0faa6.6f89c8",
+        "name": "HTML",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n  <head>\n    <title>My Site</title>\n    <meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\">\n    <meta charset=\"utf-8\">\n    <script src=\"http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js\"></script>\n    <style>{{{payload.style}}}</style>\n  </head>\n  \n\n<h1>Demonstration Istio OPC UA</h1>\n    \n<table class=\"table\">\n  <tr>\n    <th>OPC UA Methode</th>\n    <th>Payload</th>\n  </tr>\n  <tr>\n    <td><button class=\"button read\">Read</button></td>\n    <td id=\"data_1\">data</td>\n  </tr>\n  <tr>\n    <td><button class=\"button button_post\">Write</button></td>\n    <td id=\"data_2\">data</td>\n  </tr>\n  <tr>\n    <td><button class=\"button button_post\">Subscribe</button></td>\n    <td id=\"data_3\">data</td>\n  </tr>\n  <tr>\n    <td><button class=\"button button_post\">Unsubscribe</button></td>\n    <td id=\"data_4\">data</td>\n  </tr>\n  <tr>\n    <td><button class=\"button browse\">Browse</button></td>\n    <td id=\"data_5\">data</td>\n  </tr>\n</table>\n\n</body>\n</html>\n<script>{{{payload.script}}}</script>",
+        "x": 750,
+        "y": 380,
+        "wires": [
+            [
+                "d2c0bc2a.05a02"
+            ]
+        ]
+    },
+    {
+        "id": "57316751.8bd948",
+        "type": "comment",
+        "z": "a8e0faa6.6f89c8",
+        "name": "Login Form",
+        "info": "",
+        "x": 410,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "ad88b28c.bc842",
+        "type": "function",
+        "z": "a8e0faa6.6f89c8",
+        "name": "return msg.payload to client",
+        "func": "msg.payload = 'The following data was submitted and available in the msg.payload: '+msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 660,
+        "y": 440,
+        "wires": [
+            [
+                "8de9647.b8a9a98"
+            ]
+        ]
+    },
+    {
+        "id": "42a9d329.9cdf6c",
+        "type": "comment",
+        "z": "a8e0faa6.6f89c8",
+        "name": "Inject msg object properties",
+        "info": "",
+        "x": 420,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "75913f37.78e6e",
+        "type": "json",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 430,
+        "y": 440,
+        "wires": [
+            [
+                "ad88b28c.bc842"
+            ]
+        ]
+    },
+    {
+        "id": "86c08a83.385758",
+        "type": "comment",
+        "z": "a8e0faa6.6f89c8",
+        "name": "Website",
+        "info": "",
+        "x": 190,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "111485fa.14c4aa",
+        "type": "comment",
+        "z": "a8e0faa6.6f89c8",
+        "name": "Form Submission",
+        "info": "",
+        "x": 220,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "3c029955.901626",
+        "type": "comment",
+        "z": "a8e0faa6.6f89c8",
+        "name": "Node-RED Public Site - README",
+        "info": "This Flow demonstrates how to create\na simple frontend webpage with Node-RED.\n\nThe public facing page consists of the \nclient side JavaScript, CSS and HTML. \n\nThe important technique is how the mustache \ntemplates are used. Each template will set the\n\"property\" relative to the content. \n\nThe CSS node sets the \"msg.payload.style\" property.\nThe JavaScript node sets the \"msg.payload.script\" property.\nThe HTML node then includes these properties \n<script>{{{payload.script}}}</script>\n<style>{{{payload.style}}}</style>\n\n\nThis example was created by http://www.InternetofLEGO.com\n\n",
+        "x": 520,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "232ab658.6185ba",
+        "type": "debug",
+        "z": "386fb955.d43616",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1050,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "5e161b5a.f0b574",
+        "type": "http in",
+        "z": "386fb955.d43616",
+        "name": "",
+        "url": "/test",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 380,
+        "y": 460,
+        "wires": [
+            [
+                "e16bf50a.70b788"
+            ]
+        ]
+    },
+    {
+        "id": "e16bf50a.70b788",
+        "type": "file in",
+        "z": "386fb955.d43616",
+        "name": "",
+        "filename": "t.html",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "x": 590,
+        "y": 440,
+        "wires": [
+            [
+                "d17e8edc.34ff8"
+            ]
+        ]
+    },
+    {
+        "id": "d17e8edc.34ff8",
+        "type": "http response",
+        "z": "386fb955.d43616",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 740,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "9cda4dc9.d25a8",
+        "type": "file",
+        "z": "386fb955.d43616",
+        "name": "",
+        "filename": "t.html",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 930,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b2c455c8.6e10f8",
+        "type": "join",
+        "z": "8e04c829.d26b78",
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "4",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 350,
+        "y": 300,
+        "wires": [
+            [
+                "b5c9446b.a08808",
+                "cf679478.309868"
+            ]
+        ]
+    },
+    {
+        "id": "ac85f7b1.f023b8",
+        "type": "debug",
+        "z": "8e04c829.d26b78",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 370,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "ecccc6d9.e897d8",
+        "type": "comment",
+        "z": "fb86903e.d126f",
+        "name": "Flow zum Experimentieren",
+        "info": "",
+        "x": 170,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "8f7af54e.eca378",
+        "type": "comment",
+        "z": "386fb955.d43616",
+        "name": "Flow zum Experimentieren",
+        "info": "",
+        "x": 230,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "8032b605.628338",
+        "type": "comment",
+        "z": "a8e0faa6.6f89c8",
+        "name": "Flow zum Experimentieren",
+        "info": "",
+        "x": 190,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "e67fa90b.425248",
+        "type": "comment",
+        "z": "8e80067a.682938",
+        "name": "Flow 1 zum Testen fuer Docker und Istio",
+        "info": "",
+        "x": 190,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "5dfcabcc.06fb24",
+        "type": "comment",
+        "z": "8e04c829.d26b78",
+        "name": "Flow 2 zum Testen fuer Docker und Istio",
+        "info": "",
+        "x": 180,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "13a8d329.d56b45",
+        "type": "http in",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "url": "/mysitev2",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 200,
+        "y": 800,
+        "wires": [
+            [
+                "d7a124f8.e34638"
+            ]
+        ]
+    },
+    {
+        "id": "5550431b.a21c0c",
+        "type": "http in",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "url": "/mysitepost",
+        "method": "post",
+        "swaggerDoc": "",
+        "x": 210,
+        "y": 1000,
+        "wires": [
+            [
+                "fcfb4e7e.105448",
+                "d4e40ba1.d0b388"
+            ]
+        ]
+    },
+    {
+        "id": "d7a124f8.e34638",
+        "type": "function",
+        "z": "a8e0faa6.6f89c8",
+        "name": "msg.url = \"mysitepost\";",
+        "func": "msg.url = \"mysitepost\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 430,
+        "y": 800,
+        "wires": [
+            [
+                "80c9247c.453f48"
+            ]
+        ]
+    },
+    {
+        "id": "fcfb4e7e.105448",
+        "type": "debug",
+        "z": "a8e0faa6.6f89c8",
+        "name": "mysitepost",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 850,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "c2a53366.366c68",
+        "type": "http response",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "x": 870,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "936ac7c.0c6eab8",
+        "type": "template",
+        "z": "a8e0faa6.6f89c8",
+        "name": "CSS",
+        "field": "payload.style",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "input[type=text], select {\n    width: 100%;\n    padding: 12px 20px;\n    margin: 8px 0;\n    display: inline-block;\n    border: 1px solid #ccc;\n    border-radius: 4px;\n    box-sizing: border-box;\n}\n\ninput[type=submit] {\n    width: 100%;\n    background-color: #4CAF50;\n    color: white;\n    padding: 14px 20px;\n    margin: 8px 0;\n    border: none;\n    border-radius: 4px;\n    cursor: pointer;\n}\n\ninput[type=submit]:hover {\n    background-color: #45a049;\n}\n\ndiv {\n    border-radius: 5px;\n    background-color: #f2f2f2;\n    padding: 20px;\n}",
+        "x": 590,
+        "y": 900,
+        "wires": [
+            [
+                "f5e84333.2c0c3"
+            ]
+        ]
+    },
+    {
+        "id": "80c9247c.453f48",
+        "type": "template",
+        "z": "a8e0faa6.6f89c8",
+        "name": "JavaScript",
+        "field": "payload.script",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "plain",
+        "template": "$(document).ready(function(e) {\n    \n    $(\"form[ajax=true]\").submit(function(e) {\n        \n        e.preventDefault();\n        \n        var form_data = $(this).serialize();\n        var form_url = $(this).attr(\"action\");\n        var form_method = $(this).attr(\"method\").toUpperCase();\n        \n        $(\"#loadingimg\").show();\n        \n        $.ajax({\n            url: form_url, \n            type: form_method,      \n            data: form_data,     \n            cache: false,\n            success: function(returnhtml){                          \n                $(\"#result\").html(returnhtml); \n                $(\"#loadingimg\").hide();                    \n            }           \n        });    \n        \n    });\n    \n});",
+        "x": 430,
+        "y": 900,
+        "wires": [
+            [
+                "936ac7c.0c6eab8"
+            ]
+        ]
+    },
+    {
+        "id": "36e4df78.86ece8",
+        "type": "http response",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "x": 870,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "f5e84333.2c0c3",
+        "type": "template",
+        "z": "a8e0faa6.6f89c8",
+        "name": "HTML",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n  <head>\n    <title>My Site</title>\n    <meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\">\n    <meta charset=\"utf-8\">\n    <script src=\"http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js\"></script>\n    <style>{{{payload.style}}}</style>\n  </head>\n  \n\n    <h2>Using CSS to style an HTML form with AJAX POST and Node-RED</h2>\n    <h4><a href=\"http://www.internetoflego.com\">Internet of LEGO</a></h4>\n\n<div>\n  <form method=\"post\" action=\"/{{url}}\" ajax=\"true\">\n    <label for=\"fname\">First Name</label>\n    <input type=\"text\" id=\"fname\" name=\"firstname\">\n\n    <label for=\"lname\">Last Name</label>\n    <input type=\"text\" id=\"lname\" name=\"lastname\">\n\n    <label for=\"country\">Country</label>\n    <select id=\"country\" name=\"country\">\n      <option value=\"uk\">United Kingdom</option>\n      <option value=\"canada\">Canada</option>\n      <option value=\"usa\">USA</option>\n    </select>\n  \n    <input type=\"submit\" value=\"Submit\">\n  </form>\n</div>\n<div>\n    <span id=\"result\"></span>\n</div>\n\n</body>\n</html>\n<script>{{{payload.script}}}</script>",
+        "x": 730,
+        "y": 900,
+        "wires": [
+            [
+                "36e4df78.86ece8"
+            ]
+        ]
+    },
+    {
+        "id": "1ad81dc.d49f0e2",
+        "type": "comment",
+        "z": "a8e0faa6.6f89c8",
+        "name": "Login Form",
+        "info": "",
+        "x": 390,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "71dfe77c.7b91f8",
+        "type": "function",
+        "z": "a8e0faa6.6f89c8",
+        "name": "return msg.payload to client",
+        "func": "msg.payload = 'The following data was submitted and available in the msg.payload: '+msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 620,
+        "y": 960,
+        "wires": [
+            [
+                "c2a53366.366c68"
+            ]
+        ]
+    },
+    {
+        "id": "8bcc4c50.1b02b8",
+        "type": "comment",
+        "z": "a8e0faa6.6f89c8",
+        "name": "Inject msg object properties",
+        "info": "",
+        "x": 400,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "d4e40ba1.d0b388",
+        "type": "json",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "x": 410,
+        "y": 960,
+        "wires": [
+            [
+                "71dfe77c.7b91f8"
+            ]
+        ]
+    },
+    {
+        "id": "dea5c449.a1d058",
+        "type": "comment",
+        "z": "a8e0faa6.6f89c8",
+        "name": "Website",
+        "info": "",
+        "x": 170,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "37416c05.390cd4",
+        "type": "comment",
+        "z": "a8e0faa6.6f89c8",
+        "name": "Form Submission",
+        "info": "",
+        "x": 200,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "f1f9598.3fa7aa8",
+        "type": "http response",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 570,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "9484ecd.27b989",
+        "type": "http in",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "url": "/test",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 210,
+        "y": 580,
+        "wires": [
+            [
+                "8b81ccff.9117c"
+            ]
+        ]
+    },
+    {
+        "id": "8b81ccff.9117c",
+        "type": "template",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "{{payload}} ",
+        "output": "str",
+        "x": 400,
+        "y": 580,
+        "wires": [
+            [
+                "f1f9598.3fa7aa8"
+            ]
+        ]
+    }
+]
