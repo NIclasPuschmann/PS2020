@@ -760,7 +760,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "<html>\n  <head>\n    <title>My Site</title>\n    <meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\">\n    <meta charset=\"utf-8\">\n    <script src=\"http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js\"></script>\n    <style>{{{payload.style}}}</style>\n  </head>\n  \n\n<h1>Demonstration Istio OPC UA</h1>\n\n<p id=\"demo\">Test</p>\n\n<label for=\"attributes\">Wähle ein Attribut</label>\n\n<select name=\"attributes\" id=\"attributes\" onchange=\"setBtn(this)\" autocomplete=\"off\">\n  <option value=\"nopt\" selected>- keine Auswahl -</option>\n  <option value=\"name\">Name</option>\n  <option value=\"temp\">Temperatur</option>\n  <option value=\"capacity\">Kapazität</option>\n  <option value=\"ram\">RAM</option>\n</select> \n    \n<table class=\"table\">\n  <tr>\n    <th>OPC UA Methode</th>\n    <th>Payload</th>\n  </tr>\n  <tr>\n    <td><button id=\"buttonRead\">Read</button></td>\n    <td id=\"data_1\">data</td>\n  </tr>\n  <tr>\n    <td><button id=\"buttonWrite\">Write</button></td>\n    <td id=\"data_2\">data</td>\n  </tr>\n  <tr>\n    <td><button id=\"buttonSub\">Subscribe</button></td>\n    <td id=\"data_3\">data</td>\n  </tr>\n  <tr>\n    <td><button id=\"buttonUnsub\">Unsubscribe</button></td>\n    <td id=\"data_4\">data</td>\n  </tr>\n  <tr>\n    <td><button id=\"buttonBrowse\">Browse</button></td>\n    <td><pre id=\"data_5\">data</pre></td>\n  </tr>\n</table>\n\n</body>\n</html>\n<script>{{{payload.script}}}</script>",
+        "template": "<html>\n  <head>\n    <title>My Site</title>\n    <meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\">\n    <meta charset=\"utf-8\">\n    <script src=\"http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js\"></script>\n    <style>{{{payload.style}}}</style>\n  </head>\n  \n\n<h1>Demonstration Istio OPC UA</h1>\n\n<p id=\"demo\">Test</p>\n\n<label for=\"attributes\">Wähle ein Attribut</label>\n\n<select name=\"attributes\" id=\"attributes\" onchange=\"setBtn(this)\" autocomplete=\"off\">\n  <option value=\"nopt\" selected>- keine Auswahl -</option>\n  <option value=\"name\">Name</option>\n  <option value=\"temp\">Temperatur</option>\n  <option value=\"capacity\">Kapazität</option>\n  <option value=\"ram\">RAM</option>\n</select> \n    \n<table class=\"table\">\n  <tr>\n    <th>OPC UA Methode</th>\n    <th>Payload</th>\n  </tr>\n  <tr>\n    <td><button id=\"buttonRead\">Read</button></td>\n    <td id=\"data_1\">data</td>\n  </tr>\n  <tr>\n    <td><button id=\"buttonWrite\">Write</button></td>\n    <td id=\"data_2\"><input type=\"text\" id=\"input1\"/></td>\n  </tr>\n  <tr>\n    <td><button id=\"buttonSub\">Subscribe</button></td>\n    <td id=\"data_3\"></td>\n  </tr>\n  <tr>\n    <td><button id=\"buttonUnsub\">Unsubscribe</button></td>\n    <td id=\"data_4\"></td>\n  </tr>\n  <tr>\n    <td><button id=\"buttonBrowse\">Browse</button></td>\n    <td><pre id=\"data_5\">data</pre></td>\n  </tr>\n</table>\n\n</body>\n</html>\n<script>{{{payload.script}}}</script>",
         "x": 750,
         "y": 380,
         "wires": [
@@ -1035,7 +1035,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 200,
-        "y": 800,
+        "y": 720,
         "wires": [
             [
                 "d7a124f8.e34638"
@@ -1052,7 +1052,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 210,
-        "y": 1000,
+        "y": 920,
         "wires": [
             [
                 "fcfb4e7e.105448",
@@ -1069,7 +1069,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 430,
-        "y": 800,
+        "y": 720,
         "wires": [
             [
                 "80c9247c.453f48"
@@ -1085,7 +1085,7 @@
         "console": "false",
         "complete": "payload",
         "x": 850,
-        "y": 1000,
+        "y": 920,
         "wires": []
     },
     {
@@ -1094,7 +1094,7 @@
         "z": "a8e0faa6.6f89c8",
         "name": "",
         "x": 870,
-        "y": 960,
+        "y": 880,
         "wires": []
     },
     {
@@ -1108,7 +1108,7 @@
         "syntax": "mustache",
         "template": "input[type=text], select {\n    width: 100%;\n    padding: 12px 20px;\n    margin: 8px 0;\n    display: inline-block;\n    border: 1px solid #ccc;\n    border-radius: 4px;\n    box-sizing: border-box;\n}\n\ninput[type=submit] {\n    width: 100%;\n    background-color: #4CAF50;\n    color: white;\n    padding: 14px 20px;\n    margin: 8px 0;\n    border: none;\n    border-radius: 4px;\n    cursor: pointer;\n}\n\ninput[type=submit]:hover {\n    background-color: #45a049;\n}\n\ndiv {\n    border-radius: 5px;\n    background-color: #f2f2f2;\n    padding: 20px;\n}",
         "x": 590,
-        "y": 900,
+        "y": 820,
         "wires": [
             [
                 "f5e84333.2c0c3"
@@ -1126,7 +1126,7 @@
         "syntax": "plain",
         "template": "$(document).ready(function(e) {\n    \n    $(\"form[ajax=true]\").submit(function(e) {\n        \n        e.preventDefault();\n        \n        var form_data = $(this).serialize();\n        var form_url = $(this).attr(\"action\");\n        var form_method = $(this).attr(\"method\").toUpperCase();\n        \n        $(\"#loadingimg\").show();\n        \n        $.ajax({\n            url: form_url, \n            type: form_method,      \n            data: form_data,     \n            cache: false,\n            success: function(returnhtml){                          \n                $(\"#result\").html(returnhtml); \n                $(\"#loadingimg\").hide();                    \n            }           \n        });    \n        \n    });\n    \n});",
         "x": 430,
-        "y": 900,
+        "y": 820,
         "wires": [
             [
                 "936ac7c.0c6eab8"
@@ -1139,7 +1139,7 @@
         "z": "a8e0faa6.6f89c8",
         "name": "",
         "x": 870,
-        "y": 900,
+        "y": 820,
         "wires": []
     },
     {
@@ -1153,7 +1153,7 @@
         "syntax": "mustache",
         "template": "<html>\n  <head>\n    <title>My Site</title>\n    <meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\">\n    <meta charset=\"utf-8\">\n    <script src=\"http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js\"></script>\n    <style>{{{payload.style}}}</style>\n  </head>\n  \n\n    <h2>Using CSS to style an HTML form with AJAX POST and Node-RED</h2>\n    <h4><a href=\"http://www.internetoflego.com\">Internet of LEGO</a></h4>\n\n<div>\n  <form method=\"post\" action=\"/{{url}}\" ajax=\"true\">\n    <label for=\"fname\">First Name</label>\n    <input type=\"text\" id=\"fname\" name=\"firstname\">\n\n    <label for=\"lname\">Last Name</label>\n    <input type=\"text\" id=\"lname\" name=\"lastname\">\n\n    <label for=\"country\">Country</label>\n    <select id=\"country\" name=\"country\">\n      <option value=\"uk\">United Kingdom</option>\n      <option value=\"canada\">Canada</option>\n      <option value=\"usa\">USA</option>\n    </select>\n  \n    <input type=\"submit\" value=\"Submit\">\n  </form>\n</div>\n<div>\n    <span id=\"result\"></span>\n</div>\n\n</body>\n</html>\n<script>{{{payload.script}}}</script>",
         "x": 730,
-        "y": 900,
+        "y": 820,
         "wires": [
             [
                 "36e4df78.86ece8"
@@ -1167,7 +1167,7 @@
         "name": "Login Form",
         "info": "",
         "x": 390,
-        "y": 860,
+        "y": 780,
         "wires": []
     },
     {
@@ -1179,7 +1179,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 620,
-        "y": 960,
+        "y": 880,
         "wires": [
             [
                 "c2a53366.366c68"
@@ -1193,7 +1193,7 @@
         "name": "Inject msg object properties",
         "info": "",
         "x": 400,
-        "y": 760,
+        "y": 680,
         "wires": []
     },
     {
@@ -1202,7 +1202,7 @@
         "z": "a8e0faa6.6f89c8",
         "name": "",
         "x": 410,
-        "y": 960,
+        "y": 880,
         "wires": [
             [
                 "71dfe77c.7b91f8"
@@ -1216,7 +1216,7 @@
         "name": "Website",
         "info": "",
         "x": 170,
-        "y": 740,
+        "y": 660,
         "wires": []
     },
     {
@@ -1226,7 +1226,7 @@
         "name": "Form Submission",
         "info": "",
         "x": 200,
-        "y": 940,
+        "y": 860,
         "wires": []
     },
     {
@@ -1236,8 +1236,8 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 570,
-        "y": 580,
+        "x": 550,
+        "y": 540,
         "wires": []
     },
     {
@@ -1249,8 +1249,8 @@
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 210,
-        "y": 580,
+        "x": 190,
+        "y": 540,
         "wires": [
             [
                 "8b81ccff.9117c"
@@ -1268,8 +1268,8 @@
         "syntax": "mustache",
         "template": "{{payload}} ",
         "output": "str",
-        "x": 400,
-        "y": 580,
+        "x": 380,
+        "y": 540,
         "wires": [
             [
                 "f1f9598.3fa7aa8"
@@ -1285,7 +1285,7 @@
         "fieldType": "msg",
         "format": "javascript",
         "syntax": "plain",
-        "template": "/*\nTemp: read, sub, unsub\nCapacity: read, write, sub, unsub\nName: read, write, sub, unsub\nRam (\"s=memory_used\"): read, sub, unsub\n\nread -> get\nwrite -> post\nsub -> post\nunsub -> post\nbrowse -> get/post\n*/\n\n//change css on option selected\nfunction setBtn(element) {\n    try {\n        // gewaehlter Wert aus select box\n        const v = element.options[element.selectedIndex].value;\n        \n        if (v == \"nopt\") {\n            document.getElementById(\"buttonWrite\").disabled = false;\n            document.getElementById(\"buttonBrowse\").disabled = false;\n        } else if (v == \"name\") {\n            document.getElementById(\"buttonWrite\").disabled = false;\n            document.getElementById(\"buttonBrowse\").disabled = true;\n\n            // Read name\n            $(document).ready(function () {\n                const Url = 'http://localhost:1880/readname';\n                $(\"#buttonRead\").click(function (result) {\n                    $.ajax({\n                        type: \"GET\",\n                        url: Url,\n                        success: function (result) {\n                            document.getElementById(\"data_1\").innerHTML = (result);\n                        },\n                        error: function (error) {\n                            console.log(`Error ${error}`);\n                        }\n                    });\n                });\n            });\n            \n            //write name?\n            //setvariable\n            $(document).ready(function () {\n                const Url = 'http://localhost:1880/setvariable';\n                $(\"#buttonWrite\").click(function (result) {\n                    $.ajax({\n                        type: \"POST\",\n                        url: Url,\n                        success: function (result) {\n                            console.log(result);\n            \n                        },\n                        error: function (error) {\n                            console.log(`Error ${error}`);\n                        }\n                    });\n                });\n            });\n\n        } else if (v == \"capacity\") {\n            document.getElementById(\"buttonWrite\").disabled = false;\n            document.getElementById(\"buttonBrowse\").disabled = true;\n\n            // Read Capacity\n            $(document).ready(function () {\n                const Url = 'http://localhost:1880/readcapacity';\n                $(\"#buttonRead\").click(function (result) {\n                    $.ajax({\n                        type: \"GET\",\n                        url: Url,\n                        success: function (result) {\n                            console.log(result);\n                            document.getElementById(\"data_1\").innerHTML = (result);\n\n                        },\n                        error: function (error) {\n                            console.log(`Error ${error}`);\n                        }\n                    });\n                });\n            });\n\n        } else if (v == \"temp\") {\n            document.getElementById(\"buttonBrowse\").disabled = true;\n            document.getElementById(\"buttonWrite\").disabled = true;\n\n            // Read temp\n            $(document).ready(function () {\n                const Url = 'http://localhost:1880/readtemp';\n                $(\"#buttonRead\").click(function (result) {\n                    $.ajax({\n                        type: \"GET\",\n                        url: Url,\n                        success: function (result) {\n                            console.log(result);\n                            document.getElementById(\"data_1\").innerHTML = (result);\n\n                        },\n                        error: function (error) {\n                            console.log(`Error ${error}`);\n                        }\n                    });\n                });\n            });\n        } else if (v == \"ram\") {\n            document.getElementById(\"buttonBrowse\").disabled = true;\n            document.getElementById(\"buttonWrite\").disabled = true;\n\n            // Read ram\n            $(document).ready(function () {\n                const Url = 'http://localhost:1880/readram';\n                $(\"#buttonRead\").click(function (result) {\n                    $.ajax({\n                        type: \"GET\",\n                        url: Url,\n                        success: function (result) {\n                            console.log(result);\n                            document.getElementById(\"data_1\").innerHTML = (result);\n                        },\n                        error: function (error) {\n                            console.log(`Error ${error}`);\n                        }\n                    });\n                });\n            });\n        }\n\n    } catch (err) {\n        console.log(err.message);\n    }\n}\n\n// Browse\n$(document).ready(function () {\n    const Url = 'http://localhost:1880/browse';\n    $(\"#buttonBrowse\").click(function (result) {\n        $.ajax({\n            type: \"GET\",\n            url: Url,\n            success: function (result) {\n\n                console.log(result);\n                result = JSON.stringify(result, null, 4);\n                console.log(result);\n                document.getElementById(\"data_5\").innerHTML = result;\n\n            },\n            error: function (error) {\n                console.log(`Error ${error}`);\n            }\n        });\n    });\n});",
+        "template": "/*\nTemp: read, sub, unsub\nCapacity: read, write, sub, unsub\nName: read, write, sub, unsub\nRam (\"s=memory_used\"): read, sub, unsub\n\nread -> get\nwrite -> post\nsub -> post\nunsub -> post\nbrowse -> get/post\n*/\n\n//change css on option selected\nfunction setBtn(element) {\n    try {\n        // gewaehlter Wert aus select box\n        const v = element.options[element.selectedIndex].value;\n        if (v == \"nopt\") {\n            document.getElementById(\"buttonWrite\").disabled = false;\n            document.getElementById(\"buttonBrowse\").disabled = false;\n        } else if (v == \"name\") {\n            document.getElementById(\"buttonWrite\").disabled = false;\n            document.getElementById(\"buttonBrowse\").disabled = true;\n\n            // Read name\n            $(document).ready(function () {\n                const Url = 'http://localhost:1880/readname';\n                $(\"#buttonRead\").click(function (result) {\n                    $.ajax({\n                        type: \"GET\",\n                        url: Url,\n                        success: function (result) {\n                            document.getElementById(\"data_1\").innerHTML = (result);\n                        },\n                        error: function (error) {\n                            console.log(`Error ${error}`);\n                        }\n                    });\n                });\n            });\n            \n            //setname\n            $(document).ready(function () {\n                const Url = 'http://localhost:1880/setname';\n                $(\"#buttonWrite\").click(function (result) {\n                    var text=document.getElementById('input1').value;\n                    var data=text;\n                    $.ajax({\n                        type: \"POST\",\n                        url: Url,\n                        contentType: false,\n                        data : data,\n                        success: function (result) {\n                            console.log(result);\n                            console.log(data);\n                        },\n                        error: function (error) {\n                            console.log(`Error ${error}`);\n                        }\n                    });\n                });\n            });\n\n        } else if (v == \"capacity\") {\n            document.getElementById(\"buttonWrite\").disabled = false;\n            document.getElementById(\"buttonBrowse\").disabled = true;\n\n            // Read Capacity\n            $(document).ready(function () {\n                const Url = 'http://localhost:1880/readcapacity';\n                $(\"#buttonRead\").click(function (result) {\n                    $.ajax({\n                        type: \"GET\",\n                        url: Url,\n                        success: function (result) {\n                            console.log(result);\n                            document.getElementById(\"data_1\").innerHTML = (result);\n\n                        },\n                        error: function (error) {\n                            console.log(`Error ${error}`);\n                        }\n                    });\n                });\n            });\n\n            //setcapacity\n            $(document).ready(function () {\n                const Url = 'http://localhost:1880/setcapacity';\n                //var data=\"23\";\n                \n                $(\"#buttonWrite\").click(function (result) {\n                    var text=document.getElementById('input1').value;\n                    var data=text;\n                    $.ajax({\n                        type: \"POST\",\n                        url: Url,\n                        contentType: false,\n                        data : data,\n                        success: function (result) {\n                            console.log(result);\n                            console.log(data);\n                        },\n                        error: function (error) {\n                            console.log(`Error ${error}`);\n                        }\n                    });\n                });\n            });\n\n        } else if (v == \"temp\") {\n            document.getElementById(\"buttonBrowse\").disabled = true;\n            document.getElementById(\"buttonWrite\").disabled = true;\n\n            // Read temp\n            $(document).ready(function () {\n                const Url = 'http://localhost:1880/readtemp';\n                $(\"#buttonRead\").click(function (result) {\n                    $.ajax({\n                        type: \"GET\",\n                        url: Url,\n                        success: function (result) {\n                            console.log(result);\n                            document.getElementById(\"data_1\").innerHTML = (result);\n\n                        },\n                        error: function (error) {\n                            console.log(`Error ${error}`);\n                        }\n                    });\n                });\n            });\n        } else if (v == \"ram\") {\n            document.getElementById(\"buttonBrowse\").disabled = true;\n            document.getElementById(\"buttonWrite\").disabled = true;\n\n            // Read ram\n            $(document).ready(function () {\n                const Url = 'http://localhost:1880/readram';\n                $(\"#buttonRead\").click(function (result) {\n                    $.ajax({\n                        type: \"GET\",\n                        url: Url,\n                        success: function (result) {\n                            console.log(result);\n                            document.getElementById(\"data_1\").innerHTML = (result);\n                        },\n                        error: function (error) {\n                            console.log(`Error ${error}`);\n                        }\n                    });\n                });\n            });\n        }\n\n    } catch (err) {\n        console.log(err.message);\n    }\n}\n\n// Browse\n$(document).ready(function () {\n    const Url = 'http://localhost:1880/browse';\n    $(\"#buttonBrowse\").click(function (result) {\n        $.ajax({\n            type: \"GET\",\n            url: Url,\n            success: function (result) {\n\n                console.log(result);\n                result = JSON.stringify(result, null, 4);\n                console.log(result);\n                document.getElementById(\"data_5\").innerHTML = result;\n\n            },\n            error: function (error) {\n                console.log(`Error ${error}`);\n            }\n        });\n    });\n});",
         "x": 450,
         "y": 380,
         "wires": [
@@ -2180,7 +2180,7 @@
         "type": "debug",
         "z": "fe3819ac.197ff8",
         "name": "",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -2732,7 +2732,7 @@
         "method": "GET",
         "ret": "txt",
         "paytoqs": "ignore",
-        "url": "localhost:1990/browse",
+        "url": "localhost:1880/browse",
         "tls": "",
         "persist": false,
         "proxy": "",
@@ -3071,9 +3071,9 @@
         "type": "http response",
         "z": "fe3819ac.197ff8",
         "name": "",
-        "statusCode": "",
+        "statusCode": "200",
         "headers": {},
-        "x": 1430,
+        "x": 1440,
         "y": 940,
         "wires": []
     },
@@ -3371,7 +3371,8 @@
         "y": 1040,
         "wires": [
             [
-                "e5cf276f.2d7938"
+                "e5cf276f.2d7938",
+                "f2e2fd8d.6f51d8"
             ]
         ]
     },
@@ -3538,96 +3539,6 @@
         ]
     },
     {
-        "id": "aed3ba74.85ecc8",
-        "type": "function",
-        "z": "fe3819ac.197ff8",
-        "name": "",
-        "func": "msg.topic=[\"read\",msg.payload];\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "x": 520,
-        "y": 1420,
-        "wires": [
-            [
-                "c0cc80b1.9866b"
-            ]
-        ]
-    },
-    {
-        "id": "c0cc80b1.9866b",
-        "type": "http request",
-        "z": "fe3819ac.197ff8",
-        "name": "",
-        "method": "GET",
-        "ret": "txt",
-        "paytoqs": "ignore",
-        "url": "localhost:1990/browse",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "authType": "",
-        "x": 730,
-        "y": 1420,
-        "wires": [
-            [
-                "2f3c1a83.16f2d6"
-            ]
-        ]
-    },
-    {
-        "id": "2f3c1a83.16f2d6",
-        "type": "json",
-        "z": "fe3819ac.197ff8",
-        "name": "",
-        "property": "payload",
-        "action": "",
-        "pretty": false,
-        "x": 950,
-        "y": 1420,
-        "wires": [
-            [
-                "c0a1905e.e259a"
-            ]
-        ]
-    },
-    {
-        "id": "c0a1905e.e259a",
-        "type": "function",
-        "z": "fe3819ac.197ff8",
-        "name": "",
-        "func": "let variableToWork = msg.topic;\n    let p=msg.payload;\n    if(variableToWork[0]===\"write\"){\n        msg.payload = variableToWork[1].value;\n        p=p[variableToWork[1].browseName];\n        var xhr = new XMLHttpRequest();\n        xhr.open(\"POST\", \"localhost:1990/readvariable\", true);\n        xhr.setRequestHeader('Content-Type','application/json');\n        xhr.send(String(variableToWork[1].browseName));\n        xhr.onload = function(){\n            var response=this.responseText;\n        }\n        switch(typeof response){\n            case 'String':\n                msg.datatype=\"String\";\n                break;\n            case 'Number':\n                msg.datatype=\"Double\";\n                break;\n            default:\n                msg.datatype=\"String\";\n        }\n\n        msg.browseName=variableToWork[1].browseName;\n    }\n    else{\n        p=p[variableToWork[1]];\n    }\n    msg.topic=p.nodeId;\n    msg.action=variableToWork[0];\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "x": 1160,
-        "y": 1420,
-        "wires": [
-            [
-                "527bec9f.bc6f74"
-            ]
-        ]
-    },
-    {
-        "id": "527bec9f.bc6f74",
-        "type": "debug",
-        "z": "fe3819ac.197ff8",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1360,
-        "y": 1440,
-        "wires": []
-    },
-    {
         "id": "8f669b5c.433068",
         "type": "function",
         "z": "fe3819ac.197ff8",
@@ -3668,7 +3579,7 @@
         "type": "function",
         "z": "fe3819ac.197ff8",
         "name": "switch payloads for variable read",
-        "func": "msg.setValue=msg.payload;\nmsg.payload=\"Capacity\";\nreturn msg;",
+        "func": "msg.setValue=msg.payload;\nmsg.payload=msg.browseName;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -3801,7 +3712,7 @@
         "method": "POST",
         "ret": "txt",
         "paytoqs": "ignore",
-        "url": "localhost:1990/readvariable",
+        "url": "localhost:1880/readvariable",
         "tls": "",
         "persist": false,
         "proxy": "",
@@ -3819,7 +3730,7 @@
         "type": "function",
         "z": "fe3819ac.197ff8",
         "name": "set datatype",
-        "func": "try{\n    msg.payload=Number(msg.payload);\n}\ncatch{}\nswitch(typeof msg.payload){\n    case \"string\":\n        msg.datatype=\"String\";\n        break;\n    case \"number\":\n        msg.datatype=\"Double\";\n        break;\n    default:\n        msg.datatype=\"String\";\n        break;\n}\nmsg.payload=msg.setValue;\nreturn msg;",
+        "func": "if(!isNaN(Number(msg.payload))){\n    console.log(Number(msg.payload));\n    msg.datatype=\"Double\";\n    console.log(\"bin hier\");\n}\nelse{\n    msg.datatype=\"String\";\n}\nmsg.payload=msg.setValue;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -3837,7 +3748,7 @@
         "type": "function",
         "z": "fe3819ac.197ff8",
         "name": "",
-        "func": "msg.payload='{\"browseName\": \"Capacity\", \"value:\"'+msg.payload;\nreturn msg;",
+        "func": "msg.payload='{\"browseName\": \"Capacity\", \"value\":\"'+msg.payload + '\"}';\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -3846,7 +3757,8 @@
         "y": 1040,
         "wires": [
             [
-                "43edc414.22ca2c"
+                "43edc414.22ca2c",
+                "9c480ee6.9373b8"
             ]
         ]
     },
@@ -3869,7 +3781,7 @@
         "method": "POST",
         "ret": "txt",
         "paytoqs": "ignore",
-        "url": "localhost:1990/setvariable",
+        "url": "localhost:1880/setvariable",
         "tls": "",
         "persist": false,
         "proxy": "",
@@ -3878,7 +3790,8 @@
         "y": 1040,
         "wires": [
             [
-                "d08dc701.570de8"
+                "d08dc701.570de8",
+                "f3a68d72.934b88"
             ]
         ]
     },
@@ -4310,37 +4223,6 @@
         ]
     },
     {
-        "id": "b90a4c7b.31575",
-        "type": "http in",
-        "z": "fe3819ac.197ff8",
-        "name": "",
-        "url": "/setname",
-        "method": "post",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 180,
-        "y": 1460,
-        "wires": [
-            [
-                "8b00dde.8f055a"
-            ]
-        ]
-    },
-    {
-        "id": "8b00dde.8f055a",
-        "type": "OpcUa-Item",
-        "z": "fe3819ac.197ff8",
-        "item": "ns=1; s=Name",
-        "datatype": "String",
-        "value": "",
-        "name": "Name",
-        "x": 340,
-        "y": 1460,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "fd312e4b.acdc9",
         "type": "comment",
         "z": "fe3819ac.197ff8",
@@ -4358,6 +4240,174 @@
         "info": "",
         "x": 130,
         "y": 920,
+        "wires": []
+    },
+    {
+        "id": "f3a68d72.934b88",
+        "type": "debug",
+        "z": "fe3819ac.197ff8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 710,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "9c480ee6.9373b8",
+        "type": "debug",
+        "z": "fe3819ac.197ff8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 450,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "f2e2fd8d.6f51d8",
+        "type": "debug",
+        "z": "fe3819ac.197ff8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 250,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "82ec9d92.3254d",
+        "type": "http in",
+        "z": "fe3819ac.197ff8",
+        "name": "",
+        "url": "/setname",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 1540,
+        "wires": [
+            [
+                "52a9fc4c.35f3a4",
+                "b1d0aae9.b092d8"
+            ]
+        ]
+    },
+    {
+        "id": "52a9fc4c.35f3a4",
+        "type": "function",
+        "z": "fe3819ac.197ff8",
+        "name": "",
+        "func": "msg.payload='{\"browseName\": \"Name\", \"value\":\"'+msg.payload + '\"}';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 370,
+        "y": 1540,
+        "wires": [
+            [
+                "df6b9356.fe848",
+                "5af37a3b.80c9bc"
+            ]
+        ]
+    },
+    {
+        "id": "264f8dbe.c30f02",
+        "type": "http response",
+        "z": "fe3819ac.197ff8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 730,
+        "y": 1540,
+        "wires": []
+    },
+    {
+        "id": "df6b9356.fe848",
+        "type": "http request",
+        "z": "fe3819ac.197ff8",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "localhost:1880/setvariable",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 570,
+        "y": 1540,
+        "wires": [
+            [
+                "264f8dbe.c30f02",
+                "97049e1e.3021d"
+            ]
+        ]
+    },
+    {
+        "id": "97049e1e.3021d",
+        "type": "debug",
+        "z": "fe3819ac.197ff8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 1600,
+        "wires": []
+    },
+    {
+        "id": "5af37a3b.80c9bc",
+        "type": "debug",
+        "z": "fe3819ac.197ff8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 490,
+        "y": 1600,
+        "wires": []
+    },
+    {
+        "id": "b1d0aae9.b092d8",
+        "type": "debug",
+        "z": "fe3819ac.197ff8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 290,
+        "y": 1640,
         "wires": []
     }
 ]
