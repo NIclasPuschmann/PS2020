@@ -32,9 +32,9 @@ spec:
   gateways:
   - opc-gateway
   http:
-    route:
+  - route:
     - destination:
-        host: opcuasampleclient
+        host: opcuahttptestclient
         port:
             number: 1880
 ---
