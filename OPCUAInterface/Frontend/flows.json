@@ -38,7 +38,7 @@
     {
         "id": "436ca96e.77b938",
         "type": "websocket-client",
-        "path": "ws://ocuashim:1880/ws/simple2",
+        "path": "ws://opcuashim:1880/ws/simple2",
         "tls": "",
         "wholemsg": "false"
     },
@@ -289,7 +289,7 @@
         "fieldType": "msg",
         "format": "javascript",
         "syntax": "plain",
-        "template": "'use strict';\n\n/*\nTemp: read, sub, unsub\nCapacity: read, write, sub, unsub\nName: read, write, sub, unsub\nRam (\"s=memory_used\"): read, sub, unsub\n\nread -> get\nwrite -> post\nsub -> post\nunsub -> post\nbrowse -> get/post\n*/\n\n/**/\n\ndocument.getElementById(\"buttonRead\").disabled = true;\ndocument.getElementById(\"buttonWrite\").disabled = true;\ndocument.getElementById(\"buttonSub\").disabled = true;\ndocument.getElementById(\"buttonUnsub\").disabled = true;\n\nconst t = document.getElementById(\"attributes\").value;\nconsole.log('1. test ' + t);\n\ntry {\n    $(document).ready(function () {\n\n        wsConnect();\n\n        function wsConnect() {\n            var ws;\n            var wsUri = \"ws:\";\n            var loc = window.location;\n            console.log(loc);\n            if (loc.protocol === \"https:\") {\n                wsUri = \"wss:\";\n            }\n            // This needs to point to the web socket in the Node-RED flow\n            // ... in this case it's ws/simple\n            wsUri += \"//\" + loc.host + loc.pathname.replace(\"mysite\", \"ws/simple2\");\n            // wsUri ws://localhost:1880/ws/simple2\n            // warum wird wstest mit ws/simple2 ersetzt?\n            // warum wird url meiner website mit der url des websockets getauscht?\n            // warum al wsUri nicht gleich ws://localhost:1880/ws/simple2 uebergeben?                    \n\n            console.log(\"connect\", wsUri);\n            ws = new WebSocket(wsUri);\n            //var line = \"\";    // either uncomment this for a building list of messages\n            ws.onmessage = function (msg) {\n                var a = document.getElementById(\"attributes\");\n                var x = a.options[a.selectedIndex].text;\n                //var line = \"\"; // or uncomment this to overwrite the existing message\n                // parse the incoming message as a JSON object\n                var data = JSON.parse(msg.data);\n                // console.log('data '+typeof(data));\n                // console.log(Object.values(data));\n                // console.log(data.payload);\n                //data=JSON.parse(data);\n                //data=data.payload;\n                //console.log(data);\n                // build the output from the topic and payload parts of the object\n                //line += \"<p>\" + data + \"</p>\";\n                document.getElementById(\"data_3\").innerHTML = data.payload;\n                // replace the messages div with the new \"line\"\n                //document.getElementById('messages').innerHTML = line;\n                //ws.send(JSON.stringify({data:data}));\n            }\n            ws.onopen = function () {\n                // update the status div with the connection status\n                document.getElementById('demo').innerHTML = \"connected\";\n                //ws.send(\"Open for data\");\n                console.log(\"connected\");\n            }\n            ws.onclose = function () {\n                // update the status div with the connection status\n                document.getElementById('demo').innerHTML = \"not connected\";\n                // in case of lost connection tries to reconnect every 3 secs\n                setTimeout(wsConnect, 3000);\n            }\n        }\n        $('#attributes').on('focus', function () {\n\n            var previous = this.value;\n            console.log('this is the prev element '+previous);\n\n            $('#attributes').on('change', function () {\n\n\n                if(document.getElementById('buttonSub').getAttribute('subbed') === \"true\" ) {\n\n                    document.getElementById('buttonUnsub').click();\n                }\n\n                document.getElementById(\"data_1\").innerHTML = \"\";\n                // gewaehlter Wert aus select box\n\n                var v = document.getElementById(\"attributes\").value;\n                var a = document.getElementById(\"attributes\");\n                var x = a.options[a.selectedIndex].text;\n\n                console.log('2. test ' + v);\n                console.log('3. test ' + x);\n\n                if (v == \"nopt\") {\n                    document.getElementById(\"buttonRead\").disabled = true;\n                    document.getElementById(\"buttonWrite\").disabled = true;\n                    document.getElementById(\"buttonSub\").disabled = true;\n                    document.getElementById(\"buttonUnsub\").disabled = true;\n                    document.getElementById(\"data_1\").innerHTML = \"\";\n\n                } else if (v == \"name\") {\n                    document.getElementById(\"buttonRead\").disabled = false;\n                    document.getElementById(\"buttonWrite\").disabled = false;\n                    document.getElementById(\"buttonSub\").disabled = false;\n                    document.getElementById(\"buttonUnsub\").disabled = false;\n                    document.getElementById(\"data_1\").innerHTML = \"\";\n\n                    // READ NAME\n                    $(\"#buttonRead\").unbind(\"click\");\n                    $(\"#buttonRead\").click(function () {\n                        const Url = loc.host + '/readname';\n                        $.ajax({\n                            type: \"GET\",\n                            url: Url,\n                            success: function (result) {\n                                console.log(result);\n                                document.getElementById(\"data_1\").innerHTML = result;\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                            }\n                        });\n                    });\n\n                    //WRITE NAME\n                    $(\"#buttonWrite\").unbind(\"click\");\n                    $(\"#buttonWrite\").click(function () {\n                        const Url = loc.host + '/setname';\n                        var text = document.getElementById('input1').value;\n                        var data = text;\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log(data);\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                            }\n                        });\n                    });\n\n                    //SUB NAME\n                    $(\"#buttonSub\").unbind(\"click\");\n                    $(\"#buttonSub\").click(function () {\n                        const Url = loc.host + '/subname';\n                        var data = \"sub\";\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"true\");\n                                document.getElementById(\"data_5\").innerHTML = \"\";\n\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n\n                    //UNSUB NAME\n                    $(\"#buttonUnsub\").unbind(\"click\");\n                    $(\"#buttonUnsub\").click(function () {\n                        const Url = loc.host + '/subname';\n                        var data = \"unsub\";\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"false\");\n                                document.getElementById(\"data_3\").innerHTML = \"\";\n                                document.getElementById(\"data_4\").innerHTML = \"\";\n                                document.getElementById(\"data_5\").innerHTML = \"Sie haben \" + x + \" erfolgreich deabonniert.\";\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n\n                } else if (v == \"capacity\") {\n                    document.getElementById(\"buttonRead\").disabled = false;\n                    document.getElementById(\"buttonWrite\").disabled = false;\n                    document.getElementById(\"buttonSub\").disabled = false;\n                    document.getElementById(\"buttonUnsub\").disabled = false;\n                    document.getElementById(\"data_1\").innerHTML = \"\";\n\n                    // READ CAP\n                    $(\"#buttonRead\").unbind(\"click\");\n                    $(\"#buttonRead\").click(function () {\n                        const Url = loc.host + '/readcapacity';\n                        $.ajax({\n                            type: \"GET\",\n                            url: Url,\n                            success: function (result) {\n                                console.log(result);\n                                document.getElementById(\"data_1\").innerHTML = result;\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                            }\n                        });\n                    });\n\n                    //WRITE CAP\n                    //var data=\"23\";\n                    $(\"#buttonWrite\").unbind(\"click\");\n                    $(\"#buttonWrite\").click(function () {\n                        const Url = loc.host + '/setcapacity';\n                        var text = document.getElementById('input1').value;\n                        var data = text;\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log(data);\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                            }\n                        });\n                    });\n\n                    // SUB CAP\n                    $(\"#buttonSub\").unbind(\"click\");\n                    $(\"#buttonSub\").click(function () {\n                        const Url = loc.host + '/subcapacity';\n                        var data = \"sub\";\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"data_5\").innerHTML = \"\";\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"true\");\n\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n\n                    //UNSUB CAP\n                    $(\"#buttonUnsub\").unbind(\"click\");\n                    $(\"#buttonUnsub\").click(function () {\n                        const Url = loc.host + '/subcapacity';\n                        var data = \"unsub\";\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"false\");\n                                document.getElementById(\"data_3\").innerHTML = \"\";\n                                document.getElementById(\"data_4\").innerHTML = \"\";\n                                document.getElementById(\"data_5\").innerHTML = \"Sie haben \" + x + \" erfolgreich deabonniert.\";\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n\n\n                } else if (v == \"temp\") {\n                    document.getElementById(\"buttonRead\").disabled = false;\n                    document.getElementById(\"buttonWrite\").disabled = true;\n                    document.getElementById(\"buttonSub\").disabled = false;\n                    document.getElementById(\"buttonUnsub\").disabled = false;\n                    document.getElementById(\"data_1\").innerHTML = \"\";\n\n                    // READ TEMP\n                    $(\"#buttonRead\").unbind(\"click\");\n                    $(\"#buttonRead\").click(function () {\n                        const Url = loc.host + '/readtemp';\n                        $.ajax({\n                            type: \"GET\",\n                            url: Url,\n                            success: function (result) {\n                                console.log(result);\n                                document.getElementById(\"data_1\").innerHTML = result;\n                                document.getElementById(\"data_1\").innerHTML = result;\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                            }\n                        });\n                    });\n\n                    // SUB TEMP\n                    $(\"#buttonSub\").unbind(\"click\");\n                    $(\"#buttonSub\").click(function () {\n                        const Url = loc.host + '/subtemperature';\n                        var data = \"sub\";\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"true\");\n                                document.getElementById(\"data_5\").innerHTML = \"\";\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n\n                    //UNSUB TEMP\n                    $(\"#buttonUnsub\").unbind(\"click\");\n                    $(\"#buttonUnsub\").click(function () {\n                        const Url = loc.host + '/subtemperature';\n                        var data = \"unsub\";\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"false\");\n                                document.getElementById(\"data_3\").innerHTML = \"\";\n                                document.getElementById(\"data_4\").innerHTML = \"\";\n                                document.getElementById(\"data_5\").innerHTML = \"Sie haben \" + x + \" erfolgreich deabonniert.\";\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n\n                } else if (v == \"ram\") {\n                    document.getElementById(\"buttonRead\").disabled = false;\n                    document.getElementById(\"buttonWrite\").disabled = true;\n                    document.getElementById(\"buttonSub\").disabled = false;\n                    document.getElementById(\"buttonUnsub\").disabled = false;\n                    document.getElementById(\"data_1\").innerHTML = \"\";\n\n                    // READ RAM\n                    //$(document).ready(function () {\n                    $(\"#buttonRead\").unbind(\"click\");\n                    $(\"#buttonRead\").click(function () {\n                        const Url = loc.host + '/readram';\n                        $.ajax({\n                            type: \"GET\",\n                            url: Url,\n                            success: function (result) {\n                                console.log(result);\n                                document.getElementById(\"data_1\").innerHTML = result;\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                            }\n                        });\n                    });\n\n                    // SUB RAM\n                    $(\"#buttonSub\").unbind(\"click\");\n                    $(\"#buttonSub\").click(function () {\n                        const Url = loc.host + '/subram';\n                        var data = \"sub\";\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"data_5\").innerHTML = \"\";\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"true\");\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n\n                    //UNSUB RAM\n                    $(\"#buttonUnsub\").unbind(\"click\");\n                    $(\"#buttonUnsub\").click(function () {\n                        const Url = loc.host + '/subram';\n                        var data = \"unsub\";\n\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"false\");\n                                document.getElementById(\"data_3\").innerHTML = \"\";\n                                document.getElementById(\"data_4\").innerHTML = \"\";\n                                document.getElementById(\"data_5\").innerHTML = \"Sie haben \" + x + \" erfolgreich deabonniert.\";\n\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n                }\n            });\n        });\n    });\n\n} catch (err) {\n    console.log(err.message);\n}\n\n// BROWSE   \n$(document).ready(function () {\n    const Url = loc.host + '/browse';\n    $(\"#buttonBrowse\").click(function () {\n        $.ajax({\n            type: \"GET\",\n            url: Url,\n            success: function (result) {\n                console.log(result);\n                result = JSON.stringify(result, null, 4);\n                console.log(result);\n                document.getElementById(\"data_6\").innerHTML = result;\n            },\n            error: function (error) {\n                console.log(`Error ${error}`);\n            }\n        });\n    });\n});",
+        "template": "'use strict';\n\n/*\nTemp: read, sub, unsub\nCapacity: read, write, sub, unsub\nName: read, write, sub, unsub\nRam (\"s=memory_used\"): read, sub, unsub\n\nread -> get\nwrite -> post\nsub -> post\nunsub -> post\nbrowse -> get/post\n*/\n\n/**/\n\ndocument.getElementById(\"buttonRead\").disabled = true;\ndocument.getElementById(\"buttonWrite\").disabled = true;\ndocument.getElementById(\"buttonSub\").disabled = true;\ndocument.getElementById(\"buttonUnsub\").disabled = true;\n\nconst t = document.getElementById(\"attributes\").value;\nconsole.log('1. test ' + t);\n\ntry {\n    $(document).ready(function () {\n\n        wsConnect();\n\n        function wsConnect() {\n            var ws;\n            var wsUri = \"ws:\";\n            var loc = window.location;\n            console.log(loc);\n            if (loc.protocol === \"https:\") {\n                wsUri = \"wss:\";\n            }\n            // This needs to point to the web socket in the Node-RED flow\n            // ... in this case it's ws/simple\n            wsUri += \"//\" + loc.host + loc.pathname.replace(\"mysite\", \"ws/simple2\");\n            // wsUri ws://localhost:1880/ws/simple2\n            // warum wird wstest mit ws/simple2 ersetzt?\n            // warum wird url meiner website mit der url des websockets getauscht?\n            // warum al wsUri nicht gleich ws://localhost:1880/ws/simple2 uebergeben?                    \n\n            console.log(\"connect\", wsUri);\n            ws = new WebSocket(wsUri);\n            //var line = \"\";    // either uncomment this for a building list of messages\n            ws.onmessage = function (msg) {\n                var a = document.getElementById(\"attributes\");\n                var x = a.options[a.selectedIndex].text;\n                //var line = \"\"; // or uncomment this to overwrite the existing message\n                // parse the incoming message as a JSON object\n                var data = JSON.parse(msg.data);\n                // console.log('data '+typeof(data));\n                // console.log(Object.values(data));\n                // console.log(data.payload);\n                //data=JSON.parse(data);\n                //data=data.payload;\n                //console.log(data);\n                // build the output from the topic and payload parts of the object\n                //line += \"<p>\" + data + \"</p>\";\n                var payload = JSON.parse(data.payload);\n                document.getElementById(\"data_3\").innerHTML = \"\"+payload.payload;\n                // replace the messages div with the new \"line\"\n                //document.getElementById('messages').innerHTML = line;\n                //ws.send(JSON.stringify({data:data}));\n            }\n            ws.onopen = function () {\n                // update the status div with the connection status\n                document.getElementById('demo').innerHTML = \"connected\";\n                //ws.send(\"Open for data\");\n                console.log(\"connected\");\n            }\n            ws.onclose = function () {\n                // update the status div with the connection status\n                document.getElementById('demo').innerHTML = \"not connected\";\n                // in case of lost connection tries to reconnect every 3 secs\n                setTimeout(wsConnect, 3000);\n            }\n        }\n        $('#attributes').on('focus', function () {\n\n            var previous = this.value;\n            console.log('this is the prev element '+previous);\n\n            $('#attributes').on('change', function () {\n\n\n                if(document.getElementById('buttonSub').getAttribute('subbed') === \"true\" ) {\n\n                    document.getElementById('buttonUnsub').click();\n                }\n\n                document.getElementById(\"data_1\").innerHTML = \"\";\n                // gewaehlter Wert aus select box\n\n                var v = document.getElementById(\"attributes\").value;\n                var a = document.getElementById(\"attributes\");\n                var x = a.options[a.selectedIndex].text;\n\n                console.log('2. test ' + v);\n                console.log('3. test ' + x);\n\n                if (v == \"nopt\") {\n                    document.getElementById(\"buttonRead\").disabled = true;\n                    document.getElementById(\"buttonWrite\").disabled = true;\n                    document.getElementById(\"buttonSub\").disabled = true;\n                    document.getElementById(\"buttonUnsub\").disabled = true;\n                    document.getElementById(\"data_1\").innerHTML = \"\";\n\n                } else if (v == \"name\") {\n                    document.getElementById(\"buttonRead\").disabled = false;\n                    document.getElementById(\"buttonWrite\").disabled = false;\n                    document.getElementById(\"buttonSub\").disabled = false;\n                    document.getElementById(\"buttonUnsub\").disabled = false;\n                    document.getElementById(\"data_1\").innerHTML = \"\";\n\n                    // READ NAME\n                    $(\"#buttonRead\").unbind(\"click\");\n                    $(\"#buttonRead\").click(function () {\n                        const Url = 'http://' + window.location.hostname + '/readname';\n                        $.ajax({\n                            type: \"GET\",\n                            url: Url,\n                            success: function (result) {\n                                console.log(result);\n                                document.getElementById(\"data_1\").innerHTML = result;\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                            }\n                        });\n                    });\n\n                    //WRITE NAME\n                    $(\"#buttonWrite\").unbind(\"click\");\n                    $(\"#buttonWrite\").click(function () {\n                        const Url = 'http://' + window.location.hostname + '/setname';\n                        var text = document.getElementById('input1').value;\n                        var data = text;\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log(data);\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                            }\n                        });\n                    });\n\n                    //SUB NAME\n                    $(\"#buttonSub\").unbind(\"click\");\n                    $(\"#buttonSub\").click(function () {\n                        const Url = 'http://' + window.location.hostname + '/subname';\n                        var data = \"sub\";\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"true\");\n                                document.getElementById(\"data_5\").innerHTML = \"\";\n\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n\n                    //UNSUB NAME\n                    $(\"#buttonUnsub\").unbind(\"click\");\n                    $(\"#buttonUnsub\").click(function () {\n                        const Url = 'http://' + window.location.hostname + '/subname';\n                        var data = \"unsub\";\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"false\");\n                                document.getElementById(\"data_3\").innerHTML = \"\";\n                                document.getElementById(\"data_4\").innerHTML = \"\";\n                                document.getElementById(\"data_5\").innerHTML = \"Sie haben \" + x + \" erfolgreich deabonniert.\";\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n\n                } else if (v == \"capacity\") {\n                    document.getElementById(\"buttonRead\").disabled = false;\n                    document.getElementById(\"buttonWrite\").disabled = false;\n                    document.getElementById(\"buttonSub\").disabled = false;\n                    document.getElementById(\"buttonUnsub\").disabled = false;\n                    document.getElementById(\"data_1\").innerHTML = \"\";\n\n                    // READ CAP\n                    $(\"#buttonRead\").unbind(\"click\");\n                    $(\"#buttonRead\").click(function () {\n                        const Url = 'http://' + window.location.hostname + '/readcapacity';\n                        $.ajax({\n                            type: \"GET\",\n                            url: Url,\n                            success: function (result) {\n                                console.log(result);\n                                document.getElementById(\"data_1\").innerHTML = result;\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                            }\n                        });\n                    });\n\n                    //WRITE CAP\n                    //var data=\"23\";\n                    $(\"#buttonWrite\").unbind(\"click\");\n                    $(\"#buttonWrite\").click(function () {\n                        const Url = 'http://' + window.location.hostname + '/setcapacity';\n                        var text = document.getElementById('input1').value;\n                        var data = text;\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log(data);\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                            }\n                        });\n                    });\n\n                    // SUB CAP\n                    $(\"#buttonSub\").unbind(\"click\");\n                    $(\"#buttonSub\").click(function () {\n                        const Url = 'http://' + window.location.hostname + '/subcapacity';\n                        var data = \"sub\";\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"data_5\").innerHTML = \"\";\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"true\");\n\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n\n                    //UNSUB CAP\n                    $(\"#buttonUnsub\").unbind(\"click\");\n                    $(\"#buttonUnsub\").click(function () {\n                        const Url = 'http://' + window.location.hostname + '/subcapacity';\n                        var data = \"unsub\";\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"false\");\n                                document.getElementById(\"data_3\").innerHTML = \"\";\n                                document.getElementById(\"data_4\").innerHTML = \"\";\n                                document.getElementById(\"data_5\").innerHTML = \"Sie haben \" + x + \" erfolgreich deabonniert.\";\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n\n\n                } else if (v == \"temp\") {\n                    document.getElementById(\"buttonRead\").disabled = false;\n                    document.getElementById(\"buttonWrite\").disabled = true;\n                    document.getElementById(\"buttonSub\").disabled = false;\n                    document.getElementById(\"buttonUnsub\").disabled = false;\n                    document.getElementById(\"data_1\").innerHTML = \"\";\n\n                    // READ TEMP\n                    $(\"#buttonRead\").unbind(\"click\");\n                    $(\"#buttonRead\").click(function () {\n                        const Url = 'http://' + window.location.hostname + '/readtemp';\n                        $.ajax({\n                            type: \"GET\",\n                            url: Url,\n                            success: function (result) {\n                                console.log(result);\n                                document.getElementById(\"data_1\").innerHTML = result;\n                                document.getElementById(\"data_1\").innerHTML = result;\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                            }\n                        });\n                    });\n\n                    // SUB TEMP\n                    $(\"#buttonSub\").unbind(\"click\");\n                    $(\"#buttonSub\").click(function () {\n                        const Url = 'http://' + window.location.hostname + '/subtemperature';\n                        var data = \"sub\";\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"true\");\n                                document.getElementById(\"data_5\").innerHTML = \"\";\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n\n                    //UNSUB TEMP\n                    $(\"#buttonUnsub\").unbind(\"click\");\n                    $(\"#buttonUnsub\").click(function () {\n                        const Url = 'http://' + window.location.hostname + '/subtemperature';\n                        var data = \"unsub\";\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"false\");\n                                document.getElementById(\"data_3\").innerHTML = \"\";\n                                document.getElementById(\"data_4\").innerHTML = \"\";\n                                document.getElementById(\"data_5\").innerHTML = \"Sie haben \" + x + \" erfolgreich deabonniert.\";\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n\n                } else if (v == \"ram\") {\n                    document.getElementById(\"buttonRead\").disabled = false;\n                    document.getElementById(\"buttonWrite\").disabled = true;\n                    document.getElementById(\"buttonSub\").disabled = false;\n                    document.getElementById(\"buttonUnsub\").disabled = false;\n                    document.getElementById(\"data_1\").innerHTML = \"\";\n\n                    // READ RAM\n                    //$(document).ready(function () {\n                    $(\"#buttonRead\").unbind(\"click\");\n                    $(\"#buttonRead\").click(function () {\n                        const Url = 'http://' + window.location.hostname + '/readram';\n                        $.ajax({\n                            type: \"GET\",\n                            url: Url,\n                            success: function (result) {\n                                console.log(result);\n                                document.getElementById(\"data_1\").innerHTML = result;\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                            }\n                        });\n                    });\n\n                    // SUB RAM\n                    $(\"#buttonSub\").unbind(\"click\");\n                    $(\"#buttonSub\").click(function () {\n                        const Url = 'http://' + window.location.hostname + '/subram';\n                        var data = \"sub\";\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"data_5\").innerHTML = \"\";\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"true\");\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n\n                    //UNSUB RAM\n                    $(\"#buttonUnsub\").unbind(\"click\");\n                    $(\"#buttonUnsub\").click(function () {\n                        const Url = 'http://' + window.location.hostname + '/subram';\n                        var data = \"unsub\";\n\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"false\");\n                                document.getElementById(\"data_3\").innerHTML = \"\";\n                                document.getElementById(\"data_4\").innerHTML = \"\";\n                                document.getElementById(\"data_5\").innerHTML = \"Sie haben \" + x + \" erfolgreich deabonniert.\";\n\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n                }\n            });\n        });\n    });\n\n} catch (err) {\n    console.log(err.message);\n}\n\n// BROWSE   \n$(document).ready(function () {\n    const Url = 'http://' + window.location.hostname + '/browse';\n    $(\"#buttonBrowse\").click(function () {\n        $.ajax({\n            type: \"GET\",\n            url: Url,\n            success: function (result) {\n                console.log(result);\n                result = JSON.stringify(result, null, 4);\n                console.log(result);\n                document.getElementById(\"data_6\").innerHTML = result;\n            },\n            error: function (error) {\n                console.log(`Error ${error}`);\n            }\n        });\n    });\n});",
         "x": 410,
         "y": 320,
         "wires": [
@@ -305,11 +305,11 @@
         "name": "",
         "server": "",
         "client": "436ca96e.77b938",
-        "x": 240,
+        "x": 250,
         "y": 640,
         "wires": [
             [
-                "b3395d72.45c82"
+                "cc56566b.befb18"
             ]
         ]
     },
@@ -320,7 +320,7 @@
         "name": "",
         "server": "9236f502.59c008",
         "client": "",
-        "x": 510,
+        "x": 840,
         "y": 640,
         "wires": []
     },
@@ -337,7 +337,8 @@
         "y": 700,
         "wires": [
             [
-                "42700c42.654b34"
+                "42700c42.654b34",
+                "1a6b8b72.8deb25"
             ]
         ]
     },
@@ -358,7 +359,8 @@
         "y": 700,
         "wires": [
             [
-                "3cb69d9b.f8fcd2"
+                "3cb69d9b.f8fcd2",
+                "5199d705.4ec988"
             ]
         ]
     },
@@ -369,7 +371,7 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 550,
+        "x": 730,
         "y": 700,
         "wires": []
     },
@@ -383,7 +385,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 180,
-        "y": 740,
+        "y": 840,
         "wires": [
             [
                 "58e733f6.b8f94c"
@@ -404,7 +406,7 @@
         "proxy": "",
         "authType": "",
         "x": 370,
-        "y": 740,
+        "y": 840,
         "wires": [
             [
                 "341bc748.040be8"
@@ -418,8 +420,8 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 550,
-        "y": 740,
+        "x": 730,
+        "y": 840,
         "wires": []
     },
     {
@@ -432,7 +434,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 180,
-        "y": 780,
+        "y": 880,
         "wires": [
             [
                 "5cd3b29c.fe3f4c"
@@ -453,7 +455,7 @@
         "proxy": "",
         "authType": "",
         "x": 370,
-        "y": 780,
+        "y": 880,
         "wires": [
             [
                 "3fbb1202.b6961e"
@@ -467,8 +469,8 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 550,
-        "y": 780,
+        "x": 730,
+        "y": 880,
         "wires": []
     },
     {
@@ -481,7 +483,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 190,
-        "y": 840,
+        "y": 960,
         "wires": [
             [
                 "c21246c7.77ad68"
@@ -502,7 +504,7 @@
         "proxy": "",
         "authType": "",
         "x": 370,
-        "y": 840,
+        "y": 960,
         "wires": [
             [
                 "e4ff2971.cc35a8"
@@ -517,7 +519,7 @@
         "statusCode": "",
         "headers": {},
         "x": 550,
-        "y": 840,
+        "y": 960,
         "wires": []
     },
     {
@@ -530,7 +532,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 190,
-        "y": 880,
+        "y": 1000,
         "wires": [
             [
                 "d11145e6.3f45d8"
@@ -551,7 +553,7 @@
         "proxy": "",
         "authType": "",
         "x": 370,
-        "y": 880,
+        "y": 1000,
         "wires": [
             [
                 "cd9b34c3.bec5d8"
@@ -566,7 +568,7 @@
         "statusCode": "",
         "headers": {},
         "x": 550,
-        "y": 880,
+        "y": 1000,
         "wires": []
     },
     {
@@ -579,7 +581,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 190,
-        "y": 920,
+        "y": 1040,
         "wires": [
             [
                 "186a3779.e3ab49"
@@ -594,13 +596,13 @@
         "method": "POST",
         "ret": "txt",
         "paytoqs": "ignore",
-        "url": "http://opcuashim:1880/subname",
+        "url": "http://opcuashim:1880/subcapacity",
         "tls": "",
         "persist": false,
         "proxy": "",
         "authType": "",
         "x": 370,
-        "y": 920,
+        "y": 1040,
         "wires": [
             [
                 "b3ccc70a.540c48"
@@ -615,7 +617,7 @@
         "statusCode": "",
         "headers": {},
         "x": 550,
-        "y": 920,
+        "y": 1040,
         "wires": []
     },
     {
@@ -628,7 +630,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 180,
-        "y": 980,
+        "y": 1100,
         "wires": [
             [
                 "841e4b1b.9da028"
@@ -649,7 +651,7 @@
         "proxy": "",
         "authType": "",
         "x": 370,
-        "y": 980,
+        "y": 1100,
         "wires": [
             [
                 "4b17273e.471d58"
@@ -664,7 +666,7 @@
         "statusCode": "",
         "headers": {},
         "x": 550,
-        "y": 980,
+        "y": 1100,
         "wires": []
     },
     {
@@ -677,7 +679,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 200,
-        "y": 1020,
+        "y": 1140,
         "wires": [
             [
                 "2e6356b1.ab996a"
@@ -698,7 +700,7 @@
         "proxy": "",
         "authType": "",
         "x": 390,
-        "y": 1020,
+        "y": 1140,
         "wires": [
             [
                 "8ad4b918.dabbe8"
@@ -713,7 +715,7 @@
         "statusCode": "",
         "headers": {},
         "x": 550,
-        "y": 1020,
+        "y": 1140,
         "wires": []
     },
     {
@@ -726,7 +728,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 170,
-        "y": 1080,
+        "y": 1200,
         "wires": [
             [
                 "12351fa5.6b484"
@@ -747,7 +749,7 @@
         "proxy": "",
         "authType": "",
         "x": 370,
-        "y": 1080,
+        "y": 1200,
         "wires": [
             [
                 "e6cc2ebb.fc527"
@@ -762,7 +764,7 @@
         "statusCode": "",
         "headers": {},
         "x": 550,
-        "y": 1080,
+        "y": 1200,
         "wires": []
     },
     {
@@ -775,7 +777,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 170,
-        "y": 1120,
+        "y": 1240,
         "wires": [
             [
                 "6a3ae9e6.0bdb18"
@@ -796,7 +798,7 @@
         "proxy": "",
         "authType": "",
         "x": 370,
-        "y": 1120,
+        "y": 1240,
         "wires": [
             [
                 "1bec6e77.4c83e2"
@@ -811,7 +813,7 @@
         "statusCode": "",
         "headers": {},
         "x": 550,
-        "y": 1120,
+        "y": 1240,
         "wires": []
     },
     {
@@ -824,7 +826,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 170,
-        "y": 1180,
+        "y": 1300,
         "wires": [
             [
                 "a554eac3.7cca78"
@@ -845,7 +847,7 @@
         "proxy": "",
         "authType": "",
         "x": 370,
-        "y": 1180,
+        "y": 1300,
         "wires": [
             [
                 "a57cd7c4.60bad8"
@@ -860,7 +862,7 @@
         "statusCode": "",
         "headers": {},
         "x": 550,
-        "y": 1180,
+        "y": 1300,
         "wires": []
     },
     {
@@ -871,6 +873,65 @@
         "info": "",
         "x": 360,
         "y": 580,
+        "wires": []
+    },
+    {
+        "id": "cc56566b.befb18",
+        "type": "change",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "_session",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 580,
+        "y": 640,
+        "wires": [
+            [
+                "b3395d72.45c82"
+            ]
+        ]
+    },
+    {
+        "id": "1a6b8b72.8deb25",
+        "type": "debug",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 330,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "5199d705.4ec988",
+        "type": "debug",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 740,
         "wires": []
     }
 ]
