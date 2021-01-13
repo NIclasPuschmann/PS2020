@@ -1,0 +1,66 @@
+##################################################################################################
+# This file defines the services, service accounts, and deployments for the Bookinfo sample.
+#
+# To apply all 4 Bookinfo services, their corresponding service accounts, and deployments:
+#
+#   kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
+#
+# Alternatively, you can deploy any resource separately:
+#
+#   kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml -l service=reviews # reviews Service
+#   kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml -l account=reviews # reviews ServiceAccount
+#   kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml -l app=reviews,version=v3 # reviews-v3 Deployment
+##################################################################################################
+
+##################################################################################################
+# Opc sample client service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: opcuahttptestclient
+  labels:
+    app: opcuahttptestclient
+    service: opcuahttptestclient
+spec:
+  ports: 
+    - port: 1880
+      name: http
+  selector:
+    app: opcuahttptestclient
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: opc-opcuahttptestclient
+  labels:
+    account: opcuahttptestclient
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opcuahttptestclient-v1
+  labels:
+    app: opcuahttptestclient
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: opcuahttptestclient
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: opcuahttptestclient
+        version: v1
+    spec:
+      serviceAccountName: opc-opcuahttptestclient
+      containers:
+      - name: opcuahttptestclient
+        image: salzg/opcuahttptestclient:0.1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 1880
+          protocol: TCP
+---

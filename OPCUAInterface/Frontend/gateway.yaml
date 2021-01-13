@@ -1,0 +1,40 @@
+##################################################################################################
+# Opc sample client gateway
+##################################################################################################
+
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: opc-gateway
+spec:
+  selector:
+    istio: ingressgateway # use Istio default gateway implementation
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+
+##################################################################################################
+# Opc sample client virtual service
+##################################################################################################
+
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: opc
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - opc-gateway
+  http:
+    route:
+    - destination:
+        host: opcuasampleclient
+        port:
+            number: 1880
+---
