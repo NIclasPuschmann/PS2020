@@ -1,0 +1,876 @@
+[
+    {
+        "id": "a8e0faa6.6f89c8",
+        "type": "tab",
+        "label": "FrontEnd",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "ba5ce6a8.63c558",
+        "type": "OpcUa-Endpoint",
+        "endpoint": "opc.tcp://opcuasampleserver:1880/UA/MyLittleServer",
+        "secpol": "None",
+        "secmode": "None",
+        "login": false
+    },
+    {
+        "id": "f8577b.b8da2888",
+        "type": "OpcUa-Endpoint",
+        "endpoint": "opc.tcp://localhost:19090/UA/MyLittleServer",
+        "secpol": "None",
+        "secmode": "None",
+        "login": false
+    },
+    {
+        "id": "9236f502.59c008",
+        "type": "websocket-listener",
+        "path": "/ws/simple2",
+        "wholemsg": "true"
+    },
+    {
+        "id": "7859e48b.8f5a5c",
+        "type": "websocket-client",
+        "path": "ws://localhost:1880/ws/simple2",
+        "tls": "",
+        "wholemsg": "false"
+    },
+    {
+        "id": "436ca96e.77b938",
+        "type": "websocket-client",
+        "path": "ws://ocuashim:1880/ws/simple2",
+        "tls": "",
+        "wholemsg": "false"
+    },
+    {
+        "id": "1e0841f1.ac68fe",
+        "type": "http in",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "url": "/mysite",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 170,
+        "y": 220,
+        "wires": [
+            [
+                "4c783328.03dc2c"
+            ]
+        ]
+    },
+    {
+        "id": "5de0bbd4.6c8574",
+        "type": "http in",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "url": "/mysitepost",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 420,
+        "wires": [
+            [
+                "80321000.f2dc5",
+                "75913f37.78e6e"
+            ]
+        ]
+    },
+    {
+        "id": "4c783328.03dc2c",
+        "type": "function",
+        "z": "a8e0faa6.6f89c8",
+        "name": "msg.url = \"mysitepost\";",
+        "func": "msg.url = \"mysitepost\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 410,
+        "y": 220,
+        "wires": [
+            [
+                "b2f5bdf9.e09f1"
+            ]
+        ]
+    },
+    {
+        "id": "80321000.f2dc5",
+        "type": "debug",
+        "z": "a8e0faa6.6f89c8",
+        "name": "mysitepost",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 830,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "8de9647.b8a9a98",
+        "type": "http response",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "x": 850,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "b2972258.ecf54",
+        "type": "template",
+        "z": "a8e0faa6.6f89c8",
+        "name": "CSS",
+        "field": "payload.style",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "body {\n\tfont-family: Helvetica;\n    max-width: 800px;\n    margin: auto;\n    box-shadow: 0px -10px 80px 2px rgba(0, 0, 0, 0.2);\n    padding-top: 20px;\n}\n\nbutton {\n  background-color: #0066ff;\n  border: none;\n  border-radius: 8px;\n  color: white;\n  padding: 20px;\n  text-align: center;\n  text-decoration: none;\n  display: flex;\n  font-size: 16px;\n  margin: 4px 2px;\n  cursor: pointer;\n}\n\n\nbutton:disabled,\n/*\nbutton:active,\nbutton:disabled:active,\n*/\nbutton:disabled:hover,\nbutton[disabled]{\n  border: 1px solid #999999;\n  background-color: #cccccc;\n  color: #666666;\n  transform: translateY(0px);\n}\n\nbutton:hover {background-color: #0052cc}\n\nbutton:active {\n  background-color: #0052cc;\n  transform: translateY(4px);\n}\n\ntd {\n\tpadding:0 30px 0 30px;\n}\n\n\n",
+        "x": 570,
+        "y": 320,
+        "wires": [
+            [
+                "f3b55ea2.f4d51"
+            ]
+        ]
+    },
+    {
+        "id": "d2c0bc2a.05a02",
+        "type": "http response",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "x": 850,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "f3b55ea2.f4d51",
+        "type": "template",
+        "z": "a8e0faa6.6f89c8",
+        "name": "HTML",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n  <head>\n    <title>My Site</title>\n    <meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\">\n    <meta charset=\"utf-8\">\n    <script src=\"http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js\"></script>\n    <style>{{{payload.style}}}</style>\n  </head>\n  \n\n<h1>Demonstration Istio OPC UA</h1>\n\n<p id=\"demo\"></p>\n\n<label for=\"attributes\">Wähle ein Attribut</label>\n\n<select name=\"attributes\" id=\"attributes\"  autocomplete=\"off\">\n  <option value=\"nopt\" selected>- keine Auswahl -</option>\n  <option value=\"name\">Name</option>\n  <option value=\"temp\">Temperatur</option>\n  <option value=\"capacity\">Kapazität</option>\n  <option value=\"ram\">RAM</option>\n</select> \n    \n<table class=\"table\">\n  <tr>\n    <th>OPC UA Methode</th>\n    <th>Payload</th>\n  </tr>\n  <tr>\n    <td><button id=\"buttonRead\">Read</button></td>\n    <td id=\"data_1\"></td>\n  </tr>\n  <tr>\n    <td><button id=\"buttonWrite\">Write</button></td>\n    <td id=\"data_2\"><input type=\"text\" id=\"input1\"/></td>\n  </tr>\n  <tr>\n    <td><button id=\"buttonSub\" subbed=\"false\">Subscribe</button></td>\n    <td id=\"data_3\"></td>\n    <td id=\"data_4\"></td>\n  </tr>\n  <tr>\n    <td><button id=\"buttonUnsub\" >Unsubscribe</button></td>\n    <td></td>\n    <td id=\"data_5\"></td>\n  </tr>\n  <tr>\n    <td><button id=\"buttonBrowse\">Browse</button></td>\n    <td><pre id=\"data_6\"></pre></td>\n  </tr>\n</table>\n\n</body>\n</html>\n<script>{{{payload.script}}}</script>",
+        "x": 710,
+        "y": 320,
+        "wires": [
+            [
+                "d2c0bc2a.05a02"
+            ]
+        ]
+    },
+    {
+        "id": "ad88b28c.bc842",
+        "type": "function",
+        "z": "a8e0faa6.6f89c8",
+        "name": "return msg.payload to client",
+        "func": "msg.payload = 'The following data was submitted and available in the msg.payload: '+msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 620,
+        "y": 380,
+        "wires": [
+            [
+                "8de9647.b8a9a98"
+            ]
+        ]
+    },
+    {
+        "id": "42a9d329.9cdf6c",
+        "type": "comment",
+        "z": "a8e0faa6.6f89c8",
+        "name": "Inject msg object properties",
+        "info": "",
+        "x": 380,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "75913f37.78e6e",
+        "type": "json",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 390,
+        "y": 380,
+        "wires": [
+            [
+                "ad88b28c.bc842"
+            ]
+        ]
+    },
+    {
+        "id": "86c08a83.385758",
+        "type": "comment",
+        "z": "a8e0faa6.6f89c8",
+        "name": "Website",
+        "info": "",
+        "x": 150,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "3c029955.901626",
+        "type": "comment",
+        "z": "a8e0faa6.6f89c8",
+        "name": "Node-RED Public Site - README",
+        "info": "This Flow demonstrates how to create\na simple frontend webpage with Node-RED.\n\nThe public facing page consists of the \nclient side JavaScript, CSS and HTML. \n\nThe important technique is how the mustache \ntemplates are used. Each template will set the\n\"property\" relative to the content. \n\nThe CSS node sets the \"msg.payload.style\" property.\nThe JavaScript node sets the \"msg.payload.script\" property.\nThe HTML node then includes these properties \n<script>{{{payload.script}}}</script>\n<style>{{{payload.style}}}</style>\n\n\nThis example was created by http://www.InternetofLEGO.com\n\n",
+        "x": 520,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "8032b605.628338",
+        "type": "comment",
+        "z": "a8e0faa6.6f89c8",
+        "name": "Flow zum Experimentieren",
+        "info": "",
+        "x": 190,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "f1f9598.3fa7aa8",
+        "type": "http response",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 510,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "9484ecd.27b989",
+        "type": "http in",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "url": "/test",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 480,
+        "wires": [
+            [
+                "8b81ccff.9117c"
+            ]
+        ]
+    },
+    {
+        "id": "8b81ccff.9117c",
+        "type": "template",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "{{payload}} ",
+        "output": "str",
+        "x": 340,
+        "y": 480,
+        "wires": [
+            [
+                "f1f9598.3fa7aa8"
+            ]
+        ]
+    },
+    {
+        "id": "b2f5bdf9.e09f1",
+        "type": "template",
+        "z": "a8e0faa6.6f89c8",
+        "name": "JavaScript",
+        "field": "payload.script",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "plain",
+        "template": "'use strict';\n\n/*\nTemp: read, sub, unsub\nCapacity: read, write, sub, unsub\nName: read, write, sub, unsub\nRam (\"s=memory_used\"): read, sub, unsub\n\nread -> get\nwrite -> post\nsub -> post\nunsub -> post\nbrowse -> get/post\n*/\n\n/**/\n\ndocument.getElementById(\"buttonRead\").disabled = true;\ndocument.getElementById(\"buttonWrite\").disabled = true;\ndocument.getElementById(\"buttonSub\").disabled = true;\ndocument.getElementById(\"buttonUnsub\").disabled = true;\n\nconst t = document.getElementById(\"attributes\").value;\nconsole.log('1. test ' + t);\n\ntry {\n    $(document).ready(function () {\n\n        wsConnect();\n\n        function wsConnect() {\n            var ws;\n            var wsUri = \"ws:\";\n            var loc = window.location;\n            console.log(loc);\n            if (loc.protocol === \"https:\") {\n                wsUri = \"wss:\";\n            }\n            // This needs to point to the web socket in the Node-RED flow\n            // ... in this case it's ws/simple\n            wsUri += \"//\" + loc.host + loc.pathname.replace(\"mysite\", \"ws/simple2\");\n            // wsUri ws://localhost:1880/ws/simple2\n            // warum wird wstest mit ws/simple2 ersetzt?\n            // warum wird url meiner website mit der url des websockets getauscht?\n            // warum al wsUri nicht gleich ws://localhost:1880/ws/simple2 uebergeben?                    \n\n            console.log(\"connect\", wsUri);\n            ws = new WebSocket(wsUri);\n            //var line = \"\";    // either uncomment this for a building list of messages\n            ws.onmessage = function (msg) {\n                var a = document.getElementById(\"attributes\");\n                var x = a.options[a.selectedIndex].text;\n                //var line = \"\"; // or uncomment this to overwrite the existing message\n                // parse the incoming message as a JSON object\n                var data = JSON.parse(msg.data);\n                // console.log('data '+typeof(data));\n                // console.log(Object.values(data));\n                // console.log(data.payload);\n                //data=JSON.parse(data);\n                //data=data.payload;\n                //console.log(data);\n                // build the output from the topic and payload parts of the object\n                //line += \"<p>\" + data + \"</p>\";\n                document.getElementById(\"data_3\").innerHTML = data.payload;\n                // replace the messages div with the new \"line\"\n                //document.getElementById('messages').innerHTML = line;\n                //ws.send(JSON.stringify({data:data}));\n            }\n            ws.onopen = function () {\n                // update the status div with the connection status\n                document.getElementById('demo').innerHTML = \"connected\";\n                //ws.send(\"Open for data\");\n                console.log(\"connected\");\n            }\n            ws.onclose = function () {\n                // update the status div with the connection status\n                document.getElementById('demo').innerHTML = \"not connected\";\n                // in case of lost connection tries to reconnect every 3 secs\n                setTimeout(wsConnect, 3000);\n            }\n        }\n        $('#attributes').on('focus', function () {\n\n            var previous = this.value;\n            console.log('this is the prev element '+previous);\n\n            $('#attributes').on('change', function () {\n\n\n                if(document.getElementById('buttonSub').getAttribute('subbed') === \"true\" ) {\n\n                    document.getElementById('buttonUnsub').click();\n                }\n\n                document.getElementById(\"data_1\").innerHTML = \"\";\n                // gewaehlter Wert aus select box\n\n                var v = document.getElementById(\"attributes\").value;\n                var a = document.getElementById(\"attributes\");\n                var x = a.options[a.selectedIndex].text;\n\n                console.log('2. test ' + v);\n                console.log('3. test ' + x);\n\n                if (v == \"nopt\") {\n                    document.getElementById(\"buttonRead\").disabled = true;\n                    document.getElementById(\"buttonWrite\").disabled = true;\n                    document.getElementById(\"buttonSub\").disabled = true;\n                    document.getElementById(\"buttonUnsub\").disabled = true;\n                    document.getElementById(\"data_1\").innerHTML = \"\";\n\n                } else if (v == \"name\") {\n                    document.getElementById(\"buttonRead\").disabled = false;\n                    document.getElementById(\"buttonWrite\").disabled = false;\n                    document.getElementById(\"buttonSub\").disabled = false;\n                    document.getElementById(\"buttonUnsub\").disabled = false;\n                    document.getElementById(\"data_1\").innerHTML = \"\";\n\n                    // READ NAME\n                    $(\"#buttonRead\").unbind(\"click\");\n                    $(\"#buttonRead\").click(function () {\n                        const Url = 'http://opcuashim:1880readname';\n                        $.ajax({\n                            type: \"GET\",\n                            url: Url,\n                            success: function (result) {\n                                console.log(result);\n                                document.getElementById(\"data_1\").innerHTML = result;\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                            }\n                        });\n                    });\n\n                    //WRITE NAME\n                    $(\"#buttonWrite\").unbind(\"click\");\n                    $(\"#buttonWrite\").click(function () {\n                        const Url = 'http://opcuashim:1880setname';\n                        var text = document.getElementById('input1').value;\n                        var data = text;\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log(data);\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                            }\n                        });\n                    });\n\n                    //SUB NAME\n                    $(\"#buttonSub\").unbind(\"click\");\n                    $(\"#buttonSub\").click(function () {\n                        const Url = 'http://opcuashim:1880subname';\n                        var data = \"sub\";\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"true\");\n                                document.getElementById(\"data_5\").innerHTML = \"\";\n\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n\n                    //UNSUB NAME\n                    $(\"#buttonUnsub\").unbind(\"click\");\n                    $(\"#buttonUnsub\").click(function () {\n                        const Url = 'http://opcuashim:1880subname';\n                        var data = \"unsub\";\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"false\");\n                                document.getElementById(\"data_3\").innerHTML = \"\";\n                                document.getElementById(\"data_4\").innerHTML = \"\";\n                                document.getElementById(\"data_5\").innerHTML = \"Sie haben \" + x + \" erfolgreich deabonniert.\";\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n\n                } else if (v == \"capacity\") {\n                    document.getElementById(\"buttonRead\").disabled = false;\n                    document.getElementById(\"buttonWrite\").disabled = false;\n                    document.getElementById(\"buttonSub\").disabled = false;\n                    document.getElementById(\"buttonUnsub\").disabled = false;\n                    document.getElementById(\"data_1\").innerHTML = \"\";\n\n                    // READ CAP\n                    $(\"#buttonRead\").unbind(\"click\");\n                    $(\"#buttonRead\").click(function () {\n                        const Url = 'http://opcuashim:1880readcapacity';\n                        $.ajax({\n                            type: \"GET\",\n                            url: Url,\n                            success: function (result) {\n                                console.log(result);\n                                document.getElementById(\"data_1\").innerHTML = result;\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                            }\n                        });\n                    });\n\n                    //WRITE CAP\n                    //var data=\"23\";\n                    $(\"#buttonWrite\").unbind(\"click\");\n                    $(\"#buttonWrite\").click(function () {\n                        const Url = 'http://opcuashim:1880setcapacity';\n                        var text = document.getElementById('input1').value;\n                        var data = text;\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log(data);\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                            }\n                        });\n                    });\n\n                    // SUB CAP\n                    $(\"#buttonSub\").unbind(\"click\");\n                    $(\"#buttonSub\").click(function () {\n                        const Url = 'http://opcuashim:1880subcapacity';\n                        var data = \"sub\";\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"data_5\").innerHTML = \"\";\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"true\");\n\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n\n                    //UNSUB CAP\n                    $(\"#buttonUnsub\").unbind(\"click\");\n                    $(\"#buttonUnsub\").click(function () {\n                        const Url = 'http://opcuashim:1880subcapacity';\n                        var data = \"unsub\";\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"false\");\n                                document.getElementById(\"data_3\").innerHTML = \"\";\n                                document.getElementById(\"data_4\").innerHTML = \"\";\n                                document.getElementById(\"data_5\").innerHTML = \"Sie haben \" + x + \" erfolgreich deabonniert.\";\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n\n\n                } else if (v == \"temp\") {\n                    document.getElementById(\"buttonRead\").disabled = false;\n                    document.getElementById(\"buttonWrite\").disabled = true;\n                    document.getElementById(\"buttonSub\").disabled = false;\n                    document.getElementById(\"buttonUnsub\").disabled = false;\n                    document.getElementById(\"data_1\").innerHTML = \"\";\n\n                    // READ TEMP\n                    $(\"#buttonRead\").unbind(\"click\");\n                    $(\"#buttonRead\").click(function () {\n                        const Url = 'http://opcuashim:1880readtemp';\n                        $.ajax({\n                            type: \"GET\",\n                            url: Url,\n                            success: function (result) {\n                                console.log(result);\n                                document.getElementById(\"data_1\").innerHTML = result;\n                                document.getElementById(\"data_1\").innerHTML = result;\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                            }\n                        });\n                    });\n\n                    // SUB TEMP\n                    $(\"#buttonSub\").unbind(\"click\");\n                    $(\"#buttonSub\").click(function () {\n                        const Url = 'http://opcuashim:1880subtemperature';\n                        var data = \"sub\";\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"true\");\n                                document.getElementById(\"data_5\").innerHTML = \"\";\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n\n                    //UNSUB TEMP\n                    $(\"#buttonUnsub\").unbind(\"click\");\n                    $(\"#buttonUnsub\").click(function () {\n                        const Url = 'http://opcuashim:1880subtemperature';\n                        var data = \"unsub\";\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"false\");\n                                document.getElementById(\"data_3\").innerHTML = \"\";\n                                document.getElementById(\"data_4\").innerHTML = \"\";\n                                document.getElementById(\"data_5\").innerHTML = \"Sie haben \" + x + \" erfolgreich deabonniert.\";\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n\n                } else if (v == \"ram\") {\n                    document.getElementById(\"buttonRead\").disabled = false;\n                    document.getElementById(\"buttonWrite\").disabled = true;\n                    document.getElementById(\"buttonSub\").disabled = false;\n                    document.getElementById(\"buttonUnsub\").disabled = false;\n                    document.getElementById(\"data_1\").innerHTML = \"\";\n\n                    // READ RAM\n                    //$(document).ready(function () {\n                    $(\"#buttonRead\").unbind(\"click\");\n                    $(\"#buttonRead\").click(function () {\n                        const Url = 'http://opcuashim:1880readram';\n                        $.ajax({\n                            type: \"GET\",\n                            url: Url,\n                            success: function (result) {\n                                console.log(result);\n                                document.getElementById(\"data_1\").innerHTML = result;\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                            }\n                        });\n                    });\n\n                    // SUB RAM\n                    $(\"#buttonSub\").unbind(\"click\");\n                    $(\"#buttonSub\").click(function () {\n                        const Url = 'http://opcuashim:1880subram';\n                        var data = \"sub\";\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"data_5\").innerHTML = \"\";\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"true\");\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n\n                    //UNSUB RAM\n                    $(\"#buttonUnsub\").unbind(\"click\");\n                    $(\"#buttonUnsub\").click(function () {\n                        const Url = 'http://opcuashim:1880subram';\n                        var data = \"unsub\";\n\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"false\");\n                                document.getElementById(\"data_3\").innerHTML = \"\";\n                                document.getElementById(\"data_4\").innerHTML = \"\";\n                                document.getElementById(\"data_5\").innerHTML = \"Sie haben \" + x + \" erfolgreich deabonniert.\";\n\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n                }\n            });\n        });\n    });\n\n} catch (err) {\n    console.log(err.message);\n}\n\n// BROWSE   \n$(document).ready(function () {\n    const Url = 'http://opcuashim:1880browse';\n    $(\"#buttonBrowse\").click(function () {\n        $.ajax({\n            type: \"GET\",\n            url: Url,\n            success: function (result) {\n                console.log(result);\n                result = JSON.stringify(result, null, 4);\n                console.log(result);\n                document.getElementById(\"data_6\").innerHTML = result;\n            },\n            error: function (error) {\n                console.log(`Error ${error}`);\n            }\n        });\n    });\n});",
+        "x": 410,
+        "y": 320,
+        "wires": [
+            [
+                "b2972258.ecf54"
+            ]
+        ]
+    },
+    {
+        "id": "7c2093bc.a2c3fc",
+        "type": "websocket in",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "server": "",
+        "client": "436ca96e.77b938",
+        "x": 240,
+        "y": 640,
+        "wires": [
+            [
+                "b3395d72.45c82"
+            ]
+        ]
+    },
+    {
+        "id": "b3395d72.45c82",
+        "type": "websocket out",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "server": "9236f502.59c008",
+        "client": "",
+        "x": 510,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "b35c30e4.cc3e6",
+        "type": "http in",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "url": "/readname",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 180,
+        "y": 700,
+        "wires": [
+            [
+                "42700c42.654b34"
+            ]
+        ]
+    },
+    {
+        "id": "42700c42.654b34",
+        "type": "http request",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://opcuashim:1880/readname",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 370,
+        "y": 700,
+        "wires": [
+            [
+                "3cb69d9b.f8fcd2"
+            ]
+        ]
+    },
+    {
+        "id": "3cb69d9b.f8fcd2",
+        "type": "http response",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 550,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "cf60acbe.df64c",
+        "type": "http in",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "url": "/setname",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 180,
+        "y": 740,
+        "wires": [
+            [
+                "58e733f6.b8f94c"
+            ]
+        ]
+    },
+    {
+        "id": "58e733f6.b8f94c",
+        "type": "http request",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://opcuashim:1880/setname",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 370,
+        "y": 740,
+        "wires": [
+            [
+                "341bc748.040be8"
+            ]
+        ]
+    },
+    {
+        "id": "341bc748.040be8",
+        "type": "http response",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 550,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "639397b7.35ccc8",
+        "type": "http in",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "url": "/subname",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 180,
+        "y": 780,
+        "wires": [
+            [
+                "5cd3b29c.fe3f4c"
+            ]
+        ]
+    },
+    {
+        "id": "5cd3b29c.fe3f4c",
+        "type": "http request",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://opcuashim:1880/subname",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 370,
+        "y": 780,
+        "wires": [
+            [
+                "3fbb1202.b6961e"
+            ]
+        ]
+    },
+    {
+        "id": "3fbb1202.b6961e",
+        "type": "http response",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 550,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "9e35dbfb.1c5fd8",
+        "type": "http in",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "url": "/readcapacity",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 840,
+        "wires": [
+            [
+                "c21246c7.77ad68"
+            ]
+        ]
+    },
+    {
+        "id": "c21246c7.77ad68",
+        "type": "http request",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://opcuashim:1880/readcapacity",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 370,
+        "y": 840,
+        "wires": [
+            [
+                "e4ff2971.cc35a8"
+            ]
+        ]
+    },
+    {
+        "id": "e4ff2971.cc35a8",
+        "type": "http response",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 550,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "7d4c17b6.46f7a8",
+        "type": "http in",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "url": "/setcapacity",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 880,
+        "wires": [
+            [
+                "d11145e6.3f45d8"
+            ]
+        ]
+    },
+    {
+        "id": "d11145e6.3f45d8",
+        "type": "http request",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://opcuashim:1880/setcapacity",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 370,
+        "y": 880,
+        "wires": [
+            [
+                "cd9b34c3.bec5d8"
+            ]
+        ]
+    },
+    {
+        "id": "cd9b34c3.bec5d8",
+        "type": "http response",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 550,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "2ea5079e.1f5e48",
+        "type": "http in",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "url": "/subcapacity",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 920,
+        "wires": [
+            [
+                "186a3779.e3ab49"
+            ]
+        ]
+    },
+    {
+        "id": "186a3779.e3ab49",
+        "type": "http request",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://opcuashim:1880/subname",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 370,
+        "y": 920,
+        "wires": [
+            [
+                "b3ccc70a.540c48"
+            ]
+        ]
+    },
+    {
+        "id": "b3ccc70a.540c48",
+        "type": "http response",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 550,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "51c01caa.7fe624",
+        "type": "http in",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "url": "/readtemp",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 180,
+        "y": 980,
+        "wires": [
+            [
+                "841e4b1b.9da028"
+            ]
+        ]
+    },
+    {
+        "id": "841e4b1b.9da028",
+        "type": "http request",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://opcuashim:1880/readtemp",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 370,
+        "y": 980,
+        "wires": [
+            [
+                "4b17273e.471d58"
+            ]
+        ]
+    },
+    {
+        "id": "4b17273e.471d58",
+        "type": "http response",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 550,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "28852483.6b978c",
+        "type": "http in",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "url": "/subtemperature",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 200,
+        "y": 1020,
+        "wires": [
+            [
+                "2e6356b1.ab996a"
+            ]
+        ]
+    },
+    {
+        "id": "2e6356b1.ab996a",
+        "type": "http request",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://opcuashim:1880/subtemperature",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 390,
+        "y": 1020,
+        "wires": [
+            [
+                "8ad4b918.dabbe8"
+            ]
+        ]
+    },
+    {
+        "id": "8ad4b918.dabbe8",
+        "type": "http response",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 550,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "a908e3d4.f9488",
+        "type": "http in",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "url": "/readram",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 170,
+        "y": 1080,
+        "wires": [
+            [
+                "12351fa5.6b484"
+            ]
+        ]
+    },
+    {
+        "id": "12351fa5.6b484",
+        "type": "http request",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://opcuashim:1880/readram",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 370,
+        "y": 1080,
+        "wires": [
+            [
+                "e6cc2ebb.fc527"
+            ]
+        ]
+    },
+    {
+        "id": "e6cc2ebb.fc527",
+        "type": "http response",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 550,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "4ae2afcb.c68d9",
+        "type": "http in",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "url": "/subram",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 170,
+        "y": 1120,
+        "wires": [
+            [
+                "6a3ae9e6.0bdb18"
+            ]
+        ]
+    },
+    {
+        "id": "6a3ae9e6.0bdb18",
+        "type": "http request",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://opcuashim:1880/subram",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 370,
+        "y": 1120,
+        "wires": [
+            [
+                "1bec6e77.4c83e2"
+            ]
+        ]
+    },
+    {
+        "id": "1bec6e77.4c83e2",
+        "type": "http response",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 550,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "e22b054f.65f3f8",
+        "type": "http in",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "url": "/browse",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 170,
+        "y": 1180,
+        "wires": [
+            [
+                "a554eac3.7cca78"
+            ]
+        ]
+    },
+    {
+        "id": "a554eac3.7cca78",
+        "type": "http request",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://opcuashim:1880/browse",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 370,
+        "y": 1180,
+        "wires": [
+            [
+                "a57cd7c4.60bad8"
+            ]
+        ]
+    },
+    {
+        "id": "a57cd7c4.60bad8",
+        "type": "http response",
+        "z": "a8e0faa6.6f89c8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 550,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "91498e40.fca",
+        "type": "comment",
+        "z": "a8e0faa6.6f89c8",
+        "name": "translate client side js originated requests to requests to opcuashim:1880",
+        "info": "",
+        "x": 360,
+        "y": 580,
+        "wires": []
+    }
+]
