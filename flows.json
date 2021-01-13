@@ -30,9 +30,79 @@
     {
         "id": "a8e0faa6.6f89c8",
         "type": "tab",
-        "label": "Flow 5",
+        "label": "FrontEnd",
         "disabled": false,
         "info": ""
+    },
+    {
+        "id": "f6a84a52.723548",
+        "type": "tab",
+        "label": "browse",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "9bd08890.f6621",
+        "type": "tab",
+        "label": "readnwrite",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "4de501ed.1289b",
+        "type": "tab",
+        "label": "sub",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "910be419.a35d18",
+        "type": "tab",
+        "label": "Tests",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "ba5ce6a8.63c558",
+        "type": "OpcUa-Endpoint",
+        "endpoint": "opc.tcp://opcuasampleserver:1880/UA/MyLittleServer",
+        "secpol": "None",
+        "secmode": "None",
+        "login": false
+    },
+    {
+        "id": "f8577b.b8da2888",
+        "type": "OpcUa-Endpoint",
+        "endpoint": "opc.tcp://localhost:19090/UA/MyLittleServer",
+        "secpol": "None",
+        "secmode": "None",
+        "login": false
+    },
+    {
+        "id": "9236f502.59c008",
+        "type": "websocket-listener",
+        "path": "/ws/simple2",
+        "wholemsg": "true"
+    },
+    {
+        "id": "17cec5ef.6c817a",
+        "type": "websocket-listener",
+        "path": "WS:localhost:1880/ws/simple2",
+        "wholemsg": "false"
+    },
+    {
+        "id": "2f6ff4ca.4acef4",
+        "type": "websocket-client",
+        "path": "ws://localhost:1880/ws/simple2",
+        "tls": "",
+        "wholemsg": "false"
+    },
+    {
+        "id": "cc0d4ba1.d0d7b",
+        "type": "websocket-client",
+        "path": "ws://localhost:1990/ws/simple2",
+        "tls": "",
+        "wholemsg": "false"
     },
     {
         "id": "e36406f2.8ef798",
@@ -602,8 +672,8 @@
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 210,
-        "y": 280,
+        "x": 170,
+        "y": 220,
         "wires": [
             [
                 "4c783328.03dc2c"
@@ -617,9 +687,10 @@
         "name": "",
         "url": "/mysitepost",
         "method": "post",
+        "upload": false,
         "swaggerDoc": "",
-        "x": 230,
-        "y": 480,
+        "x": 190,
+        "y": 420,
         "wires": [
             [
                 "80321000.f2dc5",
@@ -637,8 +708,8 @@
         "noerr": 0,
         "initialize": "",
         "finalize": "",
-        "x": 450,
-        "y": 280,
+        "x": 410,
+        "y": 220,
         "wires": [
             [
                 "b2f5bdf9.e09f1"
@@ -653,8 +724,8 @@
         "active": true,
         "console": "false",
         "complete": "payload",
-        "x": 870,
-        "y": 480,
+        "x": 830,
+        "y": 420,
         "wires": []
     },
     {
@@ -662,8 +733,8 @@
         "type": "http response",
         "z": "a8e0faa6.6f89c8",
         "name": "",
-        "x": 890,
-        "y": 440,
+        "x": 850,
+        "y": 380,
         "wires": []
     },
     {
@@ -675,30 +746,12 @@
         "fieldType": "msg",
         "format": "html",
         "syntax": "mustache",
-        "template": "body {\n\tfont-family: Helvetica;\n}\n\nbutton {\n  background-color: DodgerBlue;\n  border: none;\n  border-radius: 8px;\n  color: white;\n  padding: 20px;\n  text-align: center;\n  text-decoration: none;\n  display: flex;\n  font-size: 16px;\n  margin: 4px 2px;\n  cursor: pointer;\n}\n\ntd {\n\tpadding:0 30px 0 30px;\n}\n\n\n",
-        "x": 610,
-        "y": 380,
+        "template": "body {\n\tfont-family: Helvetica;\n    max-width: 800px;\n    margin: auto;\n    box-shadow: 0px -10px 80px 2px rgba(0, 0, 0, 0.2);\n    padding-top: 20px;\n}\n\nbutton {\n  background-color: #0066ff;\n  border: none;\n  border-radius: 8px;\n  color: white;\n  padding: 20px;\n  text-align: center;\n  text-decoration: none;\n  display: flex;\n  font-size: 16px;\n  margin: 4px 2px;\n  cursor: pointer;\n}\n\n\nbutton:disabled,\n/*\nbutton:active,\nbutton:disabled:active,\n*/\nbutton:disabled:hover,\nbutton[disabled]{\n  border: 1px solid #999999;\n  background-color: #cccccc;\n  color: #666666;\n  transform: translateY(0px);\n}\n\nbutton:hover {background-color: #0052cc}\n\nbutton:active {\n  background-color: #0052cc;\n  transform: translateY(4px);\n}\n\ntd {\n\tpadding:0 30px 0 30px;\n}\n\n\n",
+        "x": 570,
+        "y": 320,
         "wires": [
             [
                 "f3b55ea2.f4d51"
-            ]
-        ]
-    },
-    {
-        "id": "b2f5bdf9.e09f1",
-        "type": "template",
-        "z": "a8e0faa6.6f89c8",
-        "name": "JavaScript",
-        "field": "payload.script",
-        "fieldType": "msg",
-        "format": "javascript",
-        "syntax": "plain",
-        "template": "// Read\n$(document).ready(function() {\n    const Url='http://localhost:1880/test';\n    $(\".read\").click(function(result) {\n        $.ajax({\n            type:\"GET\",\n            url:Url,\n            success: function(result){\n            console.log(result);\n            document.getElementById(\"data_1\").innerHTML=(result); \n            \n        },\n        error:function(error){\n            console.log(`Error ${error}`);\n        }\n        });\n    });\n});\n\n// Browse\n$(document).ready(function() {\n    const Url='https://my-json-server.typicode.com/typicode/demo/comments';\n    $(\".browse\").click(function(result) {\n        $.ajax({\n            type:\"GET\",\n            url:Url,\n            success: function(result){\n            console.log(result);\n            document.getElementById(\"data_5\").innerHTML=result; \n            \n        },\n        error:function(error){\n            console.log(`Error ${error}`);\n        }\n        });\n    });\n});\n//read -> get\n//write -> post\n//sub -> post\n//unsub -> post\n//browse -> get\n\n    $(\"form[ajax=true]\").submit(function(e) {\n        \n        e.preventDefault();\n        \n        var form_data = $(this).serialize();\n        var form_url = $(this).attr(\"action\");\n        var form_method = $(this).attr(\"method\").toUpperCase();\n        \n        $(\"#loadingimg\").show();\n        \n        $.ajax({\n            url: form_url, \n            type: form_method,      \n            data: form_data,     \n            cache: false,\n            success: function(returnhtml){                          \n                $(\"#result\").html(returnhtml); \n                $(\"#loadingimg\").hide();                    \n            }           \n        });    \n        \n    });\n\n$(document).ready(function() {\n    const Url='';\n    $(\".write\").click(function(result) {\n        $.ajax({\n            type:\"POST\",\n            url:Url,\n            success: function(result){\n            console.log(result);\n            \n        },\n        error:function(error){\n            console.log(`Error ${error}`);\n        }\n        });\n    });\n    \n    \n    \n});",
-        "x": 450,
-        "y": 380,
-        "wires": [
-            [
-                "b2972258.ecf54"
             ]
         ]
     },
@@ -707,8 +760,8 @@
         "type": "http response",
         "z": "a8e0faa6.6f89c8",
         "name": "",
-        "x": 890,
-        "y": 380,
+        "x": 850,
+        "y": 320,
         "wires": []
     },
     {
@@ -720,24 +773,14 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "<html>\n  <head>\n    <title>My Site</title>\n    <meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\">\n    <meta charset=\"utf-8\">\n    <script src=\"http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js\"></script>\n    <style>{{{payload.style}}}</style>\n  </head>\n  \n\n<h1>Demonstration Istio OPC UA</h1>\n    \n<table class=\"table\">\n  <tr>\n    <th>OPC UA Methode</th>\n    <th>Payload</th>\n  </tr>\n  <tr>\n    <td><button class=\"button read\">Read</button></td>\n    <td id=\"data_1\">data</td>\n  </tr>\n  <tr>\n    <td><button class=\"button button_post\">Write</button></td>\n    <td id=\"data_2\">data</td>\n  </tr>\n  <tr>\n    <td><button class=\"button button_post\">Subscribe</button></td>\n    <td id=\"data_3\">data</td>\n  </tr>\n  <tr>\n    <td><button class=\"button button_post\">Unsubscribe</button></td>\n    <td id=\"data_4\">data</td>\n  </tr>\n  <tr>\n    <td><button class=\"button browse\">Browse</button></td>\n    <td id=\"data_5\">data</td>\n  </tr>\n</table>\n\n</body>\n</html>\n<script>{{{payload.script}}}</script>",
-        "x": 750,
-        "y": 380,
+        "template": "<html>\n  <head>\n    <title>My Site</title>\n    <meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\">\n    <meta charset=\"utf-8\">\n    <script src=\"http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js\"></script>\n    <style>{{{payload.style}}}</style>\n  </head>\n  \n\n<h1>Demonstration Istio OPC UA</h1>\n\n<p id=\"demo\"></p>\n\n<label for=\"attributes\">Wähle ein Attribut</label>\n\n<select name=\"attributes\" id=\"attributes\"  autocomplete=\"off\">\n  <option value=\"nopt\" selected>- keine Auswahl -</option>\n  <option value=\"name\">Name</option>\n  <option value=\"temp\">Temperatur</option>\n  <option value=\"capacity\">Kapazität</option>\n  <option value=\"ram\">RAM</option>\n</select> \n    \n<table class=\"table\">\n  <tr>\n    <th>OPC UA Methode</th>\n    <th>Payload</th>\n  </tr>\n  <tr>\n    <td><button id=\"buttonRead\">Read</button></td>\n    <td id=\"data_1\"></td>\n  </tr>\n  <tr>\n    <td><button id=\"buttonWrite\">Write</button></td>\n    <td id=\"data_2\"><input type=\"text\" id=\"input1\"/></td>\n  </tr>\n  <tr>\n    <td><button id=\"buttonSub\" subbed=\"false\">Subscribe</button></td>\n    <td id=\"data_3\"></td>\n    <td id=\"data_4\"></td>\n  </tr>\n  <tr>\n    <td><button id=\"buttonUnsub\" >Unsubscribe</button></td>\n    <td></td>\n    <td id=\"data_5\"></td>\n  </tr>\n  <tr>\n    <td><button id=\"buttonBrowse\">Browse</button></td>\n    <td><pre id=\"data_6\"></pre></td>\n  </tr>\n</table>\n\n</body>\n</html>\n<script>{{{payload.script}}}</script>",
+        "x": 710,
+        "y": 320,
         "wires": [
             [
                 "d2c0bc2a.05a02"
             ]
         ]
-    },
-    {
-        "id": "57316751.8bd948",
-        "type": "comment",
-        "z": "a8e0faa6.6f89c8",
-        "name": "Login Form",
-        "info": "",
-        "x": 410,
-        "y": 340,
-        "wires": []
     },
     {
         "id": "ad88b28c.bc842",
@@ -747,8 +790,8 @@
         "func": "msg.payload = 'The following data was submitted and available in the msg.payload: '+msg.payload;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 660,
-        "y": 440,
+        "x": 620,
+        "y": 380,
         "wires": [
             [
                 "8de9647.b8a9a98"
@@ -761,8 +804,8 @@
         "z": "a8e0faa6.6f89c8",
         "name": "Inject msg object properties",
         "info": "",
-        "x": 420,
-        "y": 240,
+        "x": 380,
+        "y": 180,
         "wires": []
     },
     {
@@ -773,8 +816,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 430,
-        "y": 440,
+        "x": 390,
+        "y": 380,
         "wires": [
             [
                 "ad88b28c.bc842"
@@ -787,18 +830,8 @@
         "z": "a8e0faa6.6f89c8",
         "name": "Website",
         "info": "",
-        "x": 190,
-        "y": 200,
-        "wires": []
-    },
-    {
-        "id": "111485fa.14c4aa",
-        "type": "comment",
-        "z": "a8e0faa6.6f89c8",
-        "name": "Form Submission",
-        "info": "",
-        "x": 220,
-        "y": 420,
+        "x": 150,
+        "y": 140,
         "wires": []
     },
     {
@@ -986,217 +1019,14 @@
         "wires": []
     },
     {
-        "id": "13a8d329.d56b45",
-        "type": "http in",
-        "z": "a8e0faa6.6f89c8",
-        "name": "",
-        "url": "/mysitev2",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 200,
-        "y": 800,
-        "wires": [
-            [
-                "d7a124f8.e34638"
-            ]
-        ]
-    },
-    {
-        "id": "5550431b.a21c0c",
-        "type": "http in",
-        "z": "a8e0faa6.6f89c8",
-        "name": "",
-        "url": "/mysitepost",
-        "method": "post",
-        "swaggerDoc": "",
-        "x": 210,
-        "y": 1000,
-        "wires": [
-            [
-                "fcfb4e7e.105448",
-                "d4e40ba1.d0b388"
-            ]
-        ]
-    },
-    {
-        "id": "d7a124f8.e34638",
-        "type": "function",
-        "z": "a8e0faa6.6f89c8",
-        "name": "msg.url = \"mysitepost\";",
-        "func": "msg.url = \"mysitepost\";\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 430,
-        "y": 800,
-        "wires": [
-            [
-                "80c9247c.453f48"
-            ]
-        ]
-    },
-    {
-        "id": "fcfb4e7e.105448",
-        "type": "debug",
-        "z": "a8e0faa6.6f89c8",
-        "name": "mysitepost",
-        "active": true,
-        "console": "false",
-        "complete": "payload",
-        "x": 850,
-        "y": 1000,
-        "wires": []
-    },
-    {
-        "id": "c2a53366.366c68",
-        "type": "http response",
-        "z": "a8e0faa6.6f89c8",
-        "name": "",
-        "x": 870,
-        "y": 960,
-        "wires": []
-    },
-    {
-        "id": "936ac7c.0c6eab8",
-        "type": "template",
-        "z": "a8e0faa6.6f89c8",
-        "name": "CSS",
-        "field": "payload.style",
-        "fieldType": "msg",
-        "format": "html",
-        "syntax": "mustache",
-        "template": "input[type=text], select {\n    width: 100%;\n    padding: 12px 20px;\n    margin: 8px 0;\n    display: inline-block;\n    border: 1px solid #ccc;\n    border-radius: 4px;\n    box-sizing: border-box;\n}\n\ninput[type=submit] {\n    width: 100%;\n    background-color: #4CAF50;\n    color: white;\n    padding: 14px 20px;\n    margin: 8px 0;\n    border: none;\n    border-radius: 4px;\n    cursor: pointer;\n}\n\ninput[type=submit]:hover {\n    background-color: #45a049;\n}\n\ndiv {\n    border-radius: 5px;\n    background-color: #f2f2f2;\n    padding: 20px;\n}",
-        "x": 590,
-        "y": 900,
-        "wires": [
-            [
-                "f5e84333.2c0c3"
-            ]
-        ]
-    },
-    {
-        "id": "80c9247c.453f48",
-        "type": "template",
-        "z": "a8e0faa6.6f89c8",
-        "name": "JavaScript",
-        "field": "payload.script",
-        "fieldType": "msg",
-        "format": "javascript",
-        "syntax": "plain",
-        "template": "$(document).ready(function(e) {\n    \n    $(\"form[ajax=true]\").submit(function(e) {\n        \n        e.preventDefault();\n        \n        var form_data = $(this).serialize();\n        var form_url = $(this).attr(\"action\");\n        var form_method = $(this).attr(\"method\").toUpperCase();\n        \n        $(\"#loadingimg\").show();\n        \n        $.ajax({\n            url: form_url, \n            type: form_method,      \n            data: form_data,     \n            cache: false,\n            success: function(returnhtml){                          \n                $(\"#result\").html(returnhtml); \n                $(\"#loadingimg\").hide();                    \n            }           \n        });    \n        \n    });\n    \n});",
-        "x": 430,
-        "y": 900,
-        "wires": [
-            [
-                "936ac7c.0c6eab8"
-            ]
-        ]
-    },
-    {
-        "id": "36e4df78.86ece8",
-        "type": "http response",
-        "z": "a8e0faa6.6f89c8",
-        "name": "",
-        "x": 870,
-        "y": 900,
-        "wires": []
-    },
-    {
-        "id": "f5e84333.2c0c3",
-        "type": "template",
-        "z": "a8e0faa6.6f89c8",
-        "name": "HTML",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "<html>\n  <head>\n    <title>My Site</title>\n    <meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\">\n    <meta charset=\"utf-8\">\n    <script src=\"http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js\"></script>\n    <style>{{{payload.style}}}</style>\n  </head>\n  \n\n    <h2>Using CSS to style an HTML form with AJAX POST and Node-RED</h2>\n    <h4><a href=\"http://www.internetoflego.com\">Internet of LEGO</a></h4>\n\n<div>\n  <form method=\"post\" action=\"/{{url}}\" ajax=\"true\">\n    <label for=\"fname\">First Name</label>\n    <input type=\"text\" id=\"fname\" name=\"firstname\">\n\n    <label for=\"lname\">Last Name</label>\n    <input type=\"text\" id=\"lname\" name=\"lastname\">\n\n    <label for=\"country\">Country</label>\n    <select id=\"country\" name=\"country\">\n      <option value=\"uk\">United Kingdom</option>\n      <option value=\"canada\">Canada</option>\n      <option value=\"usa\">USA</option>\n    </select>\n  \n    <input type=\"submit\" value=\"Submit\">\n  </form>\n</div>\n<div>\n    <span id=\"result\"></span>\n</div>\n\n</body>\n</html>\n<script>{{{payload.script}}}</script>",
-        "x": 730,
-        "y": 900,
-        "wires": [
-            [
-                "36e4df78.86ece8"
-            ]
-        ]
-    },
-    {
-        "id": "1ad81dc.d49f0e2",
-        "type": "comment",
-        "z": "a8e0faa6.6f89c8",
-        "name": "Login Form",
-        "info": "",
-        "x": 390,
-        "y": 860,
-        "wires": []
-    },
-    {
-        "id": "71dfe77c.7b91f8",
-        "type": "function",
-        "z": "a8e0faa6.6f89c8",
-        "name": "return msg.payload to client",
-        "func": "msg.payload = 'The following data was submitted and available in the msg.payload: '+msg.payload;\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 620,
-        "y": 960,
-        "wires": [
-            [
-                "c2a53366.366c68"
-            ]
-        ]
-    },
-    {
-        "id": "8bcc4c50.1b02b8",
-        "type": "comment",
-        "z": "a8e0faa6.6f89c8",
-        "name": "Inject msg object properties",
-        "info": "",
-        "x": 400,
-        "y": 760,
-        "wires": []
-    },
-    {
-        "id": "d4e40ba1.d0b388",
-        "type": "json",
-        "z": "a8e0faa6.6f89c8",
-        "name": "",
-        "x": 410,
-        "y": 960,
-        "wires": [
-            [
-                "71dfe77c.7b91f8"
-            ]
-        ]
-    },
-    {
-        "id": "dea5c449.a1d058",
-        "type": "comment",
-        "z": "a8e0faa6.6f89c8",
-        "name": "Website",
-        "info": "",
-        "x": 170,
-        "y": 720,
-        "wires": []
-    },
-    {
-        "id": "37416c05.390cd4",
-        "type": "comment",
-        "z": "a8e0faa6.6f89c8",
-        "name": "Form Submission",
-        "info": "",
-        "x": 200,
-        "y": 940,
-        "wires": []
-    },
-    {
         "id": "f1f9598.3fa7aa8",
         "type": "http response",
         "z": "a8e0faa6.6f89c8",
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 570,
-        "y": 580,
+        "x": 510,
+        "y": 480,
         "wires": []
     },
     {
@@ -1208,8 +1038,8 @@
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 210,
-        "y": 580,
+        "x": 150,
+        "y": 480,
         "wires": [
             [
                 "8b81ccff.9117c"
@@ -1227,12 +1057,2801 @@
         "syntax": "mustache",
         "template": "{{payload}} ",
         "output": "str",
-        "x": 400,
-        "y": 580,
+        "x": 340,
+        "y": 480,
         "wires": [
             [
                 "f1f9598.3fa7aa8"
             ]
         ]
+    },
+    {
+        "id": "b2f5bdf9.e09f1",
+        "type": "template",
+        "z": "a8e0faa6.6f89c8",
+        "name": "JavaScript",
+        "field": "payload.script",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "plain",
+        "template": "'use strict';\n\n/*\nTemp: read, sub, unsub\nCapacity: read, write, sub, unsub\nName: read, write, sub, unsub\nRam (\"s=memory_used\"): read, sub, unsub\n\nread -> get\nwrite -> post\nsub -> post\nunsub -> post\nbrowse -> get/post\n*/\n\n/**/\n\ndocument.getElementById(\"buttonRead\").disabled = true;\ndocument.getElementById(\"buttonWrite\").disabled = true;\ndocument.getElementById(\"buttonSub\").disabled = true;\ndocument.getElementById(\"buttonUnsub\").disabled = true;\n\nconst t = document.getElementById(\"attributes\").value;\nconsole.log('1. test ' + t);\n\ntry {\n    $(document).ready(function () {\n\n        wsConnect();\n\n        function wsConnect() {\n            var ws;\n            var wsUri = \"ws:\";\n            var loc = window.location;\n            console.log(loc);\n            if (loc.protocol === \"https:\") {\n                wsUri = \"wss:\";\n            }\n            // This needs to point to the web socket in the Node-RED flow\n            // ... in this case it's ws/simple\n            wsUri += \"//\" + loc.host + loc.pathname.replace(\"mysite\", \"ws/simple2\");\n            // wsUri ws://localhost:1880/ws/simple2\n            // warum wird wstest mit ws/simple2 ersetzt?\n            // warum wird url meiner website mit der url des websockets getauscht?\n            // warum al wsUri nicht gleich ws://localhost:1880/ws/simple2 uebergeben?                    \n\n            console.log(\"connect\", wsUri);\n            ws = new WebSocket(wsUri);\n            //var line = \"\";    // either uncomment this for a building list of messages\n            ws.onmessage = function (msg) {\n                var a = document.getElementById(\"attributes\");\n                var x = a.options[a.selectedIndex].text;\n                //var line = \"\"; // or uncomment this to overwrite the existing message\n                // parse the incoming message as a JSON object\n                var data = JSON.parse(msg.data);\n                // console.log('data '+typeof(data));\n                // console.log(Object.values(data));\n                // console.log(data.payload);\n                //data=JSON.parse(data);\n                //data=data.payload;\n                //console.log(data);\n                // build the output from the topic and payload parts of the object\n                //line += \"<p>\" + data + \"</p>\";\n                document.getElementById(\"data_3\").innerHTML = data.payload;\n                // replace the messages div with the new \"line\"\n                //document.getElementById('messages').innerHTML = line;\n                //ws.send(JSON.stringify({data:data}));\n            }\n            ws.onopen = function () {\n                // update the status div with the connection status\n                document.getElementById('demo').innerHTML = \"connected\";\n                //ws.send(\"Open for data\");\n                console.log(\"connected\");\n            }\n            ws.onclose = function () {\n                // update the status div with the connection status\n                document.getElementById('demo').innerHTML = \"not connected\";\n                // in case of lost connection tries to reconnect every 3 secs\n                setTimeout(wsConnect, 3000);\n            }\n        }\n        $('#attributes').on('focus', function () {\n\n            var previous = this.value;\n            console.log('this is the prev element '+previous);\n\n            $('#attributes').on('change', function () {\n\n\n                if(document.getElementById('buttonSub').getAttribute('subbed') === \"true\" ) {\n\n                    document.getElementById('buttonUnsub').click();\n                }\n\n                document.getElementById(\"data_1\").innerHTML = \"\";\n                // gewaehlter Wert aus select box\n\n                var v = document.getElementById(\"attributes\").value;\n                var a = document.getElementById(\"attributes\");\n                var x = a.options[a.selectedIndex].text;\n\n                console.log('2. test ' + v);\n                console.log('3. test ' + x);\n\n                if (v == \"nopt\") {\n                    document.getElementById(\"buttonRead\").disabled = true;\n                    document.getElementById(\"buttonWrite\").disabled = true;\n                    document.getElementById(\"buttonSub\").disabled = true;\n                    document.getElementById(\"buttonUnsub\").disabled = true;\n                    document.getElementById(\"data_1\").innerHTML = \"\";\n\n                } else if (v == \"name\") {\n                    document.getElementById(\"buttonRead\").disabled = false;\n                    document.getElementById(\"buttonWrite\").disabled = false;\n                    document.getElementById(\"buttonSub\").disabled = false;\n                    document.getElementById(\"buttonUnsub\").disabled = false;\n                    document.getElementById(\"data_1\").innerHTML = \"\";\n\n                    // READ NAME\n                    $(\"#buttonRead\").unbind(\"click\");\n                    $(\"#buttonRead\").click(function () {\n                        const Url = 'http://localhost:1880/readname';\n                        $.ajax({\n                            type: \"GET\",\n                            url: Url,\n                            success: function (result) {\n                                console.log(result);\n                                document.getElementById(\"data_1\").innerHTML = result;\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                            }\n                        });\n                    });\n\n                    //WRITE NAME\n                    $(\"#buttonWrite\").unbind(\"click\");\n                    $(\"#buttonWrite\").click(function () {\n                        const Url = 'http://localhost:1880/setname';\n                        var text = document.getElementById('input1').value;\n                        var data = text;\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log(data);\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                            }\n                        });\n                    });\n\n                    //SUB NAME\n                    $(\"#buttonSub\").unbind(\"click\");\n                    $(\"#buttonSub\").click(function () {\n                        const Url = 'http://localhost:1880/subname';\n                        var data = \"sub\";\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"true\");\n                                document.getElementById(\"data_5\").innerHTML = \"\";\n\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n\n                    //UNSUB NAME\n                    $(\"#buttonUnsub\").unbind(\"click\");\n                    $(\"#buttonUnsub\").click(function () {\n                        const Url = 'http://localhost:1880/subname';\n                        var data = \"unsub\";\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"false\");\n\n                                ws.close();\n\n                                document.getElementById(\"data_3\").innerHTML = \"\";\n                                document.getElementById(\"data_4\").innerHTML = \"\";\n                                document.getElementById(\"data_5\").innerHTML = \"Sie haben \" + x + \" erfolgreich deabonniert.\";\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n\n                } else if (v == \"capacity\") {\n                    document.getElementById(\"buttonRead\").disabled = false;\n                    document.getElementById(\"buttonWrite\").disabled = false;\n                    document.getElementById(\"buttonSub\").disabled = false;\n                    document.getElementById(\"buttonUnsub\").disabled = false;\n                    document.getElementById(\"data_1\").innerHTML = \"\";\n\n                    // READ CAP\n                    $(\"#buttonRead\").unbind(\"click\");\n                    $(\"#buttonRead\").click(function () {\n                        const Url = 'http://localhost:1880/readcapacity';\n                        $.ajax({\n                            type: \"GET\",\n                            url: Url,\n                            success: function (result) {\n                                console.log(result);\n                                document.getElementById(\"data_1\").innerHTML = result;\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                            }\n                        });\n                    });\n\n                    //WRITE CAP\n                    //var data=\"23\";\n                    $(\"#buttonWrite\").unbind(\"click\");\n                    $(\"#buttonWrite\").click(function () {\n                        const Url = 'http://localhost:1880/setcapacity';\n                        var text = document.getElementById('input1').value;\n                        var data = text;\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log(data);\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                            }\n                        });\n                    });\n\n                    // SUB CAP\n                    $(\"#buttonSub\").unbind(\"click\");\n                    $(\"#buttonSub\").click(function () {\n                        const Url = 'http://localhost:1880/subcapacity';\n                        var data = \"sub\";\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"data_5\").innerHTML = \"\";\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"true\");\n\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n\n                    //UNSUB CAP\n                    $(\"#buttonUnsub\").unbind(\"click\");\n                    $(\"#buttonUnsub\").click(function () {\n                        const Url = 'http://localhost:1880/subcapacity';\n                        var data = \"unsub\";\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"false\");\n                                ws.close();\n\n                                document.getElementById(\"data_3\").innerHTML = \"\";\n                                document.getElementById(\"data_4\").innerHTML = \"\";\n                                document.getElementById(\"data_5\").innerHTML = \"Sie haben \" + x + \" erfolgreich deabonniert.\";\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n\n\n                } else if (v == \"temp\") {\n                    document.getElementById(\"buttonRead\").disabled = false;\n                    document.getElementById(\"buttonWrite\").disabled = true;\n                    document.getElementById(\"buttonSub\").disabled = false;\n                    document.getElementById(\"buttonUnsub\").disabled = false;\n                    document.getElementById(\"data_1\").innerHTML = \"\";\n\n                    // READ TEMP\n                    $(\"#buttonRead\").unbind(\"click\");\n                    $(\"#buttonRead\").click(function () {\n                        const Url = 'http://localhost:1880/readtemp';\n                        $.ajax({\n                            type: \"GET\",\n                            url: Url,\n                            success: function (result) {\n                                console.log(result);\n                                document.getElementById(\"data_1\").innerHTML = result;\n                                document.getElementById(\"data_1\").innerHTML = result;\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                            }\n                        });\n                    });\n\n                    // SUB TEMP\n                    $(\"#buttonSub\").unbind(\"click\");\n                    $(\"#buttonSub\").click(function () {\n                        const Url = 'http://localhost:1880/subtemperature';\n                        var data = \"sub\";\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"true\");\n                                document.getElementById(\"data_5\").innerHTML = \"\";\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n\n                    //UNSUB TEMP\n                    $(\"#buttonUnsub\").unbind(\"click\");\n                    $(\"#buttonUnsub\").click(function () {\n                        const Url = 'http://localhost:1880/subtemperature';\n                        var data = \"unsub\";\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"false\");\n                                ws.close();\n\n                                document.getElementById(\"data_3\").innerHTML = \"\";\n                                document.getElementById(\"data_4\").innerHTML = \"\";\n                                document.getElementById(\"data_5\").innerHTML = \"Sie haben \" + x + \" erfolgreich deabonniert.\";\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n\n                } else if (v == \"ram\") {\n                    document.getElementById(\"buttonRead\").disabled = false;\n                    document.getElementById(\"buttonWrite\").disabled = true;\n                    document.getElementById(\"buttonSub\").disabled = false;\n                    document.getElementById(\"buttonUnsub\").disabled = false;\n                    document.getElementById(\"data_1\").innerHTML = \"\";\n\n                    // READ RAM\n                    //$(document).ready(function () {\n                    $(\"#buttonRead\").unbind(\"click\");\n                    $(\"#buttonRead\").click(function () {\n                        const Url = 'http://localhost:1880/readram';\n                        $.ajax({\n                            type: \"GET\",\n                            url: Url,\n                            success: function (result) {\n                                console.log(result);\n                                document.getElementById(\"data_1\").innerHTML = result;\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                            }\n                        });\n                    });\n\n                    // SUB RAM\n                    $(\"#buttonSub\").unbind(\"click\");\n                    $(\"#buttonSub\").click(function () {\n                        const Url = 'http://localhost:1880/subram';\n                        var data = \"sub\";\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"data_5\").innerHTML = \"\";\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"true\");\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n\n                    //UNSUB RAM\n                    $(\"#buttonUnsub\").unbind(\"click\");\n                    $(\"#buttonUnsub\").click(function () {\n                        const Url = 'http://localhost:1880/subram';\n                        var data = \"unsub\";\n\n                        $.ajax({\n                            type: \"POST\",\n                            url: Url,\n                            contentType: false,\n                            data: data,\n                            success: function (result) {\n                                console.log(result);\n                                console.log('success');\n                                console.log(data);\n                                document.getElementById(\"buttonSub\").setAttribute(\"subbed\", \"false\");\n                                document.getElementById(\"data_3\").innerHTML = \"\";\n                                document.getElementById(\"data_4\").innerHTML = \"\";\n                                document.getElementById(\"data_5\").innerHTML = \"Sie haben \" + x + \" erfolgreich deabonniert.\";\n\n                            },\n                            error: function (error) {\n                                console.log(`Error ${error}`);\n                                console.log(`Error ${JSON.stringify(error)}`);\n                            }\n                        });\n                    });\n                }\n            });\n        });\n    });\n\n} catch (err) {\n    console.log(err.message);\n}\n\n// BROWSE   \n$(document).ready(function () {\n    const Url = 'http://localhost:1880/browse';\n    $(\"#buttonBrowse\").click(function () {\n        $.ajax({\n            type: \"GET\",\n            url: Url,\n            success: function (result) {\n                console.log(result);\n                result = JSON.stringify(result, null, 4);\n                console.log(result);\n                document.getElementById(\"data_6\").innerHTML = result;\n            },\n            error: function (error) {\n                console.log(`Error ${error}`);\n            }\n        });\n    });\n});",
+        "x": 410,
+        "y": 320,
+        "wires": [
+            [
+                "b2972258.ecf54"
+            ]
+        ]
+    },
+    {
+        "id": "529f8614.621cb8",
+        "type": "OpcUa-Client",
+        "z": "9bd08890.f6621",
+        "endpoint": "f8577b.b8da2888",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 10,
+        "timeUnit": "s",
+        "certificate": "n",
+        "localfile": "",
+        "localkeyfile": "",
+        "securitymode": "None",
+        "securitypolicy": "None",
+        "name": "",
+        "x": 2660,
+        "y": 720,
+        "wires": [
+            [
+                "fd3eeae4.fad9b8",
+                "5eebd5d8.9db2bc"
+            ]
+        ]
+    },
+    {
+        "id": "6d912b66.bd782c",
+        "type": "http in",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "url": "/readtemp",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 260,
+        "wires": [
+            [
+                "d9d7a071.b19188"
+            ]
+        ]
+    },
+    {
+        "id": "11b6107d.30382",
+        "type": "http in",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "url": "/readname",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 300,
+        "wires": [
+            [
+                "d12fba33.2dca68"
+            ]
+        ]
+    },
+    {
+        "id": "b1a3fd2e.37062",
+        "type": "http in",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "url": "/readram",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 340,
+        "wires": [
+            [
+                "1b95a714.117609"
+            ]
+        ]
+    },
+    {
+        "id": "d9d7a071.b19188",
+        "type": "OpcUa-Item",
+        "z": "9bd08890.f6621",
+        "item": "ns=1;s=Temperature",
+        "datatype": "Double",
+        "value": "",
+        "name": "s=Temperature",
+        "x": 360,
+        "y": 260,
+        "wires": [
+            [
+                "16f6d0db.6bc1c7"
+            ]
+        ]
+    },
+    {
+        "id": "d12fba33.2dca68",
+        "type": "OpcUa-Item",
+        "z": "9bd08890.f6621",
+        "item": "ns=1;s=Name",
+        "datatype": "String",
+        "value": "",
+        "name": "s=Name",
+        "x": 340,
+        "y": 300,
+        "wires": [
+            [
+                "16f6d0db.6bc1c7"
+            ]
+        ]
+    },
+    {
+        "id": "1b95a714.117609",
+        "type": "OpcUa-Item",
+        "z": "9bd08890.f6621",
+        "item": "ns=1;s=memory_used",
+        "datatype": "Double",
+        "value": "",
+        "name": "s=memory_used",
+        "x": 370,
+        "y": 340,
+        "wires": [
+            [
+                "16f6d0db.6bc1c7"
+            ]
+        ]
+    },
+    {
+        "id": "fd3eeae4.fad9b8",
+        "type": "http response",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 2860,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "5eebd5d8.9db2bc",
+        "type": "debug",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2860,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "2ed4c31a.87bc2c",
+        "type": "http in",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "url": "/readcapacity",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 580,
+        "wires": [
+            [
+                "831bbd80.3a15a8",
+                "bed8b2ca.33ff18"
+            ]
+        ]
+    },
+    {
+        "id": "831bbd80.3a15a8",
+        "type": "http request",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "localhost:1880/browse",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 350,
+        "y": 580,
+        "wires": [
+            [
+                "f935860c.f77b38",
+                "e269d866.10bb78"
+            ]
+        ]
+    },
+    {
+        "id": "bed8b2ca.33ff18",
+        "type": "debug",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 310,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "f935860c.f77b38",
+        "type": "debug",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 490,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "e269d866.10bb78",
+        "type": "json",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 510,
+        "y": 580,
+        "wires": [
+            [
+                "e07c2f90.a6aca",
+                "c9f7a635.3ca25"
+            ]
+        ]
+    },
+    {
+        "id": "e07c2f90.a6aca",
+        "type": "debug",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 650,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "c9f7a635.3ca25",
+        "type": "function",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "func": "msg.topic=msg.payload.Capacity.nodeId;\nmsg.action=\"read\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 690,
+        "y": 580,
+        "wires": [
+            [
+                "529f8614.621cb8"
+            ]
+        ]
+    },
+    {
+        "id": "b16e8efe.6dc94",
+        "type": "http in",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "url": "/readvariable",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 130,
+        "y": 860,
+        "wires": [
+            [
+                "7dc37136.e7a2f8"
+            ]
+        ]
+    },
+    {
+        "id": "ef5ad15f.4a6778",
+        "type": "http request",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "localhost:1880/browse",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 510,
+        "y": 860,
+        "wires": [
+            [
+                "bf53f746.850518"
+            ]
+        ]
+    },
+    {
+        "id": "bf53f746.850518",
+        "type": "json",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 690,
+        "y": 860,
+        "wires": [
+            [
+                "9f387041.09bfc8"
+            ]
+        ]
+    },
+    {
+        "id": "9f387041.09bfc8",
+        "type": "function",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "func": "let variableToWork = msg.topic;\ntry{\n    let p=msg.payload;\n    if(variableToWork[0]===\"write\"){\n        msg.payload = variableToWork[1].value;\n        p=p[variableToWork[1].browseName];\n        msg.browseName=variableToWork[1].browseName;\n    }\n    else{\n        p=p[variableToWork[1]];\n    }\n    msg.topic=p.nodeId;\n    msg.action=variableToWork[0];\n   \n}\ncatch{\n    msg.topic = \"variable not found\";\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 840,
+        "y": 860,
+        "wires": [
+            [
+                "be019bd9.22c168"
+            ]
+        ]
+    },
+    {
+        "id": "7dc37136.e7a2f8",
+        "type": "function",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "func": "msg.topic=[\"read\",msg.payload];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 320,
+        "y": 860,
+        "wires": [
+            [
+                "ef5ad15f.4a6778"
+            ]
+        ]
+    },
+    {
+        "id": "be019bd9.22c168",
+        "type": "switch",
+        "z": "9bd08890.f6621",
+        "name": "var found?",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "variable not found",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1010,
+        "y": 860,
+        "wires": [
+            [
+                "a4155677.b21e28"
+            ],
+            [
+                "48bd76c6.0c0808"
+            ]
+        ]
+    },
+    {
+        "id": "a4155677.b21e28",
+        "type": "function",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "func": "msg.payload = msg.topic;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1160,
+        "y": 800,
+        "wires": [
+            [
+                "ae373134.c56ed"
+            ]
+        ]
+    },
+    {
+        "id": "ae373134.c56ed",
+        "type": "http response",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "statusCode": "404",
+        "headers": {},
+        "x": 1300,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "4c8efdd2.86141c",
+        "type": "http in",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "url": "/setvariable",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 960,
+        "wires": [
+            [
+                "fd91d3cf.15bfa8"
+            ]
+        ]
+    },
+    {
+        "id": "413e0ae2.2e9abc",
+        "type": "function",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "func": "msg.topic=[\"write\",msg.payload];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 480,
+        "y": 960,
+        "wires": [
+            [
+                "ef5ad15f.4a6778"
+            ]
+        ]
+    },
+    {
+        "id": "fd91d3cf.15bfa8",
+        "type": "json",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 330,
+        "y": 960,
+        "wires": [
+            [
+                "413e0ae2.2e9abc"
+            ]
+        ]
+    },
+    {
+        "id": "48bd76c6.0c0808",
+        "type": "switch",
+        "z": "9bd08890.f6621",
+        "name": "read or write?",
+        "property": "action",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "read",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "write",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1200,
+        "y": 900,
+        "wires": [
+            [
+                "529f8614.621cb8"
+            ],
+            [
+                "51922ec8.adda88",
+                "a5275b2b.6068e"
+            ]
+        ]
+    },
+    {
+        "id": "51922ec8.adda88",
+        "type": "http response",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 1440,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "a5ad8030.077218",
+        "type": "change",
+        "z": "9bd08890.f6621",
+        "name": "purge http overhead",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "res",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "req",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "headers",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "redirectList",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "responseUrl",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "statusCode",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "headers",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "setValue",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2060,
+        "y": 840,
+        "wires": [
+            [
+                "c1ac604b.5e20b8",
+                "529f8614.621cb8"
+            ]
+        ]
+    },
+    {
+        "id": "c1ac604b.5e20b8",
+        "type": "debug",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2250,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "837c1a19.e448c",
+        "type": "http in",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "url": "/setcapacity",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 1120,
+        "wires": [
+            [
+                "b81bfa1d.f90ba",
+                "cc5ce044.2caaa"
+            ]
+        ]
+    },
+    {
+        "id": "a5275b2b.6068e",
+        "type": "function",
+        "z": "9bd08890.f6621",
+        "name": "switch payloads for variable read",
+        "func": "msg.setValue=msg.payload;\nmsg.payload=msg.browseName;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1520,
+        "y": 900,
+        "wires": [
+            [
+                "1b8e549d.e5eb63"
+            ]
+        ]
+    },
+    {
+        "id": "1b8e549d.e5eb63",
+        "type": "http request",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "localhost:1880/readvariable",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 1750,
+        "y": 960,
+        "wires": [
+            [
+                "8549216.c742ae"
+            ]
+        ]
+    },
+    {
+        "id": "8549216.c742ae",
+        "type": "function",
+        "z": "9bd08890.f6621",
+        "name": "set datatype",
+        "func": "if(!isNaN(Number(msg.payload))){\n    console.log(Number(msg.payload));\n    msg.datatype=\"Double\";\n    console.log(\"bin hier\");\n}\nelse{\n    msg.datatype=\"String\";\n}\nmsg.payload=msg.setValue;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1890,
+        "y": 900,
+        "wires": [
+            [
+                "a5ad8030.077218"
+            ]
+        ]
+    },
+    {
+        "id": "b81bfa1d.f90ba",
+        "type": "function",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "func": "msg.payload='{\"browseName\": \"Capacity\", \"value\":\"'+msg.payload + '\"}';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 350,
+        "y": 1120,
+        "wires": [
+            [
+                "dcdcef3.5156b1",
+                "f6468ce9.f5289"
+            ]
+        ]
+    },
+    {
+        "id": "b4c8415c.e2b9e8",
+        "type": "http response",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 710,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "dcdcef3.5156b1",
+        "type": "http request",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "localhost:1880/setvariable",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 550,
+        "y": 1120,
+        "wires": [
+            [
+                "b4c8415c.e2b9e8"
+            ]
+        ]
+    },
+    {
+        "id": "cc5ce044.2caaa",
+        "type": "debug",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 350,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "f6468ce9.f5289",
+        "type": "debug",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "47586f59.2627b8",
+        "type": "http in",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "url": "/setname",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 1180,
+        "wires": [
+            [
+                "cece64b0.8a70d"
+            ]
+        ]
+    },
+    {
+        "id": "cece64b0.8a70d",
+        "type": "function",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "func": "msg.payload='{\"browseName\": \"Name\", \"value\":\"'+msg.payload + '\"}';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 340,
+        "y": 1180,
+        "wires": [
+            [
+                "a705204c.27ce9"
+            ]
+        ]
+    },
+    {
+        "id": "3da21298.25041e",
+        "type": "http response",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 700,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "a705204c.27ce9",
+        "type": "http request",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "localhost:1880/setvariable",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 540,
+        "y": 1180,
+        "wires": [
+            [
+                "3da21298.25041e"
+            ]
+        ]
+    },
+    {
+        "id": "d879a2ab.f473",
+        "type": "http in",
+        "z": "f6a84a52.723548",
+        "name": "",
+        "url": "/browse",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 160,
+        "wires": [
+            [
+                "1f8e93c0.a83714"
+            ]
+        ]
+    },
+    {
+        "id": "f9a94719.6b5d58",
+        "type": "OpcUa-Item",
+        "z": "f6a84a52.723548",
+        "item": "ns=1;i=1000",
+        "datatype": "",
+        "value": "",
+        "name": "",
+        "x": 540,
+        "y": 160,
+        "wires": [
+            [
+                "c5a0953f.cd1728"
+            ]
+        ]
+    },
+    {
+        "id": "c5a0953f.cd1728",
+        "type": "function",
+        "z": "f6a84a52.723548",
+        "name": "",
+        "func": "msg.action=\"browse\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 740,
+        "y": 160,
+        "wires": [
+            [
+                "31e5999a.9f4456",
+                "5a4166ba.9d68a"
+            ]
+        ]
+    },
+    {
+        "id": "5a4166ba.9d68a",
+        "type": "OpcUa-Client",
+        "z": "f6a84a52.723548",
+        "endpoint": "f8577b.b8da2888",
+        "action": "browse",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 10,
+        "timeUnit": "s",
+        "certificate": "n",
+        "localfile": "",
+        "localkeyfile": "",
+        "securitymode": "None",
+        "securitypolicy": "None",
+        "name": "browseClient",
+        "x": 930,
+        "y": 160,
+        "wires": [
+            [
+                "c2ae549b.115af",
+                "416b533a.523cc4"
+            ]
+        ]
+    },
+    {
+        "id": "31e5999a.9f4456",
+        "type": "debug",
+        "z": "f6a84a52.723548",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "a0c552f7.c839d8",
+        "type": "join",
+        "z": "f6a84a52.723548",
+        "name": "join every json response into one",
+        "mode": "custom",
+        "build": "object",
+        "property": "",
+        "propertyType": "full",
+        "key": "browseName",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "0.1",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "num",
+        "reduceFixup": "",
+        "x": 1400,
+        "y": 360,
+        "wires": [
+            [
+                "a95154ae.61a0a",
+                "78bad0c6.222508"
+            ]
+        ]
+    },
+    {
+        "id": "a95154ae.61a0a",
+        "type": "debug",
+        "z": "f6a84a52.723548",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1650,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "c2ae549b.115af",
+        "type": "debug",
+        "z": "f6a84a52.723548",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1190,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "416b533a.523cc4",
+        "type": "change",
+        "z": "f6a84a52.723548",
+        "name": "set singular topic and add timestamp",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "nodeId",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "timestamp",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1230,
+        "y": 240,
+        "wires": [
+            [
+                "a0c552f7.c839d8",
+                "b0f0fef8.086268"
+            ]
+        ]
+    },
+    {
+        "id": "b0f0fef8.086268",
+        "type": "debug",
+        "z": "f6a84a52.723548",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1470,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "52453871.51dba",
+        "type": "function",
+        "z": "f6a84a52.723548",
+        "name": "syncronize with http request",
+        "func": "context.data = context.data || new Object();\nswitch (msg.topic) {\n    case \"browse\":\n        context.data.payload = msg.payload;\n        msg = null;\n        break;\n    default:\n        msg = null;\n    \tbreak;\n\n}\n\nif(context.data.payload !== null) {\n\tmsg2 = new Object();\n    msg2.payload = context.data.payload;\n    data = flow.get(\"fdata\");\n    msg2.res=data.res;\n    msg2.req=data.req;\n    context.data=null;\n    flow.set(\"fdata\",null);\n\treturn msg2;\n} else return msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1920,
+        "y": 420,
+        "wires": [
+            [
+                "96c2b14a.f0678",
+                "16c2a958.783aff"
+            ]
+        ]
+    },
+    {
+        "id": "1f8e93c0.a83714",
+        "type": "function",
+        "z": "f6a84a52.723548",
+        "name": "",
+        "func": "//wait if another request is currently getting handled\nwhile(typeof(flow.data)!== \"undefined\"){\n    await new Promise(r => setTimeout(r, 100));\n}\n//create data storage bound to flow for http request parameters\ndata = new Object();\ndata.req = msg.req;\ndata.res = msg.res;\nflow.set(\"fdata\", data)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 340,
+        "y": 160,
+        "wires": [
+            [
+                "96de5023.a56fe",
+                "f9a94719.6b5d58"
+            ]
+        ]
+    },
+    {
+        "id": "96de5023.a56fe",
+        "type": "debug",
+        "z": "f6a84a52.723548",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "96c2b14a.f0678",
+        "type": "http response",
+        "z": "f6a84a52.723548",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 2160,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "16c2a958.783aff",
+        "type": "debug",
+        "z": "f6a84a52.723548",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2150,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "eab0518e.969038",
+        "type": "debug",
+        "z": "f6a84a52.723548",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1870,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "78bad0c6.222508",
+        "type": "change",
+        "z": "f6a84a52.723548",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "browse",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1670,
+        "y": 380,
+        "wires": [
+            [
+                "52453871.51dba",
+                "eab0518e.969038"
+            ]
+        ]
+    },
+    {
+        "id": "d6cdf1dd.daf2",
+        "type": "http in",
+        "z": "f6a84a52.723548",
+        "name": "",
+        "url": "/browse",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 400,
+        "wires": [
+            [
+                "c9738b23.a0446"
+            ]
+        ]
+    },
+    {
+        "id": "c9738b23.a0446",
+        "type": "function",
+        "z": "f6a84a52.723548",
+        "name": "",
+        "func": "//wait if another request is currently getting handled\nwhile(typeof(flow.data)!== \"undefined\"){\n    await new Promise(r => setTimeout(r, 100));\n}\n//create data storage bound to flow for http request parameters\ndata = new Object();\ndata.req = msg.req;\ndata.res = msg.res;\nflow.set(\"fdata\", data)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 340,
+        "y": 400,
+        "wires": [
+            [
+                "41b6b98.97a82c8"
+            ]
+        ]
+    },
+    {
+        "id": "41b6b98.97a82c8",
+        "type": "function",
+        "z": "f6a84a52.723548",
+        "name": "",
+        "func": "//set browse topic to POST payload\nmsg.topic=msg.payload;\n\nmsg.action=\"browse\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 590,
+        "y": 400,
+        "wires": [
+            [
+                "5a4166ba.9d68a"
+            ]
+        ]
+    },
+    {
+        "id": "932457c.de8e8a8",
+        "type": "http in",
+        "z": "4de501ed.1289b",
+        "name": "",
+        "url": "/sub",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 180,
+        "wires": [
+            [
+                "677a9a54.e7106c"
+            ]
+        ]
+    },
+    {
+        "id": "ada5528f.e6d27",
+        "type": "OpcUa-Client",
+        "z": "4de501ed.1289b",
+        "endpoint": "f8577b.b8da2888",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 10,
+        "timeUnit": "s",
+        "certificate": "n",
+        "localfile": "",
+        "localkeyfile": "",
+        "securitymode": "None",
+        "securitypolicy": "None",
+        "name": "",
+        "x": 1100,
+        "y": 180,
+        "wires": [
+            [
+                "608ea0a7.0c5168",
+                "4399b9ba.e0c1d8"
+            ]
+        ]
+    },
+    {
+        "id": "677a9a54.e7106c",
+        "type": "function",
+        "z": "4de501ed.1289b",
+        "name": "",
+        "func": "msg.topic=msg.payload;\nmsg.action=\"subscribe\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 380,
+        "y": 180,
+        "wires": [
+            [
+                "33376156.94b006",
+                "1efff07f.e2a5a",
+                "65bb28e3.64b5c8"
+            ]
+        ]
+    },
+    {
+        "id": "608ea0a7.0c5168",
+        "type": "debug",
+        "z": "4de501ed.1289b",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1270,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "8a036f7d.9d232",
+        "type": "http in",
+        "z": "4de501ed.1289b",
+        "name": "",
+        "url": "/unsub",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 260,
+        "wires": [
+            [
+                "7e13c6da.44dc18"
+            ]
+        ]
+    },
+    {
+        "id": "7e13c6da.44dc18",
+        "type": "function",
+        "z": "4de501ed.1289b",
+        "name": "",
+        "func": "msg.topic=msg.payload;\nmsg.action=\"unsubscribe\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 380,
+        "y": 260,
+        "wires": [
+            [
+                "1efff07f.e2a5a",
+                "81d2d96e.9643f8"
+            ]
+        ]
+    },
+    {
+        "id": "33376156.94b006",
+        "type": "debug",
+        "z": "4de501ed.1289b",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "1efff07f.e2a5a",
+        "type": "change",
+        "z": "4de501ed.1289b",
+        "name": "purge http overhead",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "res",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "req",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "headers",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "redirectList",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "responseUrl",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "statusCode",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "headers",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "setValue",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 860,
+        "y": 180,
+        "wires": [
+            [
+                "ada5528f.e6d27"
+            ]
+        ]
+    },
+    {
+        "id": "4399b9ba.e0c1d8",
+        "type": "websocket out",
+        "z": "4de501ed.1289b",
+        "name": "",
+        "server": "9236f502.59c008",
+        "client": "",
+        "x": 1310,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "65bb28e3.64b5c8",
+        "type": "http response",
+        "z": "4de501ed.1289b",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 570,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "81d2d96e.9643f8",
+        "type": "http response",
+        "z": "4de501ed.1289b",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 560,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "a6d9fb00.4c3e9",
+        "type": "http in",
+        "z": "4de501ed.1289b",
+        "name": "",
+        "url": "/subtemperature",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 240,
+        "y": 520,
+        "wires": [
+            [
+                "c335b2c9.f7f8b8"
+            ]
+        ]
+    },
+    {
+        "id": "5f203ded.575ecc",
+        "type": "http in",
+        "z": "4de501ed.1289b",
+        "name": "",
+        "url": "/subcapacity",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 210,
+        "y": 720,
+        "wires": [
+            [
+                "901b783e.6590d"
+            ]
+        ]
+    },
+    {
+        "id": "38897023.8f28a",
+        "type": "http in",
+        "z": "4de501ed.1289b",
+        "name": "",
+        "url": "/subram",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 210,
+        "y": 580,
+        "wires": [
+            [
+                "e5d5039b.7479e8"
+            ]
+        ]
+    },
+    {
+        "id": "eef37e75.807898",
+        "type": "http in",
+        "z": "4de501ed.1289b",
+        "name": "",
+        "url": "/subname",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 220,
+        "y": 640,
+        "wires": [
+            [
+                "41cbdfc5.dc8bd8"
+            ]
+        ]
+    },
+    {
+        "id": "c335b2c9.f7f8b8",
+        "type": "function",
+        "z": "4de501ed.1289b",
+        "name": "",
+        "func": "msg.topic=\"ns=1;s=Temperature\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 440,
+        "y": 520,
+        "wires": [
+            [
+                "ea7d8ea.2ed4ff"
+            ]
+        ]
+    },
+    {
+        "id": "ea7d8ea.2ed4ff",
+        "type": "switch",
+        "z": "4de501ed.1289b",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "sub",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "unsub",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 710,
+        "y": 580,
+        "wires": [
+            [
+                "27c68249.fc227e"
+            ],
+            [
+                "c5c32fd7.ef3db8"
+            ],
+            [
+                "3651f937.ab817e"
+            ]
+        ]
+    },
+    {
+        "id": "e5d5039b.7479e8",
+        "type": "function",
+        "z": "4de501ed.1289b",
+        "name": "",
+        "func": "msg.topic=\"ns=1;s=memory_used\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 440,
+        "y": 580,
+        "wires": [
+            [
+                "ea7d8ea.2ed4ff"
+            ]
+        ]
+    },
+    {
+        "id": "41cbdfc5.dc8bd8",
+        "type": "function",
+        "z": "4de501ed.1289b",
+        "name": "",
+        "func": "msg.topic=\"ns=1;s=Name\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 440,
+        "y": 640,
+        "wires": [
+            [
+                "ea7d8ea.2ed4ff"
+            ]
+        ]
+    },
+    {
+        "id": "27c68249.fc227e",
+        "type": "function",
+        "z": "4de501ed.1289b",
+        "name": "",
+        "func": "msg.payload=msg.topic;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 920,
+        "y": 520,
+        "wires": [
+            [
+                "718b6c7b.55b3a4"
+            ]
+        ]
+    },
+    {
+        "id": "c5c32fd7.ef3db8",
+        "type": "function",
+        "z": "4de501ed.1289b",
+        "name": "",
+        "func": "msg.payload=msg.topic;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 920,
+        "y": 560,
+        "wires": [
+            [
+                "e1a4a422.b79048"
+            ]
+        ]
+    },
+    {
+        "id": "718b6c7b.55b3a4",
+        "type": "http request",
+        "z": "4de501ed.1289b",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "localhost:1880/sub",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 1120,
+        "y": 520,
+        "wires": [
+            [
+                "3cb712f0.4228ce"
+            ]
+        ]
+    },
+    {
+        "id": "e1a4a422.b79048",
+        "type": "http request",
+        "z": "4de501ed.1289b",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "localhost:1880/unsub",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 1130,
+        "y": 560,
+        "wires": [
+            [
+                "9b473480.0181e8"
+            ]
+        ]
+    },
+    {
+        "id": "3651f937.ab817e",
+        "type": "http response",
+        "z": "4de501ed.1289b",
+        "name": "",
+        "statusCode": "404",
+        "headers": {},
+        "x": 900,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "664c3eea.de214",
+        "type": "http request",
+        "z": "4de501ed.1289b",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "localhost:1880/browse",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 570,
+        "y": 760,
+        "wires": [
+            [
+                "5df06b05.224784"
+            ]
+        ]
+    },
+    {
+        "id": "5df06b05.224784",
+        "type": "json",
+        "z": "4de501ed.1289b",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 730,
+        "y": 760,
+        "wires": [
+            [
+                "6c90a191.cdff2"
+            ]
+        ]
+    },
+    {
+        "id": "6c90a191.cdff2",
+        "type": "function",
+        "z": "4de501ed.1289b",
+        "name": "",
+        "func": "msg.topic=msg.payload.Capacity.nodeId;\nmsg.payload=msg.action;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 890,
+        "y": 760,
+        "wires": [
+            [
+                "ea7d8ea.2ed4ff"
+            ]
+        ]
+    },
+    {
+        "id": "901b783e.6590d",
+        "type": "function",
+        "z": "4de501ed.1289b",
+        "name": "",
+        "func": "msg.action=msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 380,
+        "y": 760,
+        "wires": [
+            [
+                "664c3eea.de214"
+            ]
+        ]
+    },
+    {
+        "id": "47297822.c0e208",
+        "type": "inject",
+        "z": "910be419.a35d18",
+        "name": "readName",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Name",
+        "payloadType": "str",
+        "x": 210,
+        "y": 300,
+        "wires": [
+            [
+                "29c861ba.f3cbbe"
+            ]
+        ]
+    },
+    {
+        "id": "29c861ba.f3cbbe",
+        "type": "http request",
+        "z": "910be419.a35d18",
+        "name": "read",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "localhost:1880/readvariable",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 420,
+        "y": 300,
+        "wires": [
+            [
+                "d3980c3c.8b2fb8"
+            ]
+        ]
+    },
+    {
+        "id": "d3980c3c.8b2fb8",
+        "type": "debug",
+        "z": "910be419.a35d18",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "86a09286.da6088",
+        "type": "inject",
+        "z": "910be419.a35d18",
+        "name": "setName",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"browseName\":\"Name\",\"value\":\"mnmnmn\"}",
+        "payloadType": "json",
+        "x": 200,
+        "y": 340,
+        "wires": [
+            [
+                "a8db3305.3da118"
+            ]
+        ]
+    },
+    {
+        "id": "a8db3305.3da118",
+        "type": "http request",
+        "z": "910be419.a35d18",
+        "name": "write",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "localhost:1880/setvariable",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 450,
+        "y": 340,
+        "wires": [
+            [
+                "5d485529.ee81bc"
+            ]
+        ]
+    },
+    {
+        "id": "5d485529.ee81bc",
+        "type": "debug",
+        "z": "910be419.a35d18",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "387360c8.e080f8",
+        "type": "inject",
+        "z": "910be419.a35d18",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Capacity",
+        "payloadType": "str",
+        "x": 180,
+        "y": 440,
+        "wires": [
+            [
+                "487f57ee.c3f268"
+            ]
+        ]
+    },
+    {
+        "id": "487f57ee.c3f268",
+        "type": "http request",
+        "z": "910be419.a35d18",
+        "name": "read",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "localhost:1880/readvariable",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 390,
+        "y": 440,
+        "wires": [
+            [
+                "69d82489.24821c"
+            ]
+        ]
+    },
+    {
+        "id": "69d82489.24821c",
+        "type": "debug",
+        "z": "910be419.a35d18",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 650,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "a13f5c3.8e3242",
+        "type": "inject",
+        "z": "910be419.a35d18",
+        "name": "cap string",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"browseName\": \"Capacity\", \"value\": \"asdfgasd\"}",
+        "payloadType": "json",
+        "x": 190,
+        "y": 560,
+        "wires": [
+            [
+                "d32dbff6.268f4"
+            ]
+        ]
+    },
+    {
+        "id": "d32dbff6.268f4",
+        "type": "http request",
+        "z": "910be419.a35d18",
+        "name": "write",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "localhost:1990/setvariable",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 440,
+        "y": 560,
+        "wires": [
+            [
+                "a6d3076a.f0a15"
+            ]
+        ]
+    },
+    {
+        "id": "a6d3076a.f0a15",
+        "type": "debug",
+        "z": "910be419.a35d18",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "c8c39bde.ed705",
+        "type": "inject",
+        "z": "910be419.a35d18",
+        "name": "cap double",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"browseName\": \"Capacity\", \"value\": \"0.2\"}",
+        "payloadType": "json",
+        "x": 200,
+        "y": 620,
+        "wires": [
+            [
+                "d904bdac.6d1588"
+            ]
+        ]
+    },
+    {
+        "id": "d904bdac.6d1588",
+        "type": "http request",
+        "z": "910be419.a35d18",
+        "name": "write",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "localhost:1990/setvariable",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 450,
+        "y": 620,
+        "wires": [
+            [
+                "1fb16e80.62914a"
+            ]
+        ]
+    },
+    {
+        "id": "1fb16e80.62914a",
+        "type": "debug",
+        "z": "910be419.a35d18",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "b233a5b5.c3d9a",
+        "type": "inject",
+        "z": "910be419.a35d18",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0.3",
+        "payloadType": "num",
+        "x": 180,
+        "y": 700,
+        "wires": [
+            [
+                "50a82b48.d7c14c"
+            ]
+        ]
+    },
+    {
+        "id": "50a82b48.d7c14c",
+        "type": "http request",
+        "z": "910be419.a35d18",
+        "name": "test",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "localhost:1990/test123",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 450,
+        "y": 700,
+        "wires": [
+            [
+                "b89f1113.7549c8"
+            ]
+        ]
+    },
+    {
+        "id": "b89f1113.7549c8",
+        "type": "debug",
+        "z": "910be419.a35d18",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "38cf3bad.e60ec4",
+        "type": "inject",
+        "z": "910be419.a35d18",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 170,
+        "y": 800,
+        "wires": [
+            [
+                "e8d49a8a.1e04"
+            ]
+        ]
+    },
+    {
+        "id": "e8d49a8a.1e04",
+        "type": "http request",
+        "z": "910be419.a35d18",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "localhost:1880/browse",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 400,
+        "y": 800,
+        "wires": [
+            [
+                "c797fecb.bac5f"
+            ]
+        ]
+    },
+    {
+        "id": "f5210bcf.6546a",
+        "type": "debug",
+        "z": "910be419.a35d18",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 810,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "c797fecb.bac5f",
+        "type": "json",
+        "z": "910be419.a35d18",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 600,
+        "y": 800,
+        "wires": [
+            [
+                "f5210bcf.6546a"
+            ]
+        ]
+    },
+    {
+        "id": "b96d8d3c.60636",
+        "type": "inject",
+        "z": "910be419.a35d18",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"browseName\": \"Capacity\", \"value\":\"0.1\"}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 740,
+        "wires": [
+            [
+                "77480a0f.2cc7e4"
+            ]
+        ]
+    },
+    {
+        "id": "77480a0f.2cc7e4",
+        "type": "http request",
+        "z": "910be419.a35d18",
+        "name": "set capa general",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "localhost:1990/setvariable",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 420,
+        "y": 740,
+        "wires": [
+            [
+                "1f1ddb11.f1c77d"
+            ]
+        ]
+    },
+    {
+        "id": "1f1ddb11.f1c77d",
+        "type": "debug",
+        "z": "910be419.a35d18",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 630,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "a1ccb5a6.0c894",
+        "type": "inject",
+        "z": "910be419.a35d18",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "ns=1;s=Temperature",
+        "payloadType": "str",
+        "x": 220,
+        "y": 940,
+        "wires": [
+            [
+                "f846cd46.15c8a"
+            ]
+        ]
+    },
+    {
+        "id": "f846cd46.15c8a",
+        "type": "http request",
+        "z": "910be419.a35d18",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "localhost:1880/sub",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 480,
+        "y": 940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "91abb38d.d7463",
+        "type": "inject",
+        "z": "910be419.a35d18",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "ns=1;s=Temperature",
+        "payloadType": "str",
+        "x": 230,
+        "y": 1000,
+        "wires": [
+            [
+                "ee75026c.133dd8"
+            ]
+        ]
+    },
+    {
+        "id": "ee75026c.133dd8",
+        "type": "http request",
+        "z": "910be419.a35d18",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "localhost:1880/unsub",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 470,
+        "y": 1000,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "18330730.171e89",
+        "type": "websocket in",
+        "z": "910be419.a35d18",
+        "name": "",
+        "server": "",
+        "client": "2f6ff4ca.4acef4",
+        "x": 220,
+        "y": 1100,
+        "wires": [
+            [
+                "536017f.8d84ae8"
+            ]
+        ]
+    },
+    {
+        "id": "536017f.8d84ae8",
+        "type": "debug",
+        "z": "910be419.a35d18",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "55d55b5d.8240dc",
+        "type": "http response",
+        "z": "910be419.a35d18",
+        "name": "",
+        "x": 790,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "10cbef05.3dfe79",
+        "type": "http in",
+        "z": "910be419.a35d18",
+        "name": "",
+        "url": "/wstest",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 161,
+        "y": 1180,
+        "wires": [
+            [
+                "29e303ec.a1c8ac",
+                "7c54358b.637bcc"
+            ]
+        ]
+    },
+    {
+        "id": "29e303ec.a1c8ac",
+        "type": "template",
+        "z": "910be419.a35d18",
+        "name": "Simple Web Page",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE HTML>\n<html>\n    <head>\n    <title>Simple Live Display</title>\n    <script type=\"text/javascript\">\n        var ws;\n        var wsUri = \"ws:\";\n        var loc = window.location;\n        console.log(loc);\n        if (loc.protocol === \"https:\") { wsUri = \"wss:\"; }\n        // This needs to point to the web socket in the Node-RED flow\n        // ... in this case it's ws/simple\n        wsUri += \"//\" + loc.host + loc.pathname.replace(\"wstest\",\"ws/simple2\");\n        // wsUri ws://localhost:1880/ws/simple2\n        // warum wird wstest mit ws/simple2 ersetzt?\n        // warum wird url meiner website mit der url des websockets getauscht?\n        // warum al wsUri nicht gleich ws://localhost:1880/ws/simple2 uebergeben?\n    \n\n        function wsConnect() {\n            console.log(\"connect\",wsUri);\n            ws = new WebSocket(wsUri);\n            //var line = \"\";    // either uncomment this for a building list of messages\n            ws.onmessage = function(msg) {\n                var line = \"\";  // or uncomment this to overwrite the existing message\n                // parse the incoming message as a JSON object\n                var data = msg.data;\n                //data=JSON.parse(data);\n                //data=data.payload;\n                //console.log(data);\n                // build the output from the topic and payload parts of the object\n                line += \"<p>\"+data+\"</p>\";\n                // replace the messages div with the new \"line\"\n                document.getElementById('messages').innerHTML = line;\n                //ws.send(JSON.stringify({data:data}));\n            }\n            ws.onopen = function() {\n                // update the status div with the connection status\n                document.getElementById('status').innerHTML = \"connected\";\n                //ws.send(\"Open for data\");\n                console.log(\"connected\");\n            }\n            ws.onclose = function() {\n                // update the status div with the connection status\n                document.getElementById('status').innerHTML = \"not connected\";\n                // in case of lost connection tries to reconnect every 3 secs\n                setTimeout(wsConnect,3000);\n            }\n        }\n        \n        function doit(m) {\n            if (ws) { ws.send(m); }\n        }\n    </script>\n    </head>\n    <body onload=\"wsConnect();\" onunload=\"ws.disconnect();\">\n        <font face=\"Arial\">\n        <h1>Simple Live Display</h1>\n        <div id=\"messages\"></div>\n        <button type=\"button\" onclick='doit(\"click\");'>Click to send message</button>\n        <hr/>\n        <div id=\"status\">unknown</div>\n        </font>\n    </body>\n</html>\n",
+        "x": 590,
+        "y": 1180,
+        "wires": [
+            [
+                "55d55b5d.8240dc"
+            ]
+        ]
+    },
+    {
+        "id": "9d37737a.d3c1d",
+        "type": "http request",
+        "z": "910be419.a35d18",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "localhost:1880/sub",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 570,
+        "y": 1280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7c54358b.637bcc",
+        "type": "function",
+        "z": "910be419.a35d18",
+        "name": "",
+        "func": "msg.payload=\"ns=1;s=Temperature\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 350,
+        "y": 1240,
+        "wires": [
+            [
+                "9d37737a.d3c1d"
+            ]
+        ]
+    },
+    {
+        "id": "1b9b681a.90595",
+        "type": "inject",
+        "z": "910be419.a35d18",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0.9",
+        "payloadType": "num",
+        "x": 160,
+        "y": 880,
+        "wires": [
+            [
+                "e673d5dc.230ef8"
+            ]
+        ]
+    },
+    {
+        "id": "e673d5dc.230ef8",
+        "type": "http request",
+        "z": "910be419.a35d18",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "localhost:1880/setcapacity",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 390,
+        "y": 880,
+        "wires": [
+            [
+                "bb756530.67e378"
+            ]
+        ]
+    },
+    {
+        "id": "bb756530.67e378",
+        "type": "debug",
+        "z": "910be419.a35d18",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 590,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "e31cc5f4.cbdb1",
+        "type": "inject",
+        "z": "910be419.a35d18",
+        "name": "setName",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "xyzSGFSAsad",
+        "payloadType": "str",
+        "x": 200,
+        "y": 380,
+        "wires": [
+            [
+                "bd9d83d3.04dd8"
+            ]
+        ]
+    },
+    {
+        "id": "bd9d83d3.04dd8",
+        "type": "http request",
+        "z": "910be419.a35d18",
+        "name": "write",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "localhost:1990/setname",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 450,
+        "y": 380,
+        "wires": [
+            [
+                "60f65d79.6bbc14"
+            ]
+        ]
+    },
+    {
+        "id": "60f65d79.6bbc14",
+        "type": "debug",
+        "z": "910be419.a35d18",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "542e8047.d304a",
+        "type": "inject",
+        "z": "910be419.a35d18",
+        "name": "readName",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Name",
+        "payloadType": "str",
+        "x": 200,
+        "y": 240,
+        "wires": [
+            [
+                "27cc1b49.37ee9c"
+            ]
+        ]
+    },
+    {
+        "id": "27cc1b49.37ee9c",
+        "type": "http request",
+        "z": "910be419.a35d18",
+        "name": "read",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "localhost:1880/readname",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 410,
+        "y": 240,
+        "wires": [
+            [
+                "f0047aee.da82"
+            ]
+        ]
+    },
+    {
+        "id": "f0047aee.da82",
+        "type": "debug",
+        "z": "910be419.a35d18",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "16f6d0db.6bc1c7",
+        "type": "function",
+        "z": "9bd08890.f6621",
+        "name": "",
+        "func": "msg.action=\"read\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 580,
+        "y": 300,
+        "wires": [
+            [
+                "529f8614.621cb8"
+            ]
+        ]
+    },
+    {
+        "id": "83bc31b6.a83f18",
+        "type": "inject",
+        "z": "910be419.a35d18",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Capacity",
+        "payloadType": "str",
+        "x": 180,
+        "y": 480,
+        "wires": [
+            [
+                "2cdb31ed.f5814e"
+            ]
+        ]
+    },
+    {
+        "id": "2cdb31ed.f5814e",
+        "type": "http request",
+        "z": "910be419.a35d18",
+        "name": "read",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "localhost:1880/readcapacity",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 390,
+        "y": 480,
+        "wires": [
+            [
+                "81fee035.8355d8"
+            ]
+        ]
+    },
+    {
+        "id": "81fee035.8355d8",
+        "type": "debug",
+        "z": "910be419.a35d18",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 650,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "3cb712f0.4228ce",
+        "type": "http response",
+        "z": "4de501ed.1289b",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 1340,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "9b473480.0181e8",
+        "type": "http response",
+        "z": "4de501ed.1289b",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 1340,
+        "y": 540,
+        "wires": []
     }
 ]
