@@ -3,7 +3,7 @@ const opcua = require("node-opcua");
 
 
 const server = new opcua.OPCUAServer({
-    port: 19090,        // the port of the listening socket of the server
+    port: 1880,        // the port of the listening socket of the server
     buildInfo: {
         productName: "Sample NodeOPCUA Server1",
 
